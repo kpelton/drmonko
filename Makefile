@@ -1,10 +1,10 @@
-CC = g++  -O2  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lglut -lSDL_net -lSDL_mixer 
+CC = g++  -O2  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lglut -lSDL_net -lSDL_mixer -lSDL_ttf 
 CFLAGS =    -c
 
-all: tetris
+all: drmonko
 
-tetris: main.o   piece.o  sdlWindow.o background.o GLscene.o board.o player.o nplayer.o gpacket.o
-	$(CC) main.o  nplayer.o piece.o sdlWindow.o background.o GLscene.o board.o player.o gpacket.o -o tetris
+drmonko: main.o   piece.o  sdlWindow.o background.o GLscene.o 
+	$(CC) main.o  piece.o sdlWindow.o background.o GLscene.o -o drmonko
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
@@ -16,8 +16,8 @@ player.o: player.cpp player.h
 nplayer.o: nplayer.h nplayer.cpp
 	$(CC) $(CFLAGS) nplayer.h nplayer.cpp	
 
-GLscene.o: GLscene.h GLscene.cpp GLobject.h
-	$(CC) $(CFLAGS) GLscene.cpp GLobject.h
+GLscene.o: GLobject.h GLscene.h GLscene.cpp 
+	$(CC) $(CFLAGS)  GLobject.h  GLscene.cpp 
 
 piece.o: piece.cpp piece.h
 	$(CC) $(CFLAGS) piece.cpp

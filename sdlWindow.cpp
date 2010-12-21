@@ -62,7 +62,12 @@ void sdlWindow::initWindow()
 		     SDL_GetError( ) );
 	    exit(1);
 	}
-
+    if (TTF_Init() == -1) 
+ 
+	{
+	    printf("Unable to initialize SDL_ttf: %s \n", TTF_GetError());
+	    exit(1);
+	}
 
     /* Fetch the video info */
     videoInfo = SDL_GetVideoInfo( );
@@ -115,21 +120,17 @@ void sdlWindow::initWindow()
 	 exit(-1);
      }
      sound = Mix_LoadWAV(musicFile);
-
-     channel = Mix_PlayChannel(-1, sound, -1);
-      if(channel == -1) {
+     //Start playing music
+     if(channel == -1) {
 	  fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
       }
 
-    
+     //Need to fix this for 2 player
     SDL_EnableKeyRepeat(200, SDL_DEFAULT_REPEAT_INTERVAL);
     resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
     /* resize the initial window */
     //resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
-
-	    
- 
-	
+	    	
 }
 bool sdlWindow::resizeWindow(const  int width, const int height )
 {
@@ -165,28 +166,23 @@ bool sdlWindow::resizeWindow(const  int width, const int height )
 
 void sdlWindow::renderLoop()
 {
-
- 
-	
-	  
-
-	while ( !done )
+    while ( !done )
 	{
-		/* handle the events in the queue */
-	  if( SDL_PollEvent( &event ) )
+	    /* handle the events in the queue */
+	    if( SDL_PollEvent( &event ) )
 		{
-			switch( event.type )
+		    switch( event.type )
 			{
 			case SDL_ACTIVEEVENT:
-				/* Something's happend with our focus
-				 * If we lost focus or we are iconified, we
-				 * shouldn't draw the screen
-				 */
-			  scene->renderScene(NULL);
-				if ( event.active.gain == 0 )
-					isActive = false;
-				else
-				    isActive = true;
+			    /* Something's happend with our focus
+			     * If we lost focus or we are iconified, we
+			     * shouldn't draw the screen
+			     */
+			    scene->renderScene(NULL);
+			    if ( event.active.gain == 0 )
+				isActive = false;
+			    else
+				isActive = true;
 			    break;			    
 			case SDL_VIDEORESIZE:
 			    /* handle resize event */
@@ -197,37 +193,38 @@ void sdlWindow::renderLoop()
 			    if ( !surface )
 				{
 				    fprintf( stderr, "Could not get a surface after resize: %s\n", SDL_GetError( ) );
-				   exit( 1 );
+				    exit( 1 );
 				}
 			    resizeWindow( event.resize.w, event.resize.h );
 			    break;
 			case SDL_KEYDOWN:
 			
-			  scene->renderScene(&event);
+			    scene->renderScene(&event);
 			
-			  break;
+			    break;
 			  
 			case SDL_USEREVENT:
 			
-			  scene->renderScene(&event);
-				break;
+			    scene->renderScene(&event);
+			    break;
 
 
 			case SDL_QUIT:
-				/* handle quit requests */
-				done = true;
-				break;
+			    /* handle quit requests */
+			    done = true;
+			    break;
 			default:
 			    				
-				break;
+			    break;
 			}
 		
 			
 		
 		}
 
-	  scene->renderScene(NULL);
-	  SDL_Delay(2);
+	    scene->renderScene(NULL);
+	    SDL_GL_SwapBuffers( );	
+	    SDL_Delay(2);
 	}
  
  }

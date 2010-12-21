@@ -15,7 +15,6 @@ namespace player_types
 
 	enum tetris_key
 	{
-
 		LEFT,
 		RIGHT,
 		ROTATE,

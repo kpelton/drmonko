@@ -21,13 +21,12 @@ class background : public GLobject
 public:
 	background();
 	background(const int width, const int height, const int lstart, const int lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
-    bool render();
-    ~background(){};
-    bool loadTextures();
-    bool resize(){return false;};
+	bool render();
+	~background(){};
+	bool loadTextures();
+	bool resize(){return false;};
 	int  timerCb(){return 0;};
 	void setLevel(const Uint32 alevel){level=alevel;};
-	void handleKeyPress(SDL_keysym &keysym){};     
 	
 
 private:
@@ -38,6 +37,7 @@ private:
 	int height;
 	int lstart;
 	int lend;
+	TTF_Font *font;
 };
 
 

@@ -7,17 +7,18 @@
 #ifdef _WIN32
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
+#include <SDL/SDL_ttf.h>
 #else
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "SDL_ttf.h"
 #endif
-#include <time.h>
-#include "GLobject.h"
 #include "GLscene.h"
+#include <time.h>
 
 
-#define SCREEN_WIDTH  640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH  1024
+#define SCREEN_HEIGHT 768
 #define SCREEN_BPP     32
 
 class sdlWindow {

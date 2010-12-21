@@ -5,9 +5,6 @@
 #include <math.h>
 #include <time.h>
 #include "GLobject.h"
-#include "player.h"
-
-#include <vector>
 
 using namespace std;
 
@@ -23,10 +20,8 @@ public:
 
 	virtual ~GLscene();
 private:
-	GLobject *player1;
-	GLobject *player2;
+	GLobject *bground;
 	int width;
 	int height;
-
 };
 #endif

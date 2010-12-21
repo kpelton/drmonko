@@ -3,46 +3,42 @@
 #include <time.h>
 
 using namespace piece_types;
-piece::piece(){
-
-
-	firstPiece(7);
-}
-
-void piece::firstPiece(const int middle)
+Piece::Piece()
 {
-  
-	type = rand()%7;
-	rotation = 0;	
-	this->x =  7-abs(piecesInitialPosition[type][0][0]);
-	
-	this->y =  abs(piecesInitialPosition[type][0][1]);
-	nextPiece();
-
+    firstPiece(7);
 }
 
-void piece::nextPiece()
+void Piece::firstPiece(const int middle)
+{
+  	type1 = rand()%3;
+	type2 = rand()%3;
+	rotation = 0;	
+	nextPiece();
+}
+
+void Piece::nextPiece()
 {
 	srand(time(NULL));
-	ntype = rand()%7;
+	ntype1 = rand()%3;
+	ntype2 = rand()%3;
 	nrotation = 0;	
 }
-void piece::newPiece(const int x, const int y,const int middle)
+void Piece::newPiece(const int x, const int y,const int middle)
 {
-	type = ntype;
-	
-	this->x =  middle;//-abs(piecesInitialPosition[type][0][0]);
-	
-	this->y =  abs(piecesInitialPosition[type][0][1]);
-
-	rotation = nrotation;
-	nextPiece();
-	
+    //sets the current piece from the nextpiece
+    type1 = ntype1;
+    type2 = ntype2;
+    this->x =  x;
+    this->y =  y;
+    rotation = nrotation;
+    //Get a new Piece
+    nextPiece();
 }
 
-int piece::getBlockType(int x, int y)
+int Piece::getBlockType(int x, int y)
 {
-  return pieces[type][rotation][x][y];
+    //return pieces[type][rotation][x][y];
+    return 0;
 }
 
 
