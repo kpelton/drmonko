@@ -7,6 +7,7 @@
 #include "GLobject.h"
 #include "piece.h"
 #include "board.h"
+#include "timer.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ private:
 	float end;
 	float start;
 	bool checkWallCollision();
+	bool movePossible();
 	bool checkBoardCollision(const int row, const int col,const int rot) const;
+	SDLTimer * timer;
 };
 #endif

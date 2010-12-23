@@ -19,7 +19,7 @@ void GLscene::renderScene(SDL_Event *event)
 		//only move it if doesn't go out of the board
 		row =piece->getRow();
 		col = piece->getCol()-1;
-		if(piece->getX()-size >= start && checkBoardCollision(row,col,rot)){
+		if(col >=0 && checkBoardCollision(row,col,rot)){
 		    piece->setCoords(piece->getX()-size,piece->getY());
 		    piece->setCol(piece->getCol()-1);
 		}
@@ -44,13 +44,10 @@ void GLscene::renderScene(SDL_Event *event)
 		    piece->rotRight();
 		break;
 	    case SDLK_DOWN:
-		row =piece->getRow()+1;
-		col = piece->getCol();
-		
-		if(row < rows && piece->getY()+size <= height  && checkBoardCollision(row,col,rot)){
-		    piece->setCoords(piece->getX(),piece->getY()+size);
-		    piece->setRow(piece->getRow()+1);
-		}
+	    	if (movePossible()){
+	    		piece->setCoords(piece->getX(),piece->getY()+size);
+	    		piece->setRow(piece->getRow()+1);
+	    	}
 		break;
 	    case SDLK_ESCAPE:
 		SDL_Quit();
@@ -58,6 +55,25 @@ void GLscene::renderScene(SDL_Event *event)
 		break;
 	    }
 	}
+    if(event == NULL){
+    	if (timer->isDone()){
+    			if (movePossible()){
+    			piece->setCoords(piece->getX(),piece->getY()+size);
+    			piece->setRow(piece->getRow()+1);
+
+    		}else{
+    				float boardwidth = (columns*size);
+    	    		piece->nextPiece();
+    	    	    piece->newPiece(start,height*.1,0);
+    	    	    piece->setRow(0);
+    	    	    piece->setCol(0);
+    	    	    timer->resetTimer();
+    	}
+
+    	}
+    	//else add to board
+    }
+
 
 	glPushMatrix();
 	bground->render();
@@ -65,6 +81,17 @@ void GLscene::renderScene(SDL_Event *event)
 	piece->render();
 	board->render();
 	glPopMatrix();
+}
+bool GLscene::movePossible(){
+		int row;
+		int col;
+		int rot = piece->getRotation();
+		row =piece->getRow()+1;
+		col = piece->getCol();
+
+		if(row < rows && piece->getY()+size <= height  && checkBoardCollision(row,col,rot)){
+			return true;
+		}
 }
 bool GLscene::checkBoardCollision(const int row, const int col,const int arot) const
 {
@@ -120,6 +147,10 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
     piece->setCoords(start,height*.1);
     piece->setRow(0);
     piece->setCol(0);
+    timer = new SDLTimer();
+    timer->setTimer(800);
+
+
 
 }
 
@@ -127,5 +158,6 @@ GLscene::~GLscene()
 {
     delete piece;
     delete bground;
+    delete timer;
 
 }

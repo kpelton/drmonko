@@ -124,7 +124,7 @@ void Piece::firstPiece(const int middle)
     srand(time(NULL));
     type1 = rand()%3;
     type2 = rand()%3;
-    rotation = rand()%4;	
+    rotation = 1;
     nextPiece();
 }
 
@@ -132,7 +132,7 @@ void Piece::nextPiece()
 {
 	ntype1 = rand()%3;
 	ntype2 = rand()%3;
-	nrotation = 0;	
+	nrotation = 1;
 }
 void Piece::newPiece(const int x, const int y,const int middle)
 {
