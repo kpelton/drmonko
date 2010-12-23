@@ -20,7 +20,7 @@ class background : public GLobject
 	
 public:
 	background();
-	background(const int width, const int height, const int lstart, const int lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
+	background(const int width, const int height, const float lstart, const float lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
 	bool render();
 	~background(){};
 	bool loadTextures();
@@ -35,8 +35,8 @@ private:
 	Uint32 level;
 	int width;
 	int height;
-	int lstart;
-	int lend;
+	float lstart;
+	float lend;
 	TTF_Font *font;
 };
 

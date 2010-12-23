@@ -6,7 +6,6 @@
 int main (int argc, char **argv )
 {
 	sdlWindow window(argc,argv);
-	glutInit(&argc,argv);
 	window.renderLoop();
 	
 

@@ -5,11 +5,13 @@
 #include <math.h>
 #include <time.h>
 #include "GLobject.h"
+#include "piece.h"
+#include "board.h"
 
 using namespace std;
 
-
-
+static const int rows = 20;
+static const int columns = 10;
 class GLscene
 {
 public:
@@ -21,7 +23,14 @@ public:
 	virtual ~GLscene();
 private:
 	GLobject *bground;
+	Piece *piece;
+	Board *board;
 	int width;
 	int height;
+	float size;
+	float end;
+	float start;
+	bool checkWallCollision();
+	bool checkBoardCollision(const int row, const int col,const int rot) const;
 };
 #endif

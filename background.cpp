@@ -83,7 +83,7 @@ bool background::render()
     drawBackground();
     float hstart = height *.1;
     //glColor3f(0.0f,1.0f,0.0f);
-    glLineWidth(4);
+    glLineWidth(2);
     glBegin(GL_LINES);
     glVertex2f(lstart, hstart); // origin of the line
     glVertex2f(lstart, height); // ending point of the line
@@ -98,7 +98,7 @@ bool background::render()
     glEnable(GL_BLEND);
  
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    GLobject::drawText(font, 0,255,0,(lstart+lend)/3, 0,"Dr Monko");
+    GLobject::drawText(font, 0,255,0,(lstart+lend)/2.5, 0,"Dr. Monko");
     glDisable(GL_BLEND);
     return true;
 }

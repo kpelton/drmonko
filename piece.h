@@ -1,9 +1,9 @@
 #ifndef PIECE_H
 #define PIECE_H
+#include "GLobject.h"
 //This is the class definition for the current piece
-//This class does not actually render the piece
-//Rendering will be done in PieceRender
-class Piece
+
+class Piece : public GLobject
 {
 public:
 	
@@ -13,6 +13,23 @@ public:
     void nextPiece();
     void firstPiece(const int middle);
     void newPiece(const int x, const int y,const int middle);
+    bool loadTextures();
+    bool resize(){return false;};
+    int  timerCb(){return 0;};
+    bool render();
+    void setCoords(const float x, const float y){this->x=x;this->y=y;};
+    int getRotation()const {return rotation;};
+    void setRotation(const int rot) {rotation=rot;};
+    void rotLeft();
+    void rotRight();
+    float getX() {return x;};
+    float getY(){return y;};
+    float getMaxX()const;
+    int getRow()const{return row;}
+    void setRow(const int arow){row = arow;};
+    int getCol()const{return col;}
+    void setCol(const int acol){col = acol;};
+    void setSize(const float isize){size=isize;};
  private:
     float x;
     float y;
@@ -23,17 +40,24 @@ public:
     //This will handle the next piece
     int ntype1;
     int ntype2;
+    int row;
+    int col;
+
+       
+    float size;
     int nrotation;
-	
-};
-namespace piece_types{
- 
-// Pieces definition
+    GLuint texture;
+    void doColor(const int ctype)const;
+    // Pieces definition
     enum type{
 	RED,
 	BLUE,
 	YELLOW,
     };
+};
+namespace piece_types{
+ 
+
 const int pieces [4 /* rotation */ ][3 /* horizontal blocks */ ][3 /* vertical blocks */ ] =
 {
    {
@@ -43,17 +67,17 @@ const int pieces [4 /* rotation */ ][3 /* horizontal blocks */ ][3 /* vertical b
    },
    {
        {0, 0, 0},
-       {1, 2, 0},
+       {0, 2, 1},
        {0, 0, 0},
    },
    {
-       {0, 0, 0},
        {0, 2, 0},
        {0, 1, 0},
+       {0, 0, 0},
    },
    {
        {0, 0, 0},
-       {0, 2, 1},
+       {0, 1, 2},
        {0, 0, 0},
    }
 };
