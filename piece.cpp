@@ -40,6 +40,9 @@ void Piece::rotRight()
      else
 	 rotation=3;
 }
+int Piece::getType(const int type){
+	return (type == 1) ? type1: type2;
+}
 bool Piece::render()
 {
     float currx = x;

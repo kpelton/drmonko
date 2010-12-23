@@ -23,22 +23,15 @@ Board::Board(const int trows,const int cols,const float size,
 	for (int j=0; j<columns; j++)
 	    if (rand()%5 == 4)
 		board[i][j] = static_cast<ptype>(rand()%3);
+
     loadTextures();
-    board[5][5] = PILLYELLOW;
-    board[5][6] = PILLYELLOW;
-    rotboard[5][5] = LEFT;
-    rotboard[5][6] = RIGHT;
-    board[1][5] = PILLRED;
-    board[2][5] = PILLRED;
-    rotboard[1][5] = UP;
-    rotboard[2][5] = DOWN;
 
 
 }
 bool Board::isFree(const int row, const int col)const
 {
     if(board[row][col] != NOTHING)
-	return false;
+    	return false;
     return true;
 }
 
@@ -60,6 +53,41 @@ bool Board::loadTextures()
     GLobject::loadTextureFile("tiles/pillhalf.bmp",&tiles[PILL]);
     return true;
 }
+void Board::addToBoard(const int rotation, const int row,const int col,const int type1, const int type2)
+{
+	int currow = row-1; //row is always starts 1 off
+	int currcol = col;
+	int type;
+	for (int i = 0; i<3; i++){
+		currcol = col;
+		for (int j=1; j<3; j++){
+			if (pieces[rotation][i][j] != 0){
+
+				type = (pieces[rotation][i][j] == 1) ? type1 : type2;
+
+
+				board[currow][currcol] =static_cast<ptype> (PILLRED +type);
+
+				if(i==0){
+					rotboard[currow][currcol] = UP;
+				}
+				else if(i ==1 && j==1 && (rotation == 1 || rotation == 3)){
+					rotboard[currow][currcol] = LEFT;
+				}
+				else if(rotation == 1 ||rotation ==3){
+					rotboard[currow][currcol] = RIGHT;
+				}
+				else{
+					rotboard[currow][currcol] = DOWN;
+				}
+
+			}
+			currcol+=1;
+
+		}
+		currow+=1;
+	}
+}
 void Board::drawPill(const float x,const float y, 
 		     const int row,const int col) const 
 {
@@ -74,26 +102,27 @@ void Board::drawPill(const float x,const float y,
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     switch(rot){
-    case LEFT: //only rotate 2 piece second row
-	glTranslatef(size/2,size/2,0.0);
-	glRotatef(270,0,0,1);	    
-	glTranslatef(-size/2,-size/2,0.0);
-	break;
-    case DOWN:  //only rotate 2 piece second row
-	glTranslatef(size/2,size/2,0.0);
-	glRotatef(180,0,0,1);	    
-	glTranslatef(-size/2,-size/2,0.0);
-	break;
-    case RIGHT: //only rotate 2 piece second row
-	glTranslatef(size/2,size/2,0.0);
-	glRotatef(90,0,0,1);	    
-	glTranslatef(-size/2,-size/2,0.0);
-	break;
-    case NONE:
-	glDisable(GL_TEXTURE_2D);
-	break;
-    default:
-	break;
+		case LEFT: //only rotate 2 piece second row
+			glTranslatef(size/2,size/2,0.0);
+			glRotatef(270,0,0,1);
+			glTranslatef(-size/2,-size/2,0.0);
+			break;
+		case DOWN:  //only rotate 2 piece second row
+			glTranslatef(size/2,size/2,0.0);
+			glRotatef(180,0,0,1);
+			glTranslatef(-size/2,-size/2,0.0);
+			break;
+		case RIGHT: //only rotate 2 piece second row
+			glTranslatef(size/2,size/2,0.0);
+			glRotatef(90,0,0,1);
+			glTranslatef(-size/2,-size/2,0.0);
+			break;
+		case NONE:
+			glDisable(GL_TEXTURE_2D);
+			break;
+
+		default:
+			break;
     }
 
     switch(type){

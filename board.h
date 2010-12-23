@@ -18,6 +18,7 @@ public:
     bool render();
     void clear();
     bool isFree(const int row,const int col)const;
+    void addToBoard(const int rotation,const int row,const int col,const int type1, const int type2);
  private:
     void drawPill(const float x,const float y,const int row,const int col) const;
     GLuint tiles[4];

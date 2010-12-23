@@ -55,6 +55,9 @@ void GLscene::renderScene(SDL_Event *event)
 		break;
 	    }
 	}
+    row =piece->getRow();
+    col = piece->getCol();
+    rot = piece->getRotation();
     if(event == NULL){
     	if (timer->isDone()){
     			if (movePossible()){
@@ -62,6 +65,7 @@ void GLscene::renderScene(SDL_Event *event)
     			piece->setRow(piece->getRow()+1);
 
     		}else{
+    				board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
     				float boardwidth = (columns*size);
     	    		piece->nextPiece();
     	    	    piece->newPiece(start,height*.1,0);
@@ -83,15 +87,16 @@ void GLscene::renderScene(SDL_Event *event)
 	glPopMatrix();
 }
 bool GLscene::movePossible(){
-		int row;
-		int col;
-		int rot = piece->getRotation();
-		row =piece->getRow()+1;
-		col = piece->getCol();
+	int row;
+	int col;
+	int rot = piece->getRotation();
+	row =piece->getRow()+1;
+	col = piece->getCol();
 
-		if(row < rows && piece->getY()+size <= height  && checkBoardCollision(row,col,rot)){
-			return true;
-		}
+	if(row < rows && piece->getY()+size <= height  && checkBoardCollision(row,col,rot))
+		return true;
+
+	return false;
 }
 bool GLscene::checkBoardCollision(const int row, const int col,const int arot) const
 {

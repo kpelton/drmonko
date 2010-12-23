@@ -30,6 +30,9 @@ public:
     int getCol()const{return col;}
     void setCol(const int acol){col = acol;};
     void setSize(const float isize){size=isize;};
+
+    int getType(const int num);
+
  private:
     float x;
     float y;
