@@ -30,7 +30,7 @@ float Piece::getMaxX()const
 		    return currx;
 	    }
 	}
-    
+    return 0;
 }
 
 void Piece::rotRight()
@@ -101,7 +101,7 @@ bool Piece::render()
 	curry+=size;
     }
 
-    
+    return true;
 }
 
 void Piece::doColor(const int ctype) const

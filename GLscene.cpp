@@ -52,6 +52,8 @@ void GLscene::renderScene(SDL_Event *event)
 		    piece->setRow(piece->getRow()+1);
 		}
 		break;
+	    case SDLK_ESCAPE:
+		SDL_Quit();
 	    default:
 		break;
 	    }

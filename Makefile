@@ -3,7 +3,7 @@ CFLAGS =    -c
 
 all: drmonko
 
-drmonko: main.o   piece.o  sdlWindow.o background.o GLscene.o board.o
+drmonko: main.o board.o   piece.o  sdlWindow.o background.o GLscene.o 
 	$(CC) main.o  piece.o sdlWindow.o background.o GLscene.o board.o -o drmonko
 
 main.o: main.cpp 

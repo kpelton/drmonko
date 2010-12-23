@@ -98,7 +98,7 @@ bool background::render()
     glEnable(GL_BLEND);
  
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    GLobject::drawText(font, 0,255,0,(lstart+lend)/2.5, 0,"Dr. Monko");
+    GLobject::drawText(font, 0,255,0,(lstart+lend)/2.6, 0,"Dr. Monko");
     glDisable(GL_BLEND);
     return true;
 }

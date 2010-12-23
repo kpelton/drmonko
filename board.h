@@ -19,6 +19,7 @@ public:
     void clear();
     bool isFree(const int row,const int col)const;
  private:
+    void drawPill(const float x,const float y,const int row,const int col) const;
     GLuint tiles[4];
     float size;
     float xstart;
@@ -29,6 +30,7 @@ public:
     int height;
     static const int rows = 20;
     static const int columns = 10;
+    
     enum ptype{
 	VIRUSRED,
 	VIRUSBLUE,
@@ -38,7 +40,16 @@ public:
 	PILLYELLOW,
 	NOTHING =-1,
     };
+    enum rotation{
+	UP,
+	LEFT,
+	DOWN,
+	RIGHT,
+	NONE=-1,
+    };
+    const static int PILL=3;
     //void doColor(const int ctype)const;
     ptype board[rows][columns];
+    rotation rotboard[rows][columns];
 };
 #endif
