@@ -40,7 +40,7 @@ void GLscene::renderScene(SDL_Event *event)
 		rot = piece->getRotation();
 		
 		//if the move is not valid put it back to the way it was
-		if (!checkBoardCollision(row,col,rot) && piece->getMaxX() <= end)
+		if (!checkBoardCollision(row,col,rot) || piece->getMaxX() > end)
 		    piece->rotRight();
 		break;
 	    case SDLK_DOWN:
@@ -76,7 +76,6 @@ bool GLscene::checkBoardCollision(const int row, const int col,const int arot) c
 	    if(piece_types::pieces[rot][i][j] != 0){
 		if(!board->isFree(startrow,currcol))
 		    return false;
-		cout <<currcol  <<startrow <<endl; 
 	    }
 	    currcol+=1;
 	}
