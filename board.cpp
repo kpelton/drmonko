@@ -21,8 +21,10 @@ Board::Board(const int trows,const int cols,const float size,
     clear();
     for (int i=10; i<rows; i++)
 	for (int j=0; j<columns; j++)
-	    if (rand()%5 == 4)
-		board[i][j] = static_cast<ptype>(rand()%3);
+	    if (rand()%5 == 4){
+	    	board[i][j].col = static_cast<color>(rand()%3);
+	    	board[i][j].type = VIRUS;
+	    }
 
     loadTextures();
 
@@ -30,7 +32,7 @@ Board::Board(const int trows,const int cols,const float size,
 }
 bool Board::isFree(const int row, const int col)const
 {
-    if(board[row][col] != NOTHING)
+    if(board[row][col].type != NOTHING)
     	return false;
     return true;
 }
@@ -40,16 +42,15 @@ void Board::clear()
     //clear all spaces
     for (int i=0; i<rows; i++){
 	for(int j=0; j<columns; j++){
-	    board[i][j] = NOTHING;
-	    rotboard[i][j] = NONE;
-	}
+		board[i][j].clear();
+		}
     }
 }
 bool Board::loadTextures()
 {
-    GLobject::loadTextureFile("tiles/virusredsmall.bmp",&tiles[VIRUSRED]);
-    GLobject::loadTextureFile("tiles/virusbluesmall.bmp",&tiles[VIRUSBLUE]);
-    GLobject::loadTextureFile("tiles/virusyellowsmall.bmp",&tiles[VIRUSYELLOW]);
+    GLobject::loadTextureFile("tiles/virusredsmall.bmp",&tiles[RED]);
+    GLobject::loadTextureFile("tiles/virusbluesmall.bmp",&tiles[BLUE]);
+    GLobject::loadTextureFile("tiles/virusyellowsmall.bmp",&tiles[YELLOW]);
     GLobject::loadTextureFile("tiles/pillhalf.bmp",&tiles[PILL]);
     return true;
 }
@@ -58,27 +59,28 @@ void Board::addToBoard(const int rotation, const int row,const int col,const int
 	int currow = row-1; //row is always starts 1 off
 	int currcol = col;
 	int type;
+
 	for (int i = 0; i<3; i++){
 		currcol = col;
 		for (int j=1; j<3; j++){
-			if (pieces[rotation][i][j] != 0){
+			if (pieces[rotation][i][j]  != 0){
 
-				type = (pieces[rotation][i][j] == 1) ? type1 : type2;
+				type = (pieces[rotation][i][j] == 1) ? type1 : type2 ;
 
-
-				board[currow][currcol] =static_cast<ptype> (PILLRED +type);
+				board[currow][currcol].type = SETPILL;
+				board[currow][currcol].col = static_cast<color> (type);
 
 				if(i==0){
-					rotboard[currow][currcol] = UP;
+					board[currow][currcol].rot = UP;
 				}
 				else if(i ==1 && j==1 && (rotation == 1 || rotation == 3)){
-					rotboard[currow][currcol] = LEFT;
+					board[currow][currcol].rot = LEFT;
 				}
 				else if(rotation == 1 ||rotation ==3){
-					rotboard[currow][currcol] = RIGHT;
+					board[currow][currcol].rot = RIGHT;
 				}
 				else{
-					rotboard[currow][currcol] = DOWN;
+					board[currow][currcol].rot = DOWN;
 				}
 
 			}
@@ -91,14 +93,15 @@ void Board::addToBoard(const int rotation, const int row,const int col,const int
 void Board::drawPill(const float x,const float y, 
 		     const int row,const int col) const 
 {
-    rotation rot = rotboard[row][col];
-    ptype type = board[row][col];
+    rotation rot =board[row][col].rot;
+    ptype type = board[row][col].type;
+    color pcolor = board[row][col].col;
     glPushMatrix();
     //set matrix mode to texture for rotations
     glLoadIdentity();
     glTranslatef(x,y,0.0);
     //do correct rotation for texture allignment
-    glBindTexture( GL_TEXTURE_2D,tiles[3]);
+    glBindTexture( GL_TEXTURE_2D,tiles[PILL]);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     switch(rot){
@@ -125,18 +128,18 @@ void Board::drawPill(const float x,const float y,
 			break;
     }
 
-    switch(type){
-    case PILLRED:
-	glColor4f(1.0,0.0,0.0,1.0);
-	break;
-    case PILLYELLOW:
-	glColor4f(1.0,1.0,0.0,1.0);
-	break;
-    case PILLBLUE:
-	glColor4f(0.0,0.0,1.0,1.0);
-	break;
-    default:
-	break;
+    switch(pcolor){
+		case RED:
+			glColor4f(1.0,0.0,0.0,1.0);
+			break;
+		case YELLOW:
+			glColor4f(1.0,1.0,0.0,1.0);
+			break;
+		case BLUE:
+			glColor4f(0.0,0.0,1.0,1.0);
+			break;
+		default:
+			break;
     }
     
     glMatrixMode(GL_MODELVIEW); 
@@ -158,13 +161,13 @@ bool Board::render()
      for (int i=0; i<rows; i++){
 	 currx = xstart;
 	for(int j=0; j<columns; j++){
-	    if (board[i][j] != NOTHING)
+	    if (board[i][j].type != NOTHING)
 		{ 
-		    if (board[i][j] > VIRUSYELLOW){
+		    if (board[i][j].type != VIRUS){
 			drawPill(currx,curry, 
 				 i,j);
 		    }else{
-			glBindTexture( GL_TEXTURE_2D,tiles[board[i][j]]);
+			glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

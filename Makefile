@@ -3,15 +3,15 @@ CFLAGS =    -c
 
 all: drmonko
 
+
 drmonko: timer.o main.o board.o   piece.o  sdlWindow.o background.o GLscene.o 
-	$(CC) main.o timer.o piece.o sdlWindow.o background.o  board.o GLscene.o -o drmonko
+	$(CC) -g main.o timer.o piece.o sdlWindow.o background.o  board.o GLscene.o -o drmonko
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
 
 timer.o: timer.cpp
-	$(CC) $(CFLAGS) timer.cpp
-	
+	$(CC) $(CFLAGS) timer.cpp	
 player.o: player.cpp player.h 
 	$(CC) $(CFLAGS) player.cpp player.h 
 

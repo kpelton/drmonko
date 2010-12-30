@@ -2,7 +2,26 @@
 #define BOARD_H
 #include "GLobject.h"
 #include "GLscene.h"
-
+namespace types {
+enum rotation{
+	UP,
+	LEFT,
+	DOWN,
+	RIGHT,
+	NONE=-1,
+};
+enum color{
+	RED,
+	BLUE,
+	YELLOW,
+};
+enum ptype{
+	VIRUS,
+	SETPILL,
+	NOTHING =-1,
+  };
+}
+using namespace types;
 //This is the class definition for the current piece
 class Board : public GLobject
 {
@@ -31,26 +50,15 @@ public:
     int height;
     static const int rows = 20;
     static const int columns = 10;
-    
-    enum ptype{
-	VIRUSRED,
-	VIRUSBLUE,
-	VIRUSYELLOW,
-	PILLRED,
-	PILLBLUE,
-	PILLYELLOW,
-	NOTHING =-1,
+    static const int PILL=3;
+    struct BoardPlace{
+    	BoardPlace(){clear();};
+    	void clear(){type=NOTHING;col=RED;rot=NONE;};
+    	ptype  type;
+    	color col;
+    	rotation rot;
     };
-    enum rotation{
-	UP,
-	LEFT,
-	DOWN,
-	RIGHT,
-	NONE=-1,
-    };
-    const static int PILL=3;
     //void doColor(const int ctype)const;
-    ptype board[rows][columns];
-    rotation rotboard[rows][columns];
+    BoardPlace board[rows][columns];
 };
 #endif
