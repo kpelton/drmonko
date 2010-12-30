@@ -99,6 +99,9 @@ bool background::render()
  
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     GLobject::drawText(font, 0,255,0,(lstart+lend)/2.6, 0,"Dr. Monko");
+    GLobject::drawText(font, 255,0,255,lend+25, height - (height*.9),"Next Piece");
+
+    GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.35,"SCORE");
     glDisable(GL_BLEND);
     return true;
 }
