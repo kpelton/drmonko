@@ -85,6 +85,8 @@ void GLscene::renderScene(SDL_Event *event)
 	piece->render();
 	board->render();
 	glPopMatrix();
+	board->checkHorizontal();
+	board->checkVertical();
 }
 bool GLscene::movePossible(){
 	int row;

@@ -30,6 +30,152 @@ Board::Board(const int trows,const int cols,const float size,
 
 
 }
+void Board::checkVertical()
+{
+	color last=BLANK;
+	int count = 0;
+	int startrow=0;
+
+	for (int j=0; j<columns; j++){
+		count = 1;
+		last = BLANK;
+		for(int i=0; i<rows; i++){
+
+			if (board[i][j].type != NOTHING){
+				if (board[i][j].col != BLANK && board[i][j].col == last){
+					if (count == 1)
+						startrow = i;
+					count++;
+				}
+
+				else{
+					last = BLANK;
+					count = 1;
+				}
+				last = board[i][j].col;
+
+			}
+
+			else{
+				last = BLANK;
+				count = 1;
+
+			}
+			if (count > 3){
+				cout <<"Need to remove at col " <<j << " " << count <<endl;
+				removeMatchVertical(startrow,j);
+				count = 1;
+				last = BLANK;
+			}
+		}
+	}
+
+}
+void Board::checkHorizontal()
+{
+	color last=BLANK;
+	int count = 0;
+	int startcol = 0;
+	for (int i=0; i<rows; i++){
+		count = 1;
+		last = BLANK;
+		for(int j=0; j<columns; j++){
+
+			if (board[i][j].type != NOTHING){
+				if (board[i][j].col != BLANK && board[i][j].col == last){
+					if (count == 1)
+						startcol = j;
+					count++;
+				}
+				else{
+					last = BLANK;
+					count = 1;
+				}
+				last = board[i][j].col;
+
+			}
+			else{
+				last = BLANK;
+				count = 1;
+
+			}
+			if (count > 3){
+				cout <<"Need to remove at row " <<i << " " << count <<endl;
+				removeMatchHorizontal(i,startcol);
+				count = 1;
+				last = BLANK;
+			}
+		}
+	}
+}
+
+void Board::removeMatchVertical(const int startrow,const int col)
+{
+	//removes vertical  matches
+	color start = board[startrow][col].col;
+
+	int count = 0;
+	cout << startrow <<endl;
+	for(int i=startrow-1; i<rows; i++){
+
+		if (board[i][col].type != NOTHING && board[i][col].col == start){
+				count++;
+				cout << i <<endl;
+			//if (board[i][col].type == SETPILL)
+				//changePillType(i,col);
+			board[i][col].type=NOTHING;
+		}else{
+			return;
+		}
+	}
+}
+
+void Board::removeMatchHorizontal(const int row,const int startcol)
+{
+	//removes horizontal matches
+	color start = board[row][startcol].col;
+
+	int count = 0;
+	cout << startcol <<endl;
+	for(int j=startcol-1; j<columns; j++){
+
+		if (board[row][j].type != NOTHING && board[row][j].col == start){
+				count++;
+//			if (board[row][j].type == SETPILL)
+//				changePillType(row,j);
+			board[row][j].type=NOTHING;
+		}else{
+			return;
+		}
+	}
+}
+//enum rotation{
+//	UP,
+//	LEFT,
+//	DOWN,
+//	RIGHT,
+//	NONE=-1,
+//};
+void Board::changePillType(const int row, const int col)
+{
+	switch(board[row][col].rot)
+	{
+		case UP:
+			board[row+1][col].rot = NONE;
+			break;
+		case DOWN:
+			board[row-1][col].rot = NONE;
+			break;
+		case LEFT:
+			board[row][col+1].rot = NONE;
+			break;
+		case RIGHT:
+			board[row][col-1].rot = NONE;
+			break;
+		default:
+			break;
+	}
+}
 bool Board::isFree(const int row, const int col)const
 {
     if(board[row][col].type != NOTHING)

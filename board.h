@@ -14,6 +14,7 @@ enum color{
 	RED,
 	BLUE,
 	YELLOW,
+	BLANK,
 };
 enum ptype{
 	VIRUS,
@@ -38,6 +39,8 @@ public:
     void clear();
     bool isFree(const int row,const int col)const;
     void addToBoard(const int rotation,const int row,const int col,const int type1, const int type2);
+    void checkHorizontal();
+    void checkVertical();
  private:
     void drawPill(const float x,const float y,const int row,const int col) const;
     GLuint tiles[4];
@@ -59,6 +62,10 @@ public:
     	rotation rot;
     };
     //void doColor(const int ctype)const;
+    void removeMatchHorizontal(const int row, const int startcol);
+    void removeMatchVertical(const int col, const int startrow);
+    void changePillType(const int row, const int col);
+
     BoardPlace board[rows][columns];
 };
 #endif
