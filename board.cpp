@@ -119,7 +119,7 @@ bool Board::moveDown()
 					board[i+1][j].type = board[i][j].type;
 					board[i+1][j].col = board[i][j].col;
 					board[i+1][j].rot = board[i][j].rot;
-					board[i][j].type = NOTHING;
+					board[i][j].clear();
 					val = true;
 				}
 				else if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot != NONE){
@@ -127,28 +127,20 @@ bool Board::moveDown()
 					switch(board[i][j].rot){
 					case LEFT:
 						if (board[i][j+1].rot == RIGHT && board[i+1][j+1].type == NOTHING){
-							board[i+1][j].type = board[i][j].type;
-							board[i+1][j].col = board[i][j].col;
-							board[i+1][j].rot = board[i][j].rot;
-							board[i][j].type = NOTHING;
+							board[i+1][j]  = board[i][j];
+							board[i][j].clear();
 
-							board[i+1][j+1].type = board[i][j+1].type;
-							board[i+1][j+1].col = board[i][j+1].col;
-							board[i+1][j+1].rot = board[i][j+1].rot;
-							board[i][j+1].type = NOTHING;
+							board[i+1][j+1] = board[i][j+1];
+							board[i][j+1].clear();
 							val = true;
 						}
 					case DOWN:
 						if (board[i-1][j].rot == UP && board[i-1][j].type == SETPILL){
-							board[i+1][j].type = board[i][j].type;
-							board[i+1][j].col = board[i][j].col;
-							board[i+1][j].rot = board[i][j].rot;
-							board[i][j].type = NOTHING;
+							board[i+1][j] = board[i][j];
+							board[i][j].clear();
 
-							board[i][j].type = board[i-1][j].type;
-							board[i][j].col = board[i-1][j].col;
-							board[i][j].rot = board[i-1][j].rot;
-							board[i-1][j].type = NOTHING;
+							board[i][j] =  board[i-1][j];
+							board[i-1][j].clear();
 							val = true;
 						}
 
@@ -302,7 +294,6 @@ void Board::drawPill(const float x,const float y,
 		     const int row,const int col) const 
 {
     rotation rot =board[row][col].rot;
-    ptype type = board[row][col].type;
     color pcolor = board[row][col].col;
     glPushMatrix();
     //set matrix mode to texture for rotations

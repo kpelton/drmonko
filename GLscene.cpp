@@ -72,7 +72,6 @@ void GLscene::renderScene(SDL_Event *event)
 
     		}else{
     				board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
-    				float boardwidth = (columns*size);
     	    		piece->nextPiece();
     	    	    piece->newPiece(start,height*.1,0);
     	    	    piece->setRow(0);

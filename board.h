@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "GLobject.h"
-#include "GLscene.h"
+#include "piece.h"
 namespace types {
 enum rotation{
 	UP,
@@ -57,6 +57,7 @@ public:
     struct BoardPlace{
     	BoardPlace(){clear();};
     	void clear(){type=NOTHING;col=RED;rot=NONE;};
+    	BoardPlace & operator= (const  BoardPlace & other){type = other.type; col=other.col; rot=other.rot; return *this;};
     	ptype  type;
     	color col;
     	rotation rot;

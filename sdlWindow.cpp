@@ -54,7 +54,7 @@ void sdlWindow::initWindow()
 	
 	isActive = true;
 	Mix_Chunk *sound = NULL;
-	int channel;
+	int channel = 0;
   /* initialize SDL */
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 	{
