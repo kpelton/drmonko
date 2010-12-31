@@ -12,7 +12,7 @@ void GLscene::renderScene(SDL_Event *event)
 	glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    	if(event && event->type == SDL_KEYDOWN){
+    	if( !animation && event && event->type == SDL_KEYDOWN){
 	    switch(event->key.keysym.sym){
 
 	    case SDLK_LEFT:
@@ -61,8 +61,14 @@ void GLscene::renderScene(SDL_Event *event)
     if(event == NULL){
     	if (timer->isDone()){
     			if (movePossible()){
-    			piece->setCoords(piece->getX(),piece->getY()+size);
-    			piece->setRow(piece->getRow()+1);
+    				if (animation){
+    					animation = board->clearPieces();
+    				}else{
+    					piece->setCoords(piece->getX(),piece->getY()+size);
+    					piece->setRow(piece->getRow()+1);
+    				}
+
+
 
     		}else{
     				board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
@@ -85,8 +91,8 @@ void GLscene::renderScene(SDL_Event *event)
 	piece->render();
 	board->render();
 	glPopMatrix();
-	board->checkHorizontal();
-	board->checkVertical();
+	if (!animation)
+		animation = board->clearPieces();
 }
 bool GLscene::movePossible(){
 	int row;
@@ -155,7 +161,8 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
     piece->setRow(0);
     piece->setCol(0);
     timer = new SDLTimer();
-    timer->setTimer(800);
+    timer->setTimer(400);
+    animation = false;
 
 
 

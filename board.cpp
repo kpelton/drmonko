@@ -109,6 +109,68 @@ void Board::checkHorizontal()
 	}
 }
 
+bool Board::moveDown()
+{
+
+	bool val = false;
+	for (int i=rows-2; i>=0; i--){
+			for(int j=0; j<columns; j++){
+				if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot == NONE){
+					board[i+1][j].type = board[i][j].type;
+					board[i+1][j].col = board[i][j].col;
+					board[i+1][j].rot = board[i][j].rot;
+					board[i][j].type = NOTHING;
+					val = true;
+				}
+				else if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot != NONE){
+
+					switch(board[i][j].rot){
+					case LEFT:
+						if (board[i][j+1].rot == RIGHT && board[i+1][j+1].type == NOTHING){
+							board[i+1][j].type = board[i][j].type;
+							board[i+1][j].col = board[i][j].col;
+							board[i+1][j].rot = board[i][j].rot;
+							board[i][j].type = NOTHING;
+
+							board[i+1][j+1].type = board[i][j+1].type;
+							board[i+1][j+1].col = board[i][j+1].col;
+							board[i+1][j+1].rot = board[i][j+1].rot;
+							board[i][j+1].type = NOTHING;
+							val = true;
+						}
+					case DOWN:
+						if (board[i-1][j].rot == UP && board[i-1][j].type == SETPILL){
+							board[i+1][j].type = board[i][j].type;
+							board[i+1][j].col = board[i][j].col;
+							board[i+1][j].rot = board[i][j].rot;
+							board[i][j].type = NOTHING;
+
+							board[i][j].type = board[i-1][j].type;
+							board[i][j].col = board[i-1][j].col;
+							board[i][j].rot = board[i-1][j].rot;
+							board[i-1][j].type = NOTHING;
+							val = true;
+						}
+
+						break;
+					default:
+						break;
+
+					}
+				}
+
+			}
+		}
+	return val;
+}
+bool Board::clearPieces()
+{
+	//returns true if done and ready to accept user input
+	checkHorizontal();
+    checkVertical();
+    return  moveDown();
+}
+
 void Board::removeMatchVertical(const int startrow,const int col)
 {
 	//removes vertical  matches
@@ -121,8 +183,8 @@ void Board::removeMatchVertical(const int startrow,const int col)
 		if (board[i][col].type != NOTHING && board[i][col].col == start){
 				count++;
 				cout << i <<endl;
-			//if (board[i][col].type == SETPILL)
-				//changePillType(i,col);
+			if (board[i][col].type == SETPILL)
+				changePillType(i,col);
 			board[i][col].type=NOTHING;
 		}else{
 			return;
@@ -141,8 +203,8 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 
 		if (board[row][j].type != NOTHING && board[row][j].col == start){
 				count++;
-//			if (board[row][j].type == SETPILL)
-//				changePillType(row,j);
+			if (board[row][j].type == SETPILL)
+				changePillType(row,j);
 			board[row][j].type=NOTHING;
 		}else{
 			return;
@@ -302,39 +364,39 @@ void Board::drawPill(const float x,const float y,
 
 bool Board::render()
 {
-     float currx = xstart;
-     float curry = ystart;
-     for (int i=0; i<rows; i++){
-	 currx = xstart;
-	for(int j=0; j<columns; j++){
-	    if (board[i][j].type != NOTHING)
-		{ 
-		    if (board[i][j].type != VIRUS){
-			drawPill(currx,curry, 
-				 i,j);
-		    }else{
-			glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glPushMatrix();
-			//set matrix mode to texture for rotations
-			glLoadIdentity();
-			glTranslatef(currx,curry,0.0);
-			glBegin(GL_QUADS); // Start drawing a quad primitive 
-			glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
-			glTexCoord2i( 1, 0 );   glVertex2f(size, 0);
-			glTexCoord2i( 1, 1 );   glVertex2f(size, size);
-			glTexCoord2i( 0, 1);	glVertex2f(0,size);
-			glEnd(); 
-			glPopMatrix();
-			glDisable(GL_BLEND);
-		    }
+	float currx = xstart;
+	float curry = ystart;
+	for (int i=0; i<rows; i++){
+		currx = xstart;
+		for(int j=0; j<columns; j++){
+			if (board[i][j].type != NOTHING)
+			{
+				if (board[i][j].type != VIRUS){
+					drawPill(currx,curry,
+							i,j);
+				}else{
+					glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
+					glEnable(GL_TEXTURE_2D);
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					glPushMatrix();
+					//set matrix mode to texture for rotations
+					glLoadIdentity();
+					glTranslatef(currx,curry,0.0);
+					glBegin(GL_QUADS); // Start drawing a quad primitive
+					glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
+					glTexCoord2i( 1, 0 );   glVertex2f(size, 0);
+					glTexCoord2i( 1, 1 );   glVertex2f(size, size);
+					glTexCoord2i( 0, 1);	glVertex2f(0,size);
+					glEnd();
+					glPopMatrix();
+					glDisable(GL_BLEND);
+				}
+			}
+			currx+=size;
 		}
-	    currx+=size;
+		curry+=size;
 	}
-	 curry+=size;
-     }
 
     return true;
 }

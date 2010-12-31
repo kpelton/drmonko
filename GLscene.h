@@ -34,6 +34,7 @@ private:
 	bool checkWallCollision();
 	bool movePossible();
 	bool checkBoardCollision(const int row, const int col,const int rot) const;
+	bool animation;
 	SDLTimer * timer;
 };
 #endif
