@@ -14,6 +14,7 @@ enum color{
 	RED,
 	BLUE,
 	YELLOW,
+	PILL,
 	BLANK,
 };
 enum ptype{
@@ -43,7 +44,7 @@ public:
     bool clearPieces();
  private:
     void drawPill(const float x,const float y,const int row,const int col) const;
-    GLuint tiles[4];
+    GLuint tiles[5];
     float size;
     float xstart;
     float ystart;
@@ -53,7 +54,6 @@ public:
     int height;
     static const int rows = 20;
     static const int columns = 10;
-    static const int PILL=3;
     struct BoardPlace{
     	BoardPlace(){clear();};
     	void clear(){type=NOTHING;col=RED;rot=NONE;};

@@ -103,7 +103,8 @@ void Board::checkHorizontal()
 				cout <<"Need to remove at row " <<i << " " << count <<endl;
 				removeMatchHorizontal(i,startcol);
 				count = 1;
-				last = BLANK;
+				last = BLANK
+			;
 			}
 		}
 	}
@@ -252,6 +253,7 @@ bool Board::loadTextures()
     GLobject::loadTextureFile("tiles/virusbluesmall.bmp",&tiles[BLUE]);
     GLobject::loadTextureFile("tiles/virusyellowsmall.bmp",&tiles[YELLOW]);
     GLobject::loadTextureFile("tiles/pillhalf.bmp",&tiles[PILL]);
+    GLobject::loadTextureFile("tiles/round.bmp",&tiles[BLANK]);
     return true;
 }
 void Board::addToBoard(const int rotation, const int row,const int col,const int type1, const int type2)
@@ -320,7 +322,7 @@ void Board::drawPill(const float x,const float y,
 			glTranslatef(-size/2,-size/2,0.0);
 			break;
 		case NONE:
-			glDisable(GL_TEXTURE_2D);
+			glBindTexture( GL_TEXTURE_2D,tiles[BLANK]);
 			break;
 
 		default:
@@ -363,8 +365,7 @@ bool Board::render()
 			if (board[i][j].type != NOTHING)
 			{
 				if (board[i][j].type != VIRUS){
-					drawPill(currx,curry,
-							i,j);
+					drawPill(currx,curry,i,j);
 				}else{
 					glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
 					glEnable(GL_TEXTURE_2D);
