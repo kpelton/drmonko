@@ -33,6 +33,7 @@ public:
     Board(const int trows,const int cols,const float size,
 	     const float xstart, const float ystart,
 	  const int width,const int height);
+    ~Board(){glDeleteTextures(5, tiles);};
     bool loadTextures();
     bool resize(){return false;};
     int  timerCb(){return 0;};

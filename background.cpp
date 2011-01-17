@@ -26,6 +26,11 @@ bool background::loadTextures()
     font = GLobject::loadFont("fonts/Landmark.ttf",42);
     return true;
 }
+background::~background(){
+	glDeleteTextures(4, tiles);
+	TTF_CloseFont(font);
+
+}
 void background::drawBackground()
 {
     float hstart = height *.1;

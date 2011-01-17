@@ -22,7 +22,7 @@ public:
 	background();
 	background(const int width, const int height, const float lstart, const float lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
 	bool render();
-	~background(){};
+	~background();
 	bool loadTextures();
 	bool resize(){return false;};
 	int  timerCb(){return 0;};

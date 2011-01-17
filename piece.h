@@ -10,6 +10,7 @@ public:
     //roate();
     int getBlockType(int,int);
     Piece(float size,float x, float y);
+    ~Piece(){glDeleteTextures(1, &texture);};
     void nextPiece();
     void firstPiece(const int middle);
     void newPiece(const int x, const int y,const int middle);

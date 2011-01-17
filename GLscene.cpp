@@ -180,6 +180,7 @@ GLscene::~GLscene()
 {
     delete piece;
     delete bground;
+    delete board;
     delete timer;
 
 }
