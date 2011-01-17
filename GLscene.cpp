@@ -72,10 +72,7 @@ void GLscene::renderScene(SDL_Event *event)
 
     		}else{
     				board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
-    	    		piece->nextPiece();
     	    	    piece->newPiece(start,height*.1,0);
-    	    	    piece->setRow(0);
-    	    	    piece->setCol(0);
     	    	    timer->resetTimer();
     	}
 
@@ -86,14 +83,30 @@ void GLscene::renderScene(SDL_Event *event)
 
 	glPushMatrix();
 	bground->render();
+	bground->drawVirus(board->getVirusCount());
 	glPopMatrix();
+	glPushMatrix();
 	piece->render();
 	board->render();
 	glPopMatrix();
 	if (!animation)
 		animation = board->clearPieces();
+	drawNextPiece();
+
 }
-bool GLscene::movePossible(){
+void GLscene::drawNextPiece()
+{
+	//first get the colors of the next piece
+	int type1 = piece->getNewPiece1();
+	int type2 = piece->getNewPiece2();
+	int rot = 2;
+	piece->drawPiece(end+50,(height*.9) *.27 ,rot,type1,type2);
+
+
+}
+
+bool GLscene::movePossible()
+{
 	int row;
 	int col;
 	int rot = piece->getRotation();
@@ -153,12 +166,8 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
     end = start +(size *columns);
     //add a little space on each side for the white line
     bground = new background(width,height,start-1,end+1);
-    piece = new Piece();
+    piece = new Piece(size,start,height*.1);
     board = new Board(rows,columns,size,start,height*.1,width,height);
-    piece->setSize(size);
-    piece->setCoords(start,height*.1);
-    piece->setRow(0);
-    piece->setCol(0);
     timer = new SDLTimer();
     timer->setTimer(400);
     animation = false;

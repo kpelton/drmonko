@@ -75,6 +75,44 @@ void background::drawBackground()
     glDisable(GL_BLEND);
     glDisable( GL_TEXTURE_2D );
 }
+void background::drawText() const
+{
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	GLobject::drawText(font, 0,255,0,(lstart+lend)/2.6, 0,"Dr. Monko");
+	GLobject::drawText(font, 255,0,255,lend+25, height - (height*.9),"Next");
+
+	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.35,"Viruses");
+
+	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.6,"Score");
+
+	glDisable(GL_BLEND);
+}
+
+void background::drawScore(const int score) const{
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	char cscore[255];
+
+	sprintf(cscore,"%i",score);
+	GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.70,cscore);
+
+	glDisable(GL_BLEND);
+}
+
+void background::drawVirus(const int virus) const{
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	char cvirus[255];
+
+	sprintf(cvirus,"%i",virus);
+	GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.47,cvirus);
+
+	glDisable(GL_BLEND);
+}
 
 bool background::render()
 {
@@ -94,14 +132,8 @@ bool background::render()
     glVertex2f(lend, hstart); // origin of the line
     glVertex2f(lend, height); // ending point of the line
     glEnd( );
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
- 
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    GLobject::drawText(font, 0,255,0,(lstart+lend)/2.6, 0,"Dr. Monko");
-    GLobject::drawText(font, 255,0,255,lend+25, height - (height*.9),"Next Piece");
+    drawText();
 
-    GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.35,"SCORE");
-    glDisable(GL_BLEND);
+
     return true;
 }

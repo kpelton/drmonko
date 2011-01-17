@@ -17,13 +17,14 @@ Board::Board(const int trows,const int cols,const float size,
     this->xstart = xstart;
     this->ystart = ystart;
     this->height = height;
-    
+    viruses = 0;
     clear();
     for (int i=10; i<rows; i++)
 	for (int j=0; j<columns; j++)
 	    if (rand()%5 == 4){
 	    	board[i][j].col = static_cast<color>(rand()%3);
 	    	board[i][j].type = VIRUS;
+	    	viruses++;
 	    }
 
     loadTextures();
@@ -176,8 +177,12 @@ void Board::removeMatchVertical(const int startrow,const int col)
 		if (board[i][col].type != NOTHING && board[i][col].col == start){
 				count++;
 				cout << i <<endl;
-			if (board[i][col].type == SETPILL)
+			if (board[i][col].type == VIRUS)
+				viruses--;
+			if (board[i][col].type == SETPILL){
 				changePillType(i,col);
+			}
+
 			board[i][col].type=NOTHING;
 		}else{
 			return;
@@ -196,9 +201,13 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 
 		if (board[row][j].type != NOTHING && board[row][j].col == start){
 				count++;
-			if (board[row][j].type == SETPILL)
+			if (board[row][j].type == VIRUS)
+					viruses--;
+			if (board[row][j].type == SETPILL){
 				changePillType(row,j);
+			}
 			board[row][j].type=NOTHING;
+
 		}else{
 			return;
 		}

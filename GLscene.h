@@ -8,6 +8,7 @@
 #include "piece.h"
 #include "board.h"
 #include "timer.h"
+#include "background.h"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ public:
 
 	virtual ~GLscene();
 private:
-	GLobject *bground;
+	background *bground;
 	Piece *piece;
 	Board *board;
 	int width;
@@ -34,6 +35,7 @@ private:
 	bool checkWallCollision();
 	bool movePossible();
 	bool checkBoardCollision(const int row, const int col,const int rot) const;
+	void drawNextPiece();
 	bool animation;
 	SDLTimer * timer;
 };

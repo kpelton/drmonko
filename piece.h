@@ -9,7 +9,7 @@ public:
 	
     //roate();
     int getBlockType(int,int);
-    Piece();
+    Piece(float size,float x, float y);
     void nextPiece();
     void firstPiece(const int middle);
     void newPiece(const int x, const int y,const int middle);
@@ -30,6 +30,10 @@ public:
     int getCol()const{return col;}
     void setCol(const int acol){col = acol;};
     void setSize(const float isize){size=isize;};
+    bool drawPiece(float px, float py,int rot,int ty1,int ty2);
+    int getNewPiece1() const {return ntype1;} ;
+    int getNewPiece2() const {return ntype2;} ;
+
 
     int getType(const int num);
 

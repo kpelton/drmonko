@@ -40,6 +40,7 @@ public:
     void clear();
     bool isFree(const int row,const int col)const;
     void addToBoard(const int rotation,const int row,const int col,const int type1, const int type2);
+    int getVirusCount() const{return viruses;};
 
     bool clearPieces();
  private:
@@ -52,6 +53,7 @@ public:
     int ncolumns;
     int width;
     int height;
+    int viruses;
     static const int rows = 20;
     static const int columns = 10;
     struct BoardPlace{

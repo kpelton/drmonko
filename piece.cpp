@@ -3,10 +3,14 @@
 #include <time.h>
 
 using namespace piece_types;
-Piece::Piece():GLobject()
+Piece::Piece(float size,float x, float y):GLobject()
 {
     loadTextures();
+    this->size =size;
+    this->x = x;
+    this->y = y;
     firstPiece(7);
+
 }
 bool Piece::loadTextures()
 {
@@ -43,11 +47,18 @@ void Piece::rotRight()
 int Piece::getType(const int type){
 	return (type == 1) ? type1: type2;
 }
+
 bool Piece::render()
 {
-    float currx = x;
-    float curry = y;
-    float startx = x-size;
+	drawPiece(x,y,rotation,type1,type2);
+	return true;
+
+}
+bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
+{
+    float currx = px;
+    float curry = py;
+    float startx = px-size;
 
     currx -=size; //start in upper left corner
     curry -=size; //start first row
@@ -61,21 +72,21 @@ bool Piece::render()
 	for(int j=0; j<3; j++){ //column
 	    if(j==0)
 		currx+=size;
-	    if (pieces[rotation][i][j] != 0){
+	    if (pieces[rot][i][j] != 0){
 		glPushMatrix();
 		//set matrix mode to texture for rotations
 		glLoadIdentity();
     		glTranslatef(currx,curry,0.0);
 		//do correct rotation for texture allignment
 		
-		if(rotation == 0 || rotation == 2){
+		if(rot== 0 || rot== 2){
 		    glTranslatef(size/2,size/2,0.0);
 		    if(i==1) //only rotate 2 piece second row	
 			glRotatef(180,0,0,1);
 		    glTranslatef(-size/2,-size/2,0.0);
 		}
 
-		else if (rotation == 1 || rotation == 3){ //only rotate 2 piece second row
+		else if (rot == 1 || rot == 3){ //only rotate 2 piece second row
 		    glTranslatef(size/2,size/2,0.0);
 		    if (j==1)
 			glRotatef(270,0,0,1);
@@ -84,10 +95,10 @@ bool Piece::render()
 
 		    glTranslatef(-size/2,-size/2,0.0);
 		}
-		if(pieces[rotation][i][j] == 1)
-		    doColor(type1);
+		if(pieces[rot][i][j] == 1)
+		    doColor(ty1);
 		else
-		    doColor(type2);
+		    doColor(ty2);
 
 		glMatrixMode(GL_MODELVIEW); 
 	        glBegin(GL_QUADS); // Start drawing a quad primitive 
@@ -127,7 +138,12 @@ void Piece::firstPiece(const int middle)
     srand(time(NULL));
     type1 = rand()%3;
     type2 = rand()%3;
-    rotation = 1;
+    rotation = 2;
+    this->x =  x +(size*5);
+    this->y =  y  +(size);
+    setCol(5);
+    setRow(1);
+    rotation = 2;
     nextPiece();
 }
 
@@ -142,9 +158,11 @@ void Piece::newPiece(const int x, const int y,const int middle)
     //sets the current piece from the nextpiece
     type1 = ntype1;
     type2 = ntype2;
-    this->x =  x;
-    this->y =  y;
-    rotation = nrotation;
+    this->x =  x +(size*5);
+    this->y =  y  +(size);
+    setCol(5);
+    setRow(1);
+    rotation = 2;
     //Get a new Piece
     nextPiece();
 }
