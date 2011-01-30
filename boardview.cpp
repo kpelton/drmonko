@@ -1,4 +1,4 @@
-#include "background.h"
+#include "boardview.h"
 #include <iostream>
 #include <time.h>
 #include <stdio.h>
@@ -6,55 +6,42 @@
 #include "sdlWindow.h"
 #define BLOCKSPACE 1
 
-background::background()
+boardview::boardview()
 {
 	loadTextures();
 
 }
-bool background::loadTextures()
+bool boardview::loadTextures()
 {
+    GLobject::loadTextureFile("tiles/virusred.bmp",&tiles[1]);
     GLobject::loadTextureFile("tiles/tile1.bmp",&tiles[0]);
-    GLobject::loadTextureFile("tiles/virusred.bmp",&tiles[2]);
-    GLobject::loadTextureFile("tiles/tile3.bmp",&tiles[1]);
-    GLobject::loadTextureFile("tiles/virusblue.bmp",&tiles[3]);
-    // GLobject::loadTextureFile("tiles/tile5.bmp",&tiles[4]);
-    // GLobject::loadTextureFile("tiles/tile6.bmp",&tiles[5]);
-    // GLobject::loadTextureFile("tiles/tile7.bmp",&tiles[6]);
-    // GLobject::loadTextureFile("tiles/tile8.bmp",&tiles[7]);
-    // GLobject::loadTextureFile("tiles/tile9.bmp",&tiles[8]);
-    // GLobject::loadTextureFile("tiles/tile10.bmp",&tiles[8]);
+    GLobject::loadTextureFile("tiles/virusblue.bmp",&tiles[2]);
     font = GLobject::loadFont("fonts/Landmark.ttf",42);
     return true;
 }
-background::~background(){
-	glDeleteTextures(4, tiles);
+boardview::~boardview(){
+	glDeleteTextures(3, tiles);
 	TTF_CloseFont(font);
 
 }
-void background::drawBackground()
+void boardview::drawBoardview()
 {
     float hstart = height *.1;
     glEnable( GL_TEXTURE_2D );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,
 		     GL_REPEAT);
     
-    glBindTexture( GL_TEXTURE_2D, tiles[1] );
-    glBegin(GL_QUADS); // Start drawing a quad primitive 
-    glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
-    glTexCoord2i( 4, 0 );   glVertex2f(width, 0);
-    glTexCoord2i( 4, 4 );   glVertex2f(width, height);
-    glTexCoord2i( 0, 4);	glVertex2f(0,height);
-    glEnd(); 
- 	
-    glBindTexture( GL_TEXTURE_2D, tiles[0] );
-    glBegin(GL_QUADS); // Start drawing a quad primitive 
-    glTexCoord2i( 0, 0 );   glVertex2f(lstart, hstart);
-    glTexCoord2i( 2, 0 );   glVertex2f(lend, hstart);
-    glTexCoord2i( 2, 2 );   glVertex2f(lend, height);
-    glTexCoord2i( 0, 2);	glVertex2f(lstart,height);
 
-    glEnd(); 
-    glBindTexture( GL_TEXTURE_2D, tiles[2] );
+    //draw board
+    glBindTexture( GL_TEXTURE_2D, tiles[0] );
+    glBegin(GL_QUADS); // Start drawing a quad primitive
+    glTexCoord2i( 0, 0 );   glVertex2f(lstart, hstart);
+    glTexCoord2i( 4, 0 );   glVertex2f(lend, hstart);
+    glTexCoord2i( 4, 4 );   glVertex2f(lend, height);
+    glTexCoord2i( 0, 4);	glVertex2f(lstart,height);
+    glEnd();
+
+    glBindTexture( GL_TEXTURE_2D, tiles[1] );
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
  
@@ -67,7 +54,7 @@ void background::drawBackground()
     glTexCoord2i( 0, 1);	glVertex2f(0,height);
 
     glEnd(); 
-    glBindTexture( GL_TEXTURE_2D, tiles[3] );
+    glBindTexture( GL_TEXTURE_2D, tiles[2] );
     glBegin(GL_QUADS); // Start drawing a quad primitive 
     glTexCoord2i( 0, 0 );   glVertex2f(width-128, height-128);
     glTexCoord2i( 1, 0 );   glVertex2f(width, height-128);
@@ -80,7 +67,7 @@ void background::drawBackground()
     glDisable(GL_BLEND);
     glDisable( GL_TEXTURE_2D );
 }
-void background::drawText() const
+void boardview::drawText() const
 {
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
@@ -95,7 +82,7 @@ void background::drawText() const
 	glDisable(GL_BLEND);
 }
 
-void background::drawScore(const int score) const{
+void boardview::drawScore(const int score) const{
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -107,7 +94,7 @@ void background::drawScore(const int score) const{
 	glDisable(GL_BLEND);
 }
 
-void background::drawVirus(const int virus) const{
+void boardview::drawVirus(const int virus) const{
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -119,11 +106,11 @@ void background::drawVirus(const int virus) const{
 	glDisable(GL_BLEND);
 }
 
-bool background::render()
+bool boardview::render()
 {
 
     
-    drawBackground();
+    drawBoardview();
     float hstart = height *.1;
     //glColor3f(0.0f,1.0f,0.0f);
     glLineWidth(2);

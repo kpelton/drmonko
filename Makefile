@@ -4,8 +4,8 @@ CFLAGS =    -c
 all: drmonko
 
 
-drmonko: timer.o main.o board.o   piece.o  sdlWindow.o background.o GLscene.o 
-	$(CC) -g main.o timer.o piece.o sdlWindow.o background.o  board.o GLscene.o -o drmonko
+drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o 
+	$(CC) -g main.o timer.o piece.o sdlWindow.o boardview.o  board.o GLscene.o -o drmonko
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
@@ -27,8 +27,8 @@ piece.o: piece.cpp piece.h
 sdlWindow.o: sdlWindow.cpp sdlWindow.h
 	$(CC) $(CFLAGS)  sdlWindow.cpp sdlWindow.h
 
-background.o: background.cpp background.h
-	$(CC) $(CFLAGS) background.cpp background.h
+boardview.o: boardview.cpp boardview.h
+	$(CC) $(CFLAGS) boardview.cpp boardview.h
 
 board.o:board.h board.cpp
 	$(CC)$(CFLAGS)  board.h board.cpp

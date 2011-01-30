@@ -1,5 +1,5 @@
-#ifndef BACKGROUND_H
-#define BACKGROUND_H
+#ifndef BOARDVIEW_H
+#define BOARDVIEW_H
 #include "GLobject.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -15,14 +15,14 @@
 
 using namespace std;
 
-class background : public GLobject
+class boardview : public GLobject
 {
 	
 public:
-	background();
-	background(const int width, const int height, const float lstart, const float lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
+	boardview();
+	boardview(const int width, const int height, const float lstart, const float lend){this->width = width; this->height = height; this->lstart=lstart; this->lend=lend; loadTextures();};
 	bool render();
-	~background();
+	~boardview();
 	bool loadTextures();
 	bool resize(){return false;};
 	int  timerCb(){return 0;};
@@ -32,7 +32,7 @@ public:
 	void drawVirus(const int virus) const;
 
 private:
-	void drawBackground();
+	void drawBoardview();
 	GLuint tiles[10];
 	Uint32 level;
 	int width;

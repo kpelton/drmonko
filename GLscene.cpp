@@ -1,5 +1,4 @@
 #include "GLscene.h"
-#include "background.h"
 #include "piece.h"
 #include <iostream>
 
@@ -152,7 +151,7 @@ GLscene::GLscene()
 }
 GLscene::GLscene(const int width, const int height):width(width),height(height)
 {
-    bground = new background(width,height,width*.25,width*.25);
+    bground = new boardview(width,height,width*.25,width*.25);
 }
 
 GLscene::GLscene(const int width, const int height,int argc,char **argv):width(width),height(height)
@@ -165,7 +164,7 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
    
     end = start +(size *columns);
     //add a little space on each side for the white line
-    bground = new background(width,height,start-1,end+1);
+    bground = new boardview(width,height,start-1,end+1);
     piece = new Piece(size,start,height*.1);
     board = new Board(rows,columns,size,start,height*.1,width,height);
     timer = new SDLTimer();

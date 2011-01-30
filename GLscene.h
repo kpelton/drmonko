@@ -8,7 +8,7 @@
 #include "piece.h"
 #include "board.h"
 #include "timer.h"
-#include "background.h"
+#include "boardview.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ public:
 
 	virtual ~GLscene();
 private:
-	background *bground;
+	boardview *bground;
 	Piece *piece;
 	Board *board;
 	int width;
