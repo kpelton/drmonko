@@ -41,27 +41,27 @@ void boardview::drawBoardview()
     glTexCoord2i( 0, 4);	glVertex2f(lstart,height);
     glEnd();
 
-    glBindTexture( GL_TEXTURE_2D, tiles[1] );
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
- 
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glBegin(GL_QUADS); // Start drawing a quad primitive 
-    glTexCoord2i( 0, 0 );   glVertex2f(0, height-128);
-    glTexCoord2i( 1, 0 );   glVertex2f(0+128, height-128);
-    glTexCoord2i( 1, 1 );   glVertex2f(0+128, height);
-    glTexCoord2i( 0, 1);	glVertex2f(0,height);
-
-    glEnd(); 
-    glBindTexture( GL_TEXTURE_2D, tiles[2] );
-    glBegin(GL_QUADS); // Start drawing a quad primitive 
-    glTexCoord2i( 0, 0 );   glVertex2f(width-128, height-128);
-    glTexCoord2i( 1, 0 );   glVertex2f(width, height-128);
-    glTexCoord2i( 1, 1 );   glVertex2f(width, height);
-    glTexCoord2i( 0, 1);	glVertex2f(width-128,height);
-
-    glEnd(); 
+//    glBindTexture( GL_TEXTURE_2D, tiles[1] );
+//    glEnable(GL_TEXTURE_2D);
+//    glEnable(GL_BLEND);
+//
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//    glBegin(GL_QUADS); // Start drawing a quad primitive
+//    glTexCoord2i( 0, 0 );   glVertex2f(0, height-128);
+//    glTexCoord2i( 1, 0 );   glVertex2f(0+128, height-128);
+//    glTexCoord2i( 1, 1 );   glVertex2f(0+128, height);
+//    glTexCoord2i( 0, 1);	glVertex2f(0,height);
+//
+//    glEnd();
+//    glBindTexture( GL_TEXTURE_2D, tiles[2] );
+//    glBegin(GL_QUADS); // Start drawing a quad primitive
+//    glTexCoord2i( 0, 0 );   glVertex2f(width-128, height-128);
+//    glTexCoord2i( 1, 0 );   glVertex2f(width, height-128);
+//    glTexCoord2i( 1, 1 );   glVertex2f(width, height);
+//    glTexCoord2i( 0, 1);	glVertex2f(width-128,height);
+//
+//    glEnd();
 
 
     glDisable(GL_BLEND);

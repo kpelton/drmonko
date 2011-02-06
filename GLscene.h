@@ -18,6 +18,7 @@ public:
 private:
 	int width;
 	int height;
-	Game *game;
+	Game *leftgame;
+	Game *rightgame;
 };
 #endif
