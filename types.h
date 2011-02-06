@@ -13,7 +13,7 @@ namespace player_types
 		INTERNET_CLIENT_SERVER
     	};
 
-	enum tetris_key
+	enum key
 	{
 		LEFT,
 		RIGHT,
