@@ -41,6 +41,7 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
 
 
 
+
 	if (argc >1 && (strcmp(argv[1],"-2") == 0)){
 	rightgame = new Game(width/2,height,size,center,boardwidth+25,25,boardwidth+25,
 				argc,argv,player_types::p2_keys);

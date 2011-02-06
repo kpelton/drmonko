@@ -72,7 +72,7 @@ void boardview::drawText() const
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	GLobject::drawText(font, 0,255,0,(lstart+lend)/2.6, 0,"Dr. Monko");
+	GLobject::drawText(font, 0,255,0,(lstart+lend)/2.4, 0,"Dr. Monko");
 	GLobject::drawText(font, 255,0,255,lend+25, height - (height*.9),"Next");
 
 	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.35,"Viruses");
