@@ -16,7 +16,7 @@ bool boardview::loadTextures()
     GLobject::loadTextureFile("tiles/virusred.bmp",&tiles[1]);
     GLobject::loadTextureFile("tiles/tile1.bmp",&tiles[0]);
     GLobject::loadTextureFile("tiles/virusblue.bmp",&tiles[2]);
-    font = GLobject::loadFont("fonts/Landmark.ttf",42);
+    font = GLobject::loadFont("fonts/Landmark.ttf",30);
     return true;
 }
 boardview::~boardview(){
@@ -80,6 +80,7 @@ void boardview::drawText() const
 	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.6,"Score");
 
 	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void boardview::drawScore(const int score) const{
@@ -92,6 +93,7 @@ void boardview::drawScore(const int score) const{
 	GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.70,cscore);
 
 	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void boardview::drawVirus(const int virus) const{
@@ -104,6 +106,7 @@ void boardview::drawVirus(const int virus) const{
 	GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.47,cvirus);
 
 	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 bool boardview::render()

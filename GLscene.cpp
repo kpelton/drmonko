@@ -5,12 +5,14 @@
 
 void GLscene::renderScene(SDL_Event *event)
 { 
-
-	if(rightgame)
-		rightgame->renderScene(event);
+	glLoadIdentity();
+	glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 	if(leftgame)
 		leftgame->renderScene(event);
+	if(rightgame)
+	rightgame->renderScene(event);
 
 }
 
@@ -37,14 +39,20 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
 
 
 
-//	leftgame = new Game(width,height,size,center,boardwidth,start,end,
-//			argc,argv,player_types::p1_keys);
 
-	leftgame = new Game(width,height,size,center,boardwidth,0,boardwidth,
-				argc,argv,player_types::p1_keys);
 
-	rightgame = new Game(width,height,size,center,boardwidth,boardwidth,boardwidth*2,
+	if (argc >1 && (strcmp(argv[1],"-2") == 0)){
+	rightgame = new Game(width/2,height,size,center,boardwidth+25,25,boardwidth+25,
 				argc,argv,player_types::p2_keys);
+
+	start = (boardwidth+25)+150;
+	end = start +(size *columns);
+	leftgame = new Game(width/2,height,size,center,boardwidth,start,end,
+				argc,argv,player_types::p1_keys);
+	}else{
+			leftgame = new Game(width,height,size,center,boardwidth,start,end,
+					argc,argv,player_types::p1_keys);
+	}
 
 }
 
