@@ -12,7 +12,30 @@ void GLscene::renderScene(SDL_Event *event)
 	if(leftgame)
 		leftgame->renderScene(event);
 	if(rightgame)
-	rightgame->renderScene(event);
+		rightgame->renderScene(event);
+
+//	 glDisable(GL_TEXTURE_2D);
+//	 glEnable( GL_BLEND );
+//	 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//	 glColor4f(0.0,0.0,0.0,0.8);
+//
+//	glBegin(GL_QUADS); // Start drawing a quad primitive
+//	glVertex2f(0, 0);
+//	glVertex2f(width, 0);
+//	glVertex2f(width, height);
+//	glVertex2f(0,height);
+//	glEnd();
+//
+//
+//	glColor4f(1.0,1.0,1.0,1.0);
+//	glEnable(GL_TEXTURE_2D);
+//	GLobject::drawText(font, 0,255,0,width/2, 200,"1 Player");
+//	glColor4f(1.0,1.0,1.0,0.6);
+//	GLobject::drawText(font, 0,255,0,width/2, 300, "2 Player");
+//	glDisable(GL_TEXTURE_2D);
+//	glDisable( GL_BLEND );
+
 
 }
 
@@ -33,6 +56,7 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
 	float boardwidth = (columns*size);
 	float start = center - (boardwidth/2);
 	float end = start +(size *columns);
+	font = GLobject::loadFont("fonts/Landmark.ttf",45);
 
 	leftgame = NULL;
 	rightgame = NULL;

@@ -362,6 +362,7 @@ void Board::drawPill(const float x,const float y,
     glPopMatrix();
     glColor4f(1.0,1.0,1.0,1.0);
     glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
 }
 
 bool Board::render()
@@ -392,6 +393,7 @@ bool Board::render()
 					glEnd();
 					glPopMatrix();
 					glDisable(GL_BLEND);
+					glDisable(GL_TEXTURE_2D);
 				}
 			}
 			currx+=size;

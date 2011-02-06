@@ -114,7 +114,8 @@ bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
 	}
 	curry+=size;
     }
-
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
     return true;
 }
 

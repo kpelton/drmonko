@@ -20,5 +20,6 @@ private:
 	int height;
 	Game *leftgame;
 	Game *rightgame;
+	TTF_Font *font;
 };
 #endif

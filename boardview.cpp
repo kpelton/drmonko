@@ -27,11 +27,13 @@ boardview::~boardview(){
 void boardview::drawBoardview()
 {
     float hstart = height *.1;
+    glEnable( GL_BLEND );
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable( GL_TEXTURE_2D );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,
 		     GL_REPEAT);
     
-
+    glColor4f(1.0,1.0,1.0,1.0);
     //draw board
     glBindTexture( GL_TEXTURE_2D, tiles[0] );
     glBegin(GL_QUADS); // Start drawing a quad primitive
@@ -112,7 +114,7 @@ void boardview::drawVirus(const int virus) const{
 bool boardview::render()
 {
 
-    
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     drawBoardview();
     float hstart = height *.1;
     //glColor3f(0.0f,1.0f,0.0f);
