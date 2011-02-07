@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 #include "GLobject.h"
 #include "game.h"
+#include "MenuWindow.h"
 
 
 class GLscene
@@ -21,5 +22,7 @@ private:
 	Game *leftgame;
 	Game *rightgame;
 	TTF_Font *font;
+	MenuWindow *menu;
+	void setupGame();
 };
 #endif

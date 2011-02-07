@@ -4,8 +4,8 @@ CFLAGS =    -c
 all: drmonko
 
 
-drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o 
-	$(CC) -g main.o timer.o piece.o sdlWindow.o boardview.o  board.o GLscene.o game.o -o drmonko
+drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o
+	$(CC) -g main.o timer.o piece.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o -o drmonko
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
@@ -36,7 +36,8 @@ board.o:board.h board.cpp
 game.o:game.h game.cpp
 	$(CC) $(CFLAGS)  game.h game.cpp
 
-
+MenuWindow.o:MenuWindow.h MenuWindow.cpp
+	$(CC) $(CFLAGS)  MenuWindow.h MenuWindow.cpp
 clean:
 	@echo Cleaning up...
 	@rm *.o

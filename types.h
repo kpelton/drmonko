@@ -20,7 +20,7 @@ namespace player_types
 		ROTATE,
 		DOWN,
 		EXIT,
-		CHAT,
+		SELECT,
 		NONE
 	};
 
@@ -31,7 +31,7 @@ namespace player_types
 			SDLK_UP,
 			SDLK_DOWN,
 			SDLK_ESCAPE,
-			SDLK_z
+			SDLK_RETURN
 		};
 
 	static const int p2_keys[] = 

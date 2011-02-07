@@ -10,6 +10,8 @@
 #include "timer.h"
 #include "boardview.h"
 #include "types.h"
+#include "MenuWindow.h"
+
 using namespace std;
 
 static const int rows = 20;
@@ -42,7 +44,10 @@ private:
 	void drawNextPiece();
 	void handleKeys(player_types::key key);
 	void handleNoEvent();
+	void handlePauseEvent(const string & selection);
 	bool animation;
+	bool paused;
+	MenuWindow *menu;
 	const int *keys;
 	SDLTimer * timer;
 };

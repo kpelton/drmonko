@@ -8,22 +8,30 @@ void Game::renderScene(SDL_Event *event)
 	player_types::key key;
 
 
-	//All Logic hapens here
-	if( !animation && event && event->type == SDL_KEYDOWN){
-		for(int i=0; i<6; i++)
-		{
-			//cast sdl key to own virtual key mapping
-			if(event->key.keysym.sym == keys[i]){
-				key = static_cast<player_types::key>(i);
-				handleKeys(key);
-				break;
+	if (menu){
+		if(menu->handleEvent(event)){
+
+			handlePauseEvent(menu->getSelected());
+		}
+
+	}else{
+		//All Logic hapens here
+		if( !animation && event && event->type == SDL_KEYDOWN){
+			for(int i=0; i<6; i++){
+				//cast sdl key to own virtual key mapping
+				if(event->key.keysym.sym == keys[i]){
+					key = static_cast<player_types::key>(i);
+					handleKeys(key);
+					break;
+				}
 			}
 		}
-	}
-	if(event == NULL)
-		handleNoEvent();
-	//ends here
 
+
+		if(event == NULL)
+			handleNoEvent();
+		//ends here
+	}
 
 	//Do Actual drawing
 	glPushMatrix();
@@ -39,8 +47,20 @@ void Game::renderScene(SDL_Event *event)
 	glPushMatrix();
 	drawNextPiece();
 	glPopMatrix();
+	if(menu)
+		menu->render();
 }
 
+void Game::handlePauseEvent(const string & selection){
+	if (menu->getSelected() == "Resume"){
+		delete menu;
+		menu = NULL;
+	}
+	else if (menu->getSelected() == "Exit"){
+		SDL_Quit();
+	}
+
+}
 void Game::handleNoEvent()
 {
 
@@ -109,7 +129,10 @@ void Game::handleKeys(player_types::key key )
 	    	}
 		break;
 	    case player_types::EXIT:
-		SDL_Quit();
+	    	menu  = new MenuWindow(width,height,"Paused",NULL);
+	    	menu->addOption("Resume");
+	    	menu->addOption("Exit");
+
 	    default:
 		break;
 	    }
@@ -175,6 +198,8 @@ Game::Game()
 Game::Game(const int width, const int height):width(width),height(height)
 {
     bground = new boardview(width,height,width*.25,width*.25);
+    paused = false;
+    menu = NULL;
 }
 
 Game::Game(const int width, const int height,float size,float center,
@@ -194,6 +219,7 @@ Game::Game(const int width, const int height,float size,float center,
     timer->setTimer(400);
     animation = false;
     this->keys = keys;
+    menu = NULL;
 
 
 
@@ -205,5 +231,7 @@ Game::~Game()
     delete bground;
     delete board;
     delete timer;
+    if (menu)
+    	delete menu;
 
 }
