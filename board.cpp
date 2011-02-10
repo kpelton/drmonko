@@ -6,6 +6,8 @@ Board::Board():GLobject()
 {
 
 }
+
+
 Board::Board(const int trows,const int cols,const float size,
 	     const float xstart, const float ystart,
 	     const int width,const int height)
@@ -18,18 +20,24 @@ Board::Board(const int trows,const int cols,const float size,
     this->ystart = ystart;
     this->height = height;
     viruses = 0;
-    clear();
-    for (int i=10; i<rows; i++)
-	for (int j=0; j<columns; j++)
-	    if (rand()%5 == 4){
-	    	board[i][j].col = static_cast<color>(rand()%3);
-	    	board[i][j].type = VIRUS;
-	    	viruses++;
-	    }
+    newGame();
 
     loadTextures();
 
 
+}
+
+void Board::newGame()
+{
+	viruses = 0;
+	clear();
+	for (int i=10; i<rows; i++)
+		for (int j=0; j<columns; j++)
+			if (rand()%5 == 4){
+				board[i][j].col = static_cast<color>(rand()%3);
+				board[i][j].type = VIRUS;
+				viruses++;
+			}
 }
 void Board::checkVertical()
 {

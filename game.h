@@ -45,6 +45,7 @@ private:
 	void handleKeys(player_types::key key);
 	void handleNoEvent();
 	void handlePauseEvent(const string & selection);
+	void newGame();
 	bool animation;
 	bool paused;
 	MenuWindow *menu;

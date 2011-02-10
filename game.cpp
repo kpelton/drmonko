@@ -59,6 +59,11 @@ void Game::handlePauseEvent(const string & selection){
 	else if (menu->getSelected() == "Exit"){
 		SDL_Quit();
 	}
+	else if (menu->getSelected() == "New Game"){
+		delete menu;
+		menu = NULL;
+		newGame();
+	}
 
 }
 void Game::handleNoEvent()
@@ -131,6 +136,7 @@ void Game::handleKeys(player_types::key key )
 	    case player_types::EXIT:
 	    	menu  = new MenuWindow(width,height,"Paused",NULL);
 	    	menu->addOption("Resume");
+	    	menu->addOption("New Game");
 	    	menu->addOption("Exit");
 
 	    default:
@@ -138,6 +144,16 @@ void Game::handleKeys(player_types::key key )
 	    }
 }
 
+void Game::newGame(){
+	piece->nextPiece();
+	piece->nextPiece();
+	board->newGame();
+	piece->newPiece(start,height*.1,0);
+	timer->setTimer(400);
+	animation = false;
+	this->keys = keys;
+
+}
 void Game::drawNextPiece()
 {
 	//first get the colors of the next piece
@@ -216,11 +232,10 @@ Game::Game(const int width, const int height,float size,float center,
     piece = new Piece(size,start,height*.1);
     board = new Board(rows,columns,size,start,height*.1,width,height);
     timer = new SDLTimer();
+    menu = NULL;
+    this->keys = keys;
     timer->setTimer(400);
     animation = false;
-    this->keys = keys;
-    menu = NULL;
-
 
 
 }

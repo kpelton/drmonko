@@ -42,7 +42,7 @@ public:
     bool isFree(const int row,const int col)const;
     void addToBoard(const int rotation,const int row,const int col,const int type1, const int type2);
     int getVirusCount() const{return viruses;};
-
+    void newGame();
     bool clearPieces();
  private:
     void drawPill(const float x,const float y,const int row,const int col) const;
