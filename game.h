@@ -39,7 +39,7 @@ private:
 	float end;
 	float start;
 	bool checkWallCollision();
-	bool movePossible();
+	bool movePossible(int add=1);
 	bool checkBoardCollision(const int row, const int col,const int rot) const;
 	void drawNextPiece();
 	void handleKeys(player_types::key key);

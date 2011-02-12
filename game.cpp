@@ -65,6 +65,7 @@ void Game::handlePauseEvent(const string & selection){
 		newGame();
 	}
 
+
 }
 void Game::handleNoEvent()
 {
@@ -86,6 +87,13 @@ void Game::handleNoEvent()
 			board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
 			piece->newPiece(start,height*.1,0);
 			timer->resetTimer();
+			if (!movePossible(0)){ //When the game has ended
+				menu  = new MenuWindow(width,height,"GAME OVER",NULL);
+				menu->addOption("New Game");
+				menu->addOption("Exit");
+
+			}
+
 		}
 
 	}
@@ -165,12 +173,12 @@ void Game::drawNextPiece()
 
 }
 
-bool Game::movePossible()
+bool Game::movePossible(int add) //default argument of one to add to piece
 {
 	int row;
 	int col;
 	int rot = piece->getRotation();
-	row =piece->getRow()+1;
+	row =piece->getRow()+add;
 	col = piece->getCol();
 
 	if(row < rows && piece->getY()+size <= height  && checkBoardCollision(row,col,rot))
