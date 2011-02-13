@@ -2,6 +2,7 @@
 #define BOARD_H
 #include "GLobject.h"
 #include "piece.h"
+#include "particle.h"
 namespace types {
 enum rotation{
 	UP,
@@ -55,6 +56,7 @@ public:
     int width;
     int height;
     int viruses;
+    ParticleEngine pengine;
     static const int rows = 20;
     static const int columns = 10;
     struct BoardPlace{
@@ -72,6 +74,7 @@ public:
     void checkHorizontal();
     void checkVertical();
     bool moveDown();
+
 
     BoardPlace board[rows][columns];
 };

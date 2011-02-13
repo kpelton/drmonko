@@ -69,8 +69,10 @@ void boardview::drawBoardview()
     glDisable(GL_BLEND);
     glDisable( GL_TEXTURE_2D );
 }
+
 void boardview::drawText() const
 {
+
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -80,9 +82,10 @@ void boardview::drawText() const
 	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.35,"Viruses");
 
 	GLobject::drawText(font, 255,0,255,lend+25, (height*.9) *.6,"Score");
-
-	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+
+
 }
 
 void boardview::drawScore(const int score) const{

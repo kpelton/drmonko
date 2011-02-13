@@ -177,7 +177,8 @@ void Board::removeMatchVertical(const int startrow,const int col)
 {
 	//removes vertical  matches
 	color start = board[startrow][col].col;
-
+	float currx = xstart;
+	float curry = ystart;
 	int count = 0;
 	cout << startrow <<endl;
 	for(int i=startrow-1; i<rows; i++){
@@ -185,8 +186,12 @@ void Board::removeMatchVertical(const int startrow,const int col)
 		if (board[i][col].type != NOTHING && board[i][col].col == start){
 				count++;
 				cout << i <<endl;
-			if (board[i][col].type == VIRUS)
+
+			if (board[i][col].type == VIRUS){
 				viruses--;
+				pengine.addExplosion(currx+(col*size),curry+(i*size));
+			}
+
 			if (board[i][col].type == SETPILL){
 				changePillType(i,col);
 			}
@@ -202,15 +207,18 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 {
 	//removes horizontal matches
 	color start = board[row][startcol].col;
-
+	float currx = xstart;
+	float curry = ystart;
 	int count = 0;
 	cout << startcol <<endl;
 	for(int j=startcol-1; j<columns; j++){
 
 		if (board[row][j].type != NOTHING && board[row][j].col == start){
 				count++;
-			if (board[row][j].type == VIRUS)
-					viruses--;
+			if (board[row][j].type == VIRUS){
+				viruses--;
+				pengine.addExplosion(currx+(j*size),curry+(row*size));
+			}
 			if (board[row][j].type == SETPILL){
 				changePillType(row,j);
 			}
@@ -408,6 +416,7 @@ bool Board::render()
 		}
 		curry+=size;
 	}
-
+	//render particles
+	pengine.render();
     return true;
 }

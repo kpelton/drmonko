@@ -12,6 +12,7 @@
 #include <time.h>
 #include "piece.h"
 #include <string>
+#include "particle.h"
 
 using namespace std;
 

@@ -6,8 +6,6 @@
 void Game::renderScene(SDL_Event *event)
 {
 	player_types::key key;
-
-
 	if (menu){
 		if(menu->handleEvent(event)){
 
@@ -78,6 +76,11 @@ void Game::handleNoEvent()
 		if (movePossible()){
 			if (animation){
 				animation = board->clearPieces();
+				if(board->getVirusCount()== 0){
+					menu  = new MenuWindow(width,height,"You Win!!",NULL);
+					menu->addOption("New Game");
+					menu->addOption("Exit");
+				}
 			}else{
 				piece->setCoords(piece->getX(),piece->getY()+size);
 				piece->setRow(piece->getRow()+1);
@@ -87,7 +90,7 @@ void Game::handleNoEvent()
 			board->addToBoard(rot,row,col,piece->getType(1),piece->getType(2));
 			piece->newPiece(start,height*.1,0);
 			timer->resetTimer();
-			if (!movePossible(0)){ //When the game has ended
+			if (!movePossible(0) || board->getVirusCount()== 0){ //When the game has ended
 				menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 				menu->addOption("New Game");
 				menu->addOption("Exit");
