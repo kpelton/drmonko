@@ -224,7 +224,7 @@ void sdlWindow::renderLoop()
 
 	    scene->renderScene(NULL);
 	    SDL_GL_SwapBuffers( );	
-	    SDL_Delay(5);
+	    SDL_Delay(1);
 	}
  
  }

@@ -16,6 +16,7 @@ bool boardview::loadTextures()
     GLobject::loadTextureFile("tiles/virusred.bmp",&tiles[1]);
     GLobject::loadTextureFile("tiles/tile1.bmp",&tiles[0]);
     GLobject::loadTextureFile("tiles/virusblue.bmp",&tiles[2]);
+    GLobject::loadTextureFile("tiles/particle.bmp",&tiles[3]);
     font = GLobject::loadFont("fonts/Landmark.ttf",30);
     return true;
 }
@@ -133,6 +134,7 @@ bool boardview::render()
     glVertex2f(lend, height); // ending point of the line
     glEnd( );
     drawText();
+
 
 
     return true;
