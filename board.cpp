@@ -191,7 +191,7 @@ void Board::removeMatchVertical(const int startrow,const int col)
 			if (board[i][col].type == VIRUS){
 				viruses--;
 				pengine.addExplosion(currx+(col*size),curry+(i*size));
-				pengine.startSmoke(currx+(col*size),curry+(i*size));
+				//pengine.startSmoke(currx+(col*size),curry+(i*size));
 			}
 
 			if (board[i][col].type == SETPILL){

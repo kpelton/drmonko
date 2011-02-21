@@ -154,7 +154,7 @@ void Piece::nextPiece()
 	ntype2 = rand()%3;
 	nrotation = 1;
 }
-void Piece::newPiece(const int x, const int y,const int middle)
+void Piece::newPiece(const float x, const float y,const int middle)
 {
     //sets the current piece from the nextpiece
     type1 = ntype1;

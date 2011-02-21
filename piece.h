@@ -13,7 +13,7 @@ public:
     ~Piece(){glDeleteTextures(1, &texture);};
     void nextPiece();
     void firstPiece(const int middle);
-    void newPiece(const int x, const int y,const int middle);
+    void newPiece(const float x, const float y,const int middle);
     bool loadTextures();
     bool resize(){return false;};
     int  timerCb(){return 0;};
