@@ -3,12 +3,15 @@
 #include <time.h>
 
 using namespace piece_types;
-Piece::Piece(float size,float x, float y):GLobject()
+Piece::Piece(const float & size,const float& x,const float& y,const float& left,const float& right,const float &top):GLobject()
 {
     loadTextures();
-    this->size =size;
+    this->size = size;
     this->x = x;
     this->y = y;
+    this->left = left;
+    this->right = right;
+    this->top = top;
     firstPiece(7);
 
 }
@@ -147,22 +150,30 @@ void Piece::firstPiece(const int middle)
     rotation = 2;
     nextPiece();
 }
+void Piece::setRow(const int arow)
+{
+	setCoords(getX(),top +(size*arow));
+	row = arow;
+};
 
+void Piece::setCol(const int acol)
+{
+	setCoords(left+(acol*size),getY());
+	col = acol;
+}
 void Piece::nextPiece()
 {
 	ntype1 = rand()%3;
 	ntype2 = rand()%3;
 	nrotation = 1;
 }
-void Piece::newPiece(const float x, const float y,const int middle)
+void Piece::newPiece(const int row, const int col)
 {
     //sets the current piece from the nextpiece
     type1 = ntype1;
     type2 = ntype2;
-    this->x =  x +(size*5);
-    this->y =  y  +(size);
-    setCol(5);
-    setRow(1);
+    setCol(row);
+    setRow(col);
     rotation = 2;
     //Get a new Piece
     nextPiece();

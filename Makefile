@@ -1,11 +1,11 @@
-CC = g++ -O3 -g  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
+CC = g++ -O2 -g  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
 CFLAGS =    -c
 
 all: drmonko
 
 
-drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o
-	$(CC) -g main.o timer.o piece.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o -o drmonko
+drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o splayer.o
+	$(CC) -g main.o timer.o piece.o splayer.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o -o drmonko
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
@@ -41,6 +41,10 @@ MenuWindow.o:MenuWindow.h MenuWindow.cpp
 
 particle.o:particle.h particle.cpp
 	$(CC) $(CFLAGS)  particle.h particle.cpp
+	
+splayer.o:splayer.h splayer.cpp
+	$(CC) $(CFLAGS)  splayer.h splayer.cpp
+	
 clean:
 	@echo Cleaning up...
 	@rm *.o

@@ -45,11 +45,11 @@ void GLscene::setupGame(){
 
 		start = (boardwidth+25)+150;
 		end = start +(size *columns);
-		leftgame = new Game(width,height,size,center,boardwidth,start,end,
+		leftgame = new SPlayer(width,height,size,center,boardwidth,start,end,
 				0,NULL,player_types::p1_keys);
 	}else if (menu->getSelected() == "1 Player"){
-		leftgame = new Game(width,height,size,center,boardwidth,start,end,
-				0,NULL,player_types::p1_keys);
+		leftgame = new SPlayer(width,height,size,center,boardwidth,start,end,
+						0,NULL,player_types::p1_keys);
 	}
 	else if (menu->getSelected() == "Exit"){
 		SDL_Quit();

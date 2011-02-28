@@ -39,9 +39,9 @@ void boardview::drawBoardview()
     glBindTexture( GL_TEXTURE_2D, tiles[0] );
     glBegin(GL_QUADS); // Start drawing a quad primitive
     glTexCoord2i( 0, 0 );   glVertex2f(lstart, hstart);
-    glTexCoord2i( 4, 0 );   glVertex2f(lend, hstart);
-    glTexCoord2i( 4, 4 );   glVertex2f(lend, height);
-    glTexCoord2i( 0, 4);	glVertex2f(lstart,height);
+    glTexCoord2i( 1, 0 );   glVertex2f(lend, hstart);
+    glTexCoord2i( 1, 1 );   glVertex2f(lend, height);
+    glTexCoord2i( 0, 1);	glVertex2f(lstart,height);
     glEnd();
 
 //    glBindTexture( GL_TEXTURE_2D, tiles[1] );

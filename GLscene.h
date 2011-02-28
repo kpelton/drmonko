@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 #include "GLobject.h"
 #include "game.h"
+#include "splayer.h"
 #include "MenuWindow.h"
 
 
@@ -19,7 +20,7 @@ public:
 private:
 	int width;
 	int height;
-	Game *leftgame;
+	SPlayer *leftgame;
 	Game *rightgame;
 	TTF_Font *font;
 	MenuWindow *menu;

@@ -16,6 +16,11 @@ using namespace std;
 
 static const int rows = 20;
 static const int columns = 10;
+enum Status{
+	INPROGRESS,
+	WIN,
+	LOSS,
+};
 
 
 class Game
@@ -27,7 +32,9 @@ public:
 			float boardwidth,float start,float end, int argc,
 			char **argv , const int *keys);
 	Game();
-
+	void setPaused(bool paused){this->paused = paused;};
+	void newGame();
+	Status getStatus(){return status;};
 	virtual ~Game();
 private:
 	boardview *bground;
@@ -44,12 +51,11 @@ private:
 	void drawNextPiece();
 	void handleKeys(player_types::key key);
 	void handleNoEvent();
-	void handlePauseEvent(const string & selection);
-	void newGame();
+
 	bool animation;
 	bool paused;
-	MenuWindow *menu;
 	const int *keys;
 	SDLTimer * timer;
+	Status status;
 };
 #endif
