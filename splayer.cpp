@@ -2,19 +2,16 @@
 #include "types.h"
 
 SPlayer::SPlayer(const int width, const int height, float size, float center,
-		float boardwidth, float start, float end, int argc, char **argv,
-		const int *keys) :
-	width(width), height(height) {
-	//start at 90 percent of the screen for title
-	this->size = size;
+		 float boardwidth, float start, float end, int argc, char **argv):Player(),
+										  width(width), height(height) 
+{
+        this->size = size;
 	this->start = start;
 	this->end = end;
-
-	//add a little space on each side for the white line
+	keys = player_types::p1_keys;
 	game = new Game(width,height,size,center,
 			boardwidth,start,end,argc,argv,keys);
 	menu = NULL;
-	this->keys = keys;
 	paused = false;
 
 }

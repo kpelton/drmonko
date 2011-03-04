@@ -17,7 +17,6 @@ public:
     void newPiece(const int row, const int col);
     bool loadTextures();
     bool resize(){return false;};
-    int  timerCb(){return 0;};
     bool render();
 
     int getRotation()const {return rotation;};
@@ -25,7 +24,7 @@ public:
     void rotLeft();
     void rotRight();
 
-    float getMaxX()const;
+    float getMaxX()const; //this function deals with coordinates and needs to be changed to rows/cols
     int getRow()const{return row;}
     void setRow(const int arow);
     int getCol()const{return col;}

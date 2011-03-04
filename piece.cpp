@@ -84,18 +84,27 @@ bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
 		
 		if(rot== 0 || rot== 2){
 		    glTranslatef(size/2,size/2,0.0);
-		    if(i==1) //only rotate 2 piece second row	
-			glRotatef(180,0,0,1);
+		    if(i==1) //only rotate 2 piece second row
+			{	
+			    glRotatef(180,0,0,1);
+			}
+		    else{
+			glScalef(-1,1,1);
+		    }
 		    glTranslatef(-size/2,-size/2,0.0);
 		}
 
 		else if (rot == 1 || rot == 3){ //only rotate 2 piece second row
+		   
 		    glTranslatef(size/2,size/2,0.0);
-		    if (j==1)
+		    
+		    if (j==1){
 			glRotatef(270,0,0,1);
-		    else if (j==2)
+		    }else if (j==2){
+			glScalef(1,-1,1);
 			glRotatef(90,0,0,1);
-
+		    }
+		    
 		    glTranslatef(-size/2,-size/2,0.0);
 		}
 		if(pieces[rot][i][j] == 1)

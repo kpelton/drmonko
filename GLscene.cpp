@@ -19,17 +19,9 @@ void GLscene::renderScene(SDL_Event *event)
 			menu = NULL;
 		}
 	}else{
-		if(leftgame)
-			leftgame->renderScene(event);
-		if(rightgame)
-			rightgame->renderScene(event);
+		if(game)
+			game->renderScene(event);
 	}
-}
-
-
-GLscene::GLscene()
-{
-	
 }
 
 void GLscene::setupGame(){
@@ -40,33 +32,25 @@ void GLscene::setupGame(){
 	float end = start +(size *columns);
 
 	if (menu->getSelected() == "2 Player"){
-		rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-				0,NULL,player_types::p2_keys);
-
-		start = (boardwidth+25)+150;
-		end = start +(size *columns);
-		leftgame = new SPlayer(width,height,size,center,boardwidth,start,end,
-				0,NULL,player_types::p1_keys);
+	        game = new TwoPlayer(width,height,size,center,boardwidth,start,end,
+				     0,NULL,NULL);
+	    
 	}else if (menu->getSelected() == "1 Player"){
-		leftgame = new SPlayer(width,height,size,center,boardwidth,start,end,
-						0,NULL,player_types::p1_keys);
+		game = new SPlayer(width,height,size,center,boardwidth,start,end,
+						0,NULL);
 	}
 	else if (menu->getSelected() == "Exit"){
 		SDL_Quit();
 	}
 
 }
-GLscene::GLscene(const int width, const int height):width(width),height(height)
-{
-    rightgame =  new Game(width,height);
-}
+
 
 GLscene::GLscene(const int width, const int height,int argc,char **argv):width(width),height(height)
 {
 
 	font = GLobject::loadFont("fonts/Landmark.ttf",45);
-	leftgame = NULL;
-	rightgame = NULL;
+	game = NULL;
 
 	menu = new MenuWindow(width,height,"Select Game Type",font);
 	menu->addOption("1 Player");
@@ -78,10 +62,8 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
 GLscene::~GLscene()
 {
 	TTF_CloseFont(font);
-	if(leftgame)
-		delete leftgame;
-	if(rightgame)
-		delete rightgame;
+	if(game)
+		delete game;
 	if(menu)
 		delete menu;
 }

@@ -35,6 +35,7 @@ public:
 	void setPaused(bool paused){this->paused = paused;};
 	void newGame();
 	Status getStatus(){return status;};
+	int getVirusCount(){return board->getVirusCount();};
 	virtual ~Game();
 private:
 	boardview *bground;

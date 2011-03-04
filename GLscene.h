@@ -4,7 +4,9 @@
 #include <GL/glu.h>
 #include "GLobject.h"
 #include "game.h"
+#include "player.h"
 #include "splayer.h"
+#include "twoplayer.h"
 #include "MenuWindow.h"
 
 
@@ -12,15 +14,13 @@ class GLscene
 {
 public:
 	virtual void renderScene(SDL_Event *event);
-	GLscene(int width, int height);
 	GLscene(int width,int height, int argc, char **argv);
-	GLscene();
 
 	virtual ~GLscene();
 private:
 	int width;
 	int height;
-	SPlayer *leftgame;
+	Player *game;
 	Game *rightgame;
 	TTF_Font *font;
 	MenuWindow *menu;

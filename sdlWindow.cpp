@@ -8,7 +8,7 @@ const char * sdlWindow::musicFile = "song.wav";
 sdlWindow::sdlWindow()
 {
 	initWindow();
-	scene = new GLscene(SCREEN_WIDTH,SCREEN_HEIGHT);
+	
     	done = false;
 	this->fullscreen = false;
 }
@@ -224,7 +224,6 @@ void sdlWindow::renderLoop()
 
 	    scene->renderScene(NULL);
 	    SDL_GL_SwapBuffers( );	
-	    SDL_Delay(1);
 	}
  
  }

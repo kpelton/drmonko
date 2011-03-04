@@ -119,7 +119,6 @@ public:
 	virtual bool resize(){return true;};
 	virtual bool loadTextures();
 	virtual ~ParticleEngine();
-	virtual int timerCb(){return 0;};
 	void addExplosion(const int x, const int y);
 	void startSnow();
 	void startSmoke(float x, float y);

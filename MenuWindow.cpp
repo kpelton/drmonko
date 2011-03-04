@@ -35,8 +35,8 @@ void MenuWindow::addOption(const string & option){
 
 }
 bool MenuWindow::handleEvent(SDL_Event *event){
+	//Return true if item was selected
 	player_types::key key;
-
 	if( event && event->type == SDL_KEYDOWN){
 			for(int i=0; i<player_types::NONE; i++)
 			{
@@ -52,7 +52,7 @@ bool MenuWindow::handleEvent(SDL_Event *event){
 	return false;
 }
 bool MenuWindow::handleKey(player_types::key key){
-
+	//Switch menu selection
 	switch(key){
 		case player_types::ROTATE:
 			if (selected >0)

@@ -1,5 +1,5 @@
-#ifndef SPLAYER
-#define SPLAYER
+#ifndef TWOPLAYER_H
+#define TWOPLAYER_H
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <math.h>
@@ -8,20 +8,20 @@
 #include "types.h"
 #include "game.h"
 #include "player.h"
-
 using namespace std;
 
-class SPlayer: public Player
+class TwoPlayer: public Player
 {
 public:
 	void renderScene(SDL_Event *event);
-	SPlayer(int width,int height,float size,float center,
+	TwoPlayer(int width,int height,float size,float center,
 			float boardwidth,float start,float end, int argc,
-		char **argv);
+			char **argv , const int *keys);
 
-	virtual ~SPlayer();
+	virtual ~TwoPlayer();
 private:
-	Game *game;
+	Game *leftgame;
+	Game *rightgame;
 	int width;
 	int height;
 	float size;
@@ -33,5 +33,6 @@ private:
 	MenuWindow *menu;
 	const int *keys;
 	SDLTimer * timer;
+	void handleStatus(const Status status);
 };
 #endif

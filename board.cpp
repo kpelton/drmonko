@@ -300,7 +300,7 @@ void Board::addToBoard(const int rotation, const int row,const int col,const int
 				board[currow][currcol].col = static_cast<color> (type);
 
 				if(i==0){
-					board[currow][currcol].rot = UP;
+				        board[currow][currcol].rot = UP;
 				}
 				else if(i ==1 && j==1 && (rotation == 1 || rotation == 3)){
 					board[currow][currcol].rot = LEFT;
@@ -309,7 +309,7 @@ void Board::addToBoard(const int rotation, const int row,const int col,const int
 					board[currow][currcol].rot = RIGHT;
 				}
 				else{
-					board[currow][currcol].rot = DOWN;
+				        board[currow][currcol].rot = DOWN;
 				}
 
 			}
@@ -345,13 +345,18 @@ void Board::drawPill(const float x,const float y,
 			break;
 		case RIGHT: //only rotate 2 piece second row
 			glTranslatef(size/2,size/2,0.0);
+			glScalef(1,-1,1);
 			glRotatef(90,0,0,1);
 			glTranslatef(-size/2,-size/2,0.0);
 			break;
 		case NONE:
 			glBindTexture( GL_TEXTURE_2D,tiles[BLANK]);
 			break;
-
+		case UP:  //only rotate 2 piece second row
+		       glTranslatef(size/2,size/2,0.0);
+		       glScalef(-1,1,1);
+		       glTranslatef(-size/2,-size/2,0.0);
+		       break;
 		default:
 			break;
     }

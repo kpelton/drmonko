@@ -31,7 +31,6 @@ public:
 	virtual bool render() = 0;
 	virtual bool resize()=0;
 	virtual bool loadTextures()=0;
-	virtual int  timerCb()=0;
 	virtual ~GLobject(){};
 	static TTF_Font* loadFont(const char *file, const int ptsize)
 	{

@@ -37,7 +37,6 @@ public:
     ~Board(){glDeleteTextures(5, tiles);};
     bool loadTextures();
     bool resize(){return false;};
-    int  timerCb(){return 0;};
     bool render();
     void clear();
     bool isFree(const int row,const int col)const;

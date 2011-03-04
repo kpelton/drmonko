@@ -26,7 +26,6 @@ public:
 	~boardview();
 	bool loadTextures();
 	bool resize(){return false;};
-	int  timerCb(){return 0;};
 	void setLevel(const Uint32 alevel){level=alevel;};
 	void drawText() const;
 	void drawScore(const int score) const;
