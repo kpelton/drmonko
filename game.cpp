@@ -69,6 +69,7 @@ void Game::handleNoEvent() {
 void Game::handleKeys(player_types::key key) {
 	int row;
 	int col;
+	int max;
 	int rot = piece->getRotation();
 	switch (key) {
 
@@ -84,8 +85,8 @@ void Game::handleKeys(player_types::key key) {
 		row = piece->getRow();
 		col = piece->getCol() + 1;
 		//only move it if doesn't go out of the board
-		if (piece->getMaxX()+size <= end
-				&& checkBoardCollision(row, col, rot)) {
+		max = piece->getMaxX()+size; //hack
+		if (max <= end && checkBoardCollision(row, col, rot)){
 			piece->setCol(piece->getCol() + 1);
 		}
 		break;

@@ -28,6 +28,18 @@ Board::Board(const int trows,const int cols,const float size,
 
 }
 
+void Board::addPiece(int num)
+{
+    int col = rand() %columns;
+	for(int i=0; i<num; i++){
+	    if (board[i][col].type == NOTHING){
+		board[i][col].type = SETPILL;
+		board[i][col].rot = NONE;
+		board[i][col].col = static_cast<color>(rand() %3);
+		}
+	}
+
+}
 void Board::newGame()
 {
 	viruses = 0;
@@ -324,14 +336,18 @@ void Board::drawPill(const float x,const float y,
 {
     rotation rot =board[row][col].rot;
     color pcolor = board[row][col].col;
+    
+    
+    glColor4f(1,1,1,1);
     glPushMatrix();
     //set matrix mode to texture for rotations
     glLoadIdentity();
     glTranslatef(x,y,0.0);
     //do correct rotation for texture allignment
-    glBindTexture( GL_TEXTURE_2D,tiles[PILL]);
     glEnable(GL_TEXTURE_2D);
+    glBindTexture( GL_TEXTURE_2D,tiles[PILL]);
     glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     switch(rot){
 		case LEFT: //only rotate 2 piece second row
 			glTranslatef(size/2,size/2,0.0);

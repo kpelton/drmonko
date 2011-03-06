@@ -34,5 +34,7 @@ private:
 	const int *keys;
 	SDLTimer * timer;
 	void handleStatus(const Status status);
+	int leftcount;
+	int rightcount;
 };
 #endif

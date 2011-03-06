@@ -41,7 +41,7 @@ void Particle::render()
 	float posx = (vx *time)+ x;
 	float posy = ((gravity*(time*time))/2)+(vy * time) + y;
 	//if (gravity != 50.0){
-		a-= 0.001;
+		a-= 0.0001;
 	//}
 	//else
 	//	a= 1.0;
@@ -229,8 +229,8 @@ Explosion::Explosion(const float x, const float y,GLuint& texture,const int seco
 
 
 	for(int i= 0; i<count; i++){
-		r = 0.0;//((float)rand() / (float) RAND_MAX) *1.0;
-		g = 0.0;//((float)rand() / (float) RAND_MAX) *1.0;
+		r = ((float)rand() / (float) RAND_MAX) *1.0;
+		g = ((float)rand() / (float) RAND_MAX) *1.0;
 		b = 1.0;
 		vx = ((float)rand() / (float) RAND_MAX) *200.0;
 		vy = ((float)rand() / (float) RAND_MAX) *1000.0;

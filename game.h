@@ -36,6 +36,7 @@ public:
 	void newGame();
 	Status getStatus(){return status;};
 	int getVirusCount(){return board->getVirusCount();};
+	void addPiece(int num){board->addPiece(num);};
 	virtual ~Game();
 private:
 	boardview *bground;
