@@ -39,6 +39,14 @@ void GLscene::setupGame(){
 		game = new SPlayer(width,height,size,center,boardwidth,start,end,
 						0,NULL);
 	}
+	else if (menu->getSelected() == "2 Player Net Host"){
+	    game = new NetPlayer(width,height,size,center,boardwidth,start,end,
+				 0,NULL,player_types::INTERNET_SERVER);
+	}
+	else if (menu->getSelected() == "2 Player Net Connect"){
+	    game = new NetPlayer(width,height,size,center,boardwidth,start,end,
+				 0,NULL,player_types::INTERNET_CLIENT);
+	}
 	else if (menu->getSelected() == "Exit"){
 		SDL_Quit();
 	}
@@ -55,6 +63,8 @@ GLscene::GLscene(const int width, const int height,int argc,char **argv):width(w
 	menu = new MenuWindow(width,height,"Select Game Type",font);
 	menu->addOption("1 Player");
 	menu->addOption("2 Player");
+	menu->addOption("2 Player Net Host");
+	menu->addOption("2 Player Net Connect");
 	menu->addOption("Exit");
 
 }

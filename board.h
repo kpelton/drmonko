@@ -45,6 +45,7 @@ public:
     int getVirusCount() const{return viruses;};
     void newGame();
     bool clearPieces();
+    void copyBoard(Board &other);
  private:
     void drawPill(const float x,const float y,const int row,const int col) const;
     GLuint tiles[5];

@@ -13,10 +13,10 @@ using namespace std;
 class TwoPlayer: public Player
 {
 public:
-	void renderScene(SDL_Event *event);
+	virtual void renderScene(SDL_Event *event);
 	TwoPlayer(int width,int height,float size,float center,
 			float boardwidth,float start,float end, int argc,
-			char **argv , const int *keys);
+		  char **argv , const int *keys,bool flip=false);
 
 	virtual ~TwoPlayer();
 private:
@@ -36,5 +36,6 @@ private:
 	void handleStatus(const Status status);
 	int leftcount;
 	int rightcount;
+	bool flip;
 };
 #endif

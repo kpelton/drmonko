@@ -148,7 +148,6 @@ void Piece::doColor(const int ctype) const
 }
 void Piece::firstPiece(const int middle)
 {
-    srand(time(NULL));
     type1 = rand()%3;
     type2 = rand()%3;
     rotation = 2;

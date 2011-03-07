@@ -5,12 +5,8 @@ namespace player_types
   
 	enum p_type
 	{
-		PLAYER1,
-		PLAYER2,
 		INTERNET_CLIENT,
-		INTERNET_SERVER,
-		INTERNET_SERVER_CLIENT,
-		INTERNET_CLIENT_SERVER
+		INTERNET_SERVER
     	};
 
 	enum key

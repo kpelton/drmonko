@@ -38,6 +38,7 @@ public:
 	int getVirusCount(){return board->getVirusCount();};
 	void addPiece(int num){board->addPiece(num);};
 	virtual ~Game();
+	void copyBoard(Game *other){board->copyBoard(*other->board);};
 private:
 	boardview *bground;
 	Piece *piece;

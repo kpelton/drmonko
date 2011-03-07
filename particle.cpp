@@ -74,8 +74,7 @@ void Particle::render()
 
 Smoke::Smoke(float x,float y,GLuint& texture){
 
-		srand(time(NULL));
-		timer.setTimer(10);
+    timer.setTimer(10);
 
 		this->texture = texture;
 		this->x = x;
@@ -148,7 +147,7 @@ bool Smoke::render(){
 
 Snow::Snow(GLuint& texture){
 
-		srand(time(NULL));
+		
 		timer.setTimer(200);
 
 		this->texture = texture;
@@ -224,7 +223,7 @@ Explosion::Explosion(const float x, const float y,GLuint& texture,const int seco
 	float r;
 	float g;
 	float b;
-	srand(time(NULL));
+	
 	this->texture = texture;
 
 

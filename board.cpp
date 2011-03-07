@@ -27,6 +27,14 @@ Board::Board(const int trows,const int cols,const float size,
 
 
 }
+void Board::copyBoard(Board &other){
+    
+    for (int i=0; i<rows; i++){
+	for(int j=0; j<columns; j++){
+	    board[i][j] = other.board[i][j];
+	}
+    }
+}
 
 void Board::addPiece(int num)
 {

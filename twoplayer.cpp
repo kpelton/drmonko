@@ -3,7 +3,7 @@
 
 TwoPlayer::TwoPlayer(const int width, const int height, float size, float center,
 		float boardwidth, float start, float end, int argc, char **argv,
-		     const int *keys):Player(),
+		     const int *keys,bool flip):Player(),
 	width(width), height(height) {
 	//start at 90 percent of the screen for title
 	this->size = size;
@@ -11,15 +11,25 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 	this->end = end;
 
 	//add a little space on each side for the white line
-	rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-			     NULL,0,player_types::p2_keys);
+	if (flip)
+	    rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
+				 NULL,0,player_types::p1_keys);
+	else
+	    rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
+				 NULL,0,player_types::p2_keys);
 	start = (boardwidth+25.0)+150.0;
 	end = start +(size *(columns));
-	leftgame = new Game(width,height,size,center,boardwidth,start,end,
-			    NULL,0,player_types::p1_keys);
+	if (flip)
+	    leftgame = new Game(width,height,size,center,boardwidth,start,end,
+				NULL,0,player_types::p2_keys);
+	else
+	    leftgame = new Game(width,height,size,center,boardwidth,start,end,
+				NULL,0,player_types::p1_keys);
 	menu = NULL;
+	leftgame->copyBoard(rightgame);
 	this->keys = player_types::p2_keys;
 	paused = false;
+	this->flip = flip;
 
 }
 

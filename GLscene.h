@@ -7,6 +7,8 @@
 #include "player.h"
 #include "splayer.h"
 #include "twoplayer.h"
+#include "networkplayer.h"
+#include "types.h"
 #include "MenuWindow.h"
 
 

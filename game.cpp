@@ -189,7 +189,6 @@ Game::Game(const int width, const int height, float size, float center,
 	this->size = size;
 	this->start = start;
 	this->end = end;
-
 	//add a little space on each side for the white line
 	bground = new boardview(width, height, start - 1, end + 1);
 	piece = new Piece(size, start, height * .1, start, end, height * .1);
