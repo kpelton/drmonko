@@ -145,10 +145,6 @@ bool Smoke::render(){
 
 Snow::Snow(GLuint& texture){
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> network
 		timer.setTimer(200);
 
 		this->texture = texture;
@@ -224,10 +220,6 @@ Explosion::Explosion(const float x, const float y,GLuint& texture,const int seco
 	float r;
 	float g;
 	float b;
-<<<<<<< HEAD
-	
-=======
->>>>>>> network
 	this->texture = texture;
 
 
