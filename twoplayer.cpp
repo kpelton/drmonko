@@ -11,25 +11,17 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 	this->end = end;
 
 	//add a little space on each side for the white line
-	if (flip)
-	    rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-				 NULL,0,player_types::p1_keys);
-	else
-	    rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-				 NULL,0,player_types::p2_keys);
+	rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
+			     0,0,player_types::p2_keys);
 	start = (boardwidth+25.0)+150.0;
 	end = start +(size *(columns));
-	if (flip)
-	    leftgame = new Game(width,height,size,center,boardwidth,start,end,
-				NULL,0,player_types::p2_keys);
-	else
-	    leftgame = new Game(width,height,size,center,boardwidth,start,end,
-				NULL,0,player_types::p1_keys);
+	leftgame = new Game(width,height,size,center,boardwidth,start,end,
+			    0,0,player_types::p1_keys);
 	menu = NULL;
 	leftgame->copyBoard(rightgame);
 	this->keys = player_types::p2_keys;
 	paused = false;
-	this->flip = flip;
+	newGame();
 
 }
 
@@ -50,10 +42,12 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 
 	} else {
 		//All Logic hapens here
+	       
 		if (event && event->type == SDL_KEYDOWN) {
+		        Uint8 *keystate = SDL_GetKeyState(NULL);
 			for (int i = 0; i < 6; i++) {
 				//cast sdl key to own virtual key mapping
-				if (event->key.keysym.sym == keys[i]) {
+				if (keystate[keys[i]]) {
 					key = static_cast<player_types::key> (i);
 					handleKeys(key);
 					break;
@@ -114,6 +108,16 @@ void TwoPlayer::handleStatus(const Status status){
 
     }
 }
+
+void TwoPlayer::newGame(){
+    time_t seed;
+    seed = time(NULL);
+    srand(seed);
+    leftgame->newGame();
+    srand(seed);
+    rightgame->newGame();
+}
+
 void TwoPlayer::handlePauseEvent(const string & selection) {
 	if (menu->getSelected() == "Resume") {
 		leftgame->setPaused(false);
@@ -125,8 +129,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;
 		menu = NULL;
-		leftgame->newGame();
-		rightgame->newGame();
+		newGame();
 		
 	}
 

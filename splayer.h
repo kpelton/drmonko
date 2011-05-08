@@ -29,6 +29,7 @@ private:
 	float start;
 	void handleKeys(player_types::key key);
 	void handlePauseEvent(const string & selection);
+	void newGame();
 	bool paused;
 	MenuWindow *menu;
 	const int *keys;

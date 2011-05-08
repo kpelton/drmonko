@@ -36,6 +36,6 @@ private:
 	void handleStatus(const Status status);
 	int leftcount;
 	int rightcount;
-	bool flip;
+	void newGame();
 };
 #endif

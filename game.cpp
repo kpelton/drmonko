@@ -4,11 +4,12 @@
 
 void Game::renderScene(SDL_Event *event) {
 	player_types::key key;
-		//All Logic hapens here
+	
+		Uint8 *keystate = SDL_GetKeyState(NULL);
 		if (!paused && !animation && event && event->type == SDL_KEYDOWN) {
 			for (int i = 0; i < 6; i++) {
 				//cast sdl key to own virtual key mapping
-				if (event->key.keysym.sym == keys[i]) {
+				if (keystate[keys[i]]) {
 					key = static_cast<player_types::key> (i);
 					handleKeys(key);
 					break;
