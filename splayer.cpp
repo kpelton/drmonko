@@ -14,6 +14,8 @@ SPlayer::SPlayer(const int width, const int height, float size, float center,
 	menu = NULL;
 	paused = false;
 
+	newGame();
+
 }
 
 
@@ -24,6 +26,7 @@ SPlayer::~SPlayer(){
 void SPlayer::renderScene(SDL_Event *event) {
 	player_types::key key;
 	Status gameStatus;
+	
 	if (menu) {
 		if (menu->handleEvent(event)) {
 
@@ -32,10 +35,11 @@ void SPlayer::renderScene(SDL_Event *event) {
 
 	} else {
 		//All Logic hapens here
-		if (event && event->type == SDL_KEYDOWN) {
+		Uint8 *keystate = SDL_GetKeyState(NULL);
+                if (event && event->type == SDL_KEYDOWN) {
 			for (int i = 0; i < 6; i++) {
 				//cast sdl key to own virtual key mapping
-				if (event->key.keysym.sym == keys[i]) {
+			        if (keystate[keys[i]]) {
 					key = static_cast<player_types::key> (i);
 					handleKeys(key);
 					break;
@@ -75,7 +79,10 @@ void SPlayer::renderScene(SDL_Event *event) {
 	}
 
 }
-
+void SPlayer::newGame(){
+    srand(time(NULL));
+    game->newGame();
+}
 void SPlayer::handlePauseEvent(const string & selection) {
 	if (menu->getSelected() == "Resume") {
 		game->setPaused(false);
@@ -86,7 +93,7 @@ void SPlayer::handlePauseEvent(const string & selection) {
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;
 		menu = NULL;
-		game->newGame();
+		newGame();
 	}
 
 }
