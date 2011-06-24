@@ -23,8 +23,6 @@ public:
     void setRotation(const int rot) {rotation=rot;};
     void rotLeft();
     void rotRight();
-
-    float getMaxX()const; //this function deals with coordinates and needs to be changed to rows/cols
     int getRow()const{return row;}
     void setRow(const int arow);
     int getCol()const{return col;}

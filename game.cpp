@@ -70,7 +70,6 @@ void Game::handleNoEvent() {
 void Game::handleKeys(player_types::key key) {
 	int row;
 	int col;
-	int max;
 	int rot = piece->getRotation();
 	switch (key) {
 
@@ -86,8 +85,8 @@ void Game::handleKeys(player_types::key key) {
 		row = piece->getRow();
 		col = piece->getCol() + 1;
 		//only move it if doesn't go out of the board
-		max = piece->getMaxX()+size; //hack
-		if (max <= end && checkBoardCollision(row, col, rot)){
+		
+		if (checkBoardCollision(row, col, rot)&& ( (rot %2 == 0 &&col <=9) || (rot %2==1 && col <=8 ))){
 			piece->setCol(piece->getCol() + 1);
 		}
 		break;
@@ -96,9 +95,10 @@ void Game::handleKeys(player_types::key key) {
 		col = piece->getCol();
 		piece->rotLeft();
 		rot = piece->getRotation();
-
+		
 		//if the move is not valid put it back to the way it was
-		if (!checkBoardCollision(row, col, rot) || piece->getMaxX() > end)
+		if (!checkBoardCollision(row, col, rot) || 
+		    ((rot == 1) && col == 9) || (rot == 3 && col == 9))
 			piece->rotRight();
 		break;
 	case player_types::DOWN:

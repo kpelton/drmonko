@@ -27,18 +27,6 @@ void Piece::rotLeft()
     else
 	rotation = 0;
 }
-float Piece::getMaxX()const
-{
-    float startx = x+size;
-    for (int i=0;i<3; i++){
-	    for (int j=2; j>=0; j--){ //row
-		float  currx=startx +(i*size);
-		if (pieces[rotation][i][j] != 0)
-		    return currx;
-	    }
-	}
-    return 0;
-}
 
 void Piece::rotRight()
 {

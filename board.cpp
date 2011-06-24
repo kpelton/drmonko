@@ -23,7 +23,7 @@ Board::Board(const int trows,const int cols,const float size,
     newGame();
 
     loadTextures();
-    pengine.startSnow();
+    // pengine.startSnow();
 
 
 }
