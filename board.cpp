@@ -23,7 +23,7 @@ Board::Board(const int trows,const int cols,const float size,
     newGame();
 
     loadTextures();
-    // pengine.startSnow();
+    //pengine.startSnow();
 
 
 }
@@ -210,12 +210,12 @@ void Board::removeMatchVertical(const int startrow,const int col)
 
 			if (board[i][col].type == VIRUS){
 				viruses--;
-				pengine.addExplosion(currx+(col*size),curry+(i*size));
-				//pengine.startSmoke(currx+(col*size),curry+(i*size));
+				addExplosion(currx+(col*size),curry+(i*size),start);
 			}
 
 			if (board[i][col].type == SETPILL){
 				changePillType(i,col);
+				addExplosion(currx+(col*size),curry+(i*size),start);
 			}
 
 			board[i][col].type=NOTHING;
@@ -224,7 +224,26 @@ void Board::removeMatchVertical(const int startrow,const int col)
 		}
 	}
 }
+void Board::addExplosion(const float x, const float y, const color col){
+    
 
+	switch(col){
+		case RED:
+			glColor4f(1.0,0.0,0.0,1.0);
+			pengine.addExplosion(x,y,1,0,0);
+			break;
+		case YELLOW:
+		        pengine.addExplosion(x,y,1,1,0);
+		        break;
+		case BLUE:
+		        pengine.addExplosion(x,y,0,0,1);
+			break;
+		default:
+			break;
+    }
+	
+
+}
 void Board::removeMatchHorizontal(const int row,const int startcol)
 {
 	//removes horizontal matches
@@ -239,10 +258,13 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 				count++;
 			if (board[row][j].type == VIRUS){
 				viruses--;
-				pengine.addExplosion(currx+(j*size),curry+(row*size));
+			       
+				addExplosion(currx+(j*size),curry+(row*size),start);
 			}
 			if (board[row][j].type == SETPILL){
 				changePillType(row,j);
+				addExplosion(currx+(j*size),curry+(row*size),start);
+
 			}
 			board[row][j].type=NOTHING;
 
@@ -251,13 +273,6 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 		}
 	}
 }
-//enum rotation{
-//	UP,
-//	LEFT,
-//	DOWN,
-//	RIGHT,
-//	NONE=-1,
-//};
 void Board::changePillType(const int row, const int col)
 {
 	switch(board[row][col].rot)
@@ -431,10 +446,11 @@ bool Board::render()
 					glPushMatrix();
 					//set matrix mode to texture for rotations
 					glLoadIdentity();
-					glTranslatef(currx,curry,0.0);
+					glTranslatef(currx+rand()%4,curry+rand()%4,0.0);
+					
 					glBegin(GL_QUADS); // Start drawing a quad primitive
 					glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
-					glTexCoord2i( 1, 0 );   glVertex2f(size, 0);
+					glTexCoord2i( 1, 0 );   glVertex2f(size,0);
 					glTexCoord2i( 1, 1 );   glVertex2f(size, size);
 					glTexCoord2i( 0, 1);	glVertex2f(0,size);
 					glEnd();

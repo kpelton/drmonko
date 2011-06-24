@@ -25,10 +25,10 @@ void Particle::setup(const float x,const float y,const float vx,const float vy,
 	this->g = g;
 	this->b = b;
 	this->gravity = gravity;
-	a = 1.0;
+	a = 0.4;
 	last = SDL_GetTicks();
 	time=0;
-
+	
 
 }
 
@@ -40,37 +40,21 @@ void Particle::render()
 	time +=ftime;
 	float posx = (vx *time)+ x;
 	float posy = ((gravity*(time*time))/2)+(vy * time) + y;
-	//if (gravity != 50.0){
-		a-= 0.0001;
-	//}
-	//else
-	//	a= 1.0;
+	a -=.0001;
+	
 	last = current_time;
 	curr_x = posx;
 	curr_y= posy;
 
 	glColor4f(r,g,b,a);
+	
 	glBegin(GL_POINTS);
+	
 	glVertex2f(posx,posy);
 	glEnd();
 
 	glColor4f(1.0,1.0,1.0,1.0);
 }
-//class Explosion{
-//
-//public:
-//	Explosion(const float x, const float y,GLUint texture,const int seconds)
-//	virtual void render();
-//
-//private:
-//	int life;
-//	SDLtimer timer;
-//	GLUint texture;
-//	vector<Particle> options;
-//
-//};
-//
-//
 
 Smoke::Smoke(float x,float y,GLuint& texture){
 		timer.setTimer(10);
@@ -212,23 +196,18 @@ bool Snow::render(){
 }
 
 
-Explosion::Explosion(const float x, const float y,GLuint& texture,const int seconds){
+Explosion::Explosion(const float x, const float y,GLuint& texture,const int seconds,float r,float g, float b){
 	float vx;
 	float vy;
 	float nx;
 	float ny;
-	float r;
-	float g;
-	float b;
+
 	this->texture = texture;
 
 
 	for(int i= 0; i<count; i++){
-		r = ((float)rand() / (float) RAND_MAX) *1.0;
-		g = ((float)rand() / (float) RAND_MAX) *1.0;
-		b = 1.0;
-		vx = ((float)rand() / (float) RAND_MAX) *200.0;
-		vy = ((float)rand() / (float) RAND_MAX) *1000.0;
+	        vx = ((float)rand() / (float) RAND_MAX) *100.0;
+		vy = ((float)rand() / (float) RAND_MAX) *100.0;
 		nx = rand() %2;
 		ny = rand() %2;
 		nx = (nx==1) ? 1: -1;
@@ -237,7 +216,7 @@ Explosion::Explosion(const float x, const float y,GLuint& texture,const int seco
 		vy*= ny;
 
 		particles[i] = new Particle(x,y,vx,vy,
-			r,g, b,texture);
+					    r,g, b,texture,-500.0);
 	}
 	timer.setTimer(seconds);
 }
@@ -252,8 +231,10 @@ bool Explosion::render(){
 		glPointSize(10);
 		glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
 	for(int i= 0; i<count; i++)
+	    {
+		glPointSize(20);
 		particles[i]->render();
-
+	    }
 	glDisable(GL_POINT_SPRITE);
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
@@ -282,9 +263,9 @@ ParticleEngine::~ParticleEngine()
 	glDeleteTextures(1, &texture);
 }
 
-void ParticleEngine::addExplosion(const int x, const int y)
+void ParticleEngine::addExplosion(const float x, const float y,float r, float g, float b)
 {
-	 explosions.push_back(new Explosion(x,y,texture,5000));
+    explosions.push_back(new Explosion(x,y,texture,5000,r,g,b));
 }
 
 void ParticleEngine::startSnow(){

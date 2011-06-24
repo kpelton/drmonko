@@ -28,6 +28,7 @@ void Game::renderScene(SDL_Event *event) {
 	bground->drawVirus(board->getVirusCount());
 	glPopMatrix();
 	glPushMatrix();
+	pengine.render();
 	piece->render();
 	board->render();
 	glPopMatrix();
@@ -36,6 +37,7 @@ void Game::renderScene(SDL_Event *event) {
 	glPushMatrix();
 	drawNextPiece();
 	glPopMatrix();
+	
 
 }
 void Game::handleNoEvent() {
@@ -52,6 +54,7 @@ void Game::handleNoEvent() {
 					status = WIN; //set status to win so parent can handle win
 			} else {
 				piece->setRow(piece->getRow() + 1);
+			
 			}
 
 		} else {
@@ -67,6 +70,31 @@ void Game::handleNoEvent() {
 
 }
 
+
+void Game::addExplosion(int color){
+    switch(color){
+    case RED:
+	pengine.addExplosion(piece->getX()+(piece->getSize()/2),piece->getY(),1.0,0.0,0.0);
+	break;
+    case YELLOW:
+	pengine.addExplosion(piece->getX()+(piece->getSize()/2),piece->getY(),1.0,1.0,0.0);
+	break;
+    case BLUE:
+	pengine.addExplosion(piece->getX()+(piece->getSize()/2),piece->getY(),0.0,0.0,1.0);
+	break;
+    default:
+	break;
+    }
+    
+}
+
+void Game::addTrail(){ 
+    addExplosion(piece->getType1());
+    addExplosion(piece->getType2());
+    
+
+}
+
 void Game::handleKeys(player_types::key key) {
 	int row;
 	int col;
@@ -79,6 +107,8 @@ void Game::handleKeys(player_types::key key) {
 		col = piece->getCol() - 1;
 		if (col >= 0 && checkBoardCollision(row, col, rot)) {
 			piece->setCol(piece->getCol() - 1);
+			addTrail();
+			
 		}
 		break;
 	case player_types::RIGHT:
@@ -88,6 +118,7 @@ void Game::handleKeys(player_types::key key) {
 		
 		if (checkBoardCollision(row, col, rot)&& ( (rot %2 == 0 &&col <=9) || (rot %2==1 && col <=8 ))){
 			piece->setCol(piece->getCol() + 1);
+			addTrail();
 		}
 		break;
 	case player_types::ROTATE:
@@ -98,12 +129,17 @@ void Game::handleKeys(player_types::key key) {
 		
 		//if the move is not valid put it back to the way it was
 		if (!checkBoardCollision(row, col, rot) || 
-		    ((rot == 1) && col == 9) || (rot == 3 && col == 9))
+		    ((rot == 1) && col == 9) || (rot == 3 && col == 9)){
 			piece->rotRight();
+		}else{
+		    addTrail();
+		}
 		break;
+		
 	case player_types::DOWN:
 		if (movePossible()) {
 			piece->setRow(piece->getRow() + 1);
+			addTrail();
 		}
 		break;
 

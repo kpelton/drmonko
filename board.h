@@ -75,7 +75,7 @@ public:
     void checkHorizontal();
     void checkVertical();
     bool moveDown();
-
+    void addExplosion(const float x, const float y, const color col);
 
     BoardPlace board[rows][columns];
 };

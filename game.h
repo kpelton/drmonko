@@ -11,6 +11,7 @@
 #include "boardview.h"
 #include "types.h"
 #include "MenuWindow.h"
+#include "particle.h"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ public:
 	void addPiece(int num){board->addPiece(num);};
 	virtual ~Game();
 	void copyBoard(Game *other){board->copyBoard(*other->board);};
+	
 private:
 	boardview *bground;
 	Piece *piece;
@@ -54,7 +56,9 @@ private:
 	void drawNextPiece();
 	void handleKeys(player_types::key key);
 	void handleNoEvent();
-
+	void addExplosion(int color);
+	ParticleEngine pengine;
+	void addTrail();
 	bool animation;
 	bool paused;
 	const int *keys;

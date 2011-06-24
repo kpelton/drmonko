@@ -65,11 +65,11 @@ public:
 class Explosion: public Effect{
 
 public:
-	Explosion(const float x, const float y,GLuint& texture,const int seconds);
+    Explosion(const float x, const float y,GLuint& texture,const int seconds,float r, float g, float b);
 	bool render();
 	virtual ~Explosion();
 private:
-	static const int count = 500;
+	static const int count = 20 ;
 	Particle *particles[count];
 	Uint32 last;
 	SDLTimer timer;
@@ -101,7 +101,7 @@ public:
 	bool render();
 	//virtual ~Explosion();
 private:
-	static const int count = 5000;
+	static const int count = 10;
 	vector <Particle *>particles;
 	Uint32 last;
 	SDLTimer timer;
@@ -119,7 +119,7 @@ public:
 	virtual bool resize(){return true;};
 	virtual bool loadTextures();
 	virtual ~ParticleEngine();
-	void addExplosion(const int x, const int y);
+	void addExplosion(const float x, const float y,float r, float g, float b);
 	void startSnow();
 	void startSmoke(float x, float y);
 

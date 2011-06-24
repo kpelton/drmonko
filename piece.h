@@ -31,8 +31,11 @@ public:
     bool drawPiece(float px, float py,int rot,int ty1,int ty2);
     int getNewPiece1() const {return ntype1;} ;
     int getNewPiece2() const {return ntype2;} ;
-
-
+    float getX() {return x;};
+    float getY(){return y;};
+    float getSize(){return size;};
+    int getType1(){return type1;};
+    int getType2(){return type2;};
     int getType(const int num);
 
  private:
@@ -51,8 +54,7 @@ public:
     float right;
     float top;
     void setCoords(const float x, const float y){this->x=x;this->y=y;};
-    float getX() {return x;};
-    float getY(){return y;};
+
     float size;
     int nrotation;
     GLuint texture;
