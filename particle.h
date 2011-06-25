@@ -69,7 +69,7 @@ public:
 	bool render();
 	virtual ~Explosion();
 private:
-	static const int count = 20 ;
+	static const int count = 2 ;
 	Particle *particles[count];
 	Uint32 last;
 	SDLTimer timer;
@@ -101,7 +101,7 @@ public:
 	bool render();
 	//virtual ~Explosion();
 private:
-	static const int count = 10;
+	static const int count = 100;
 	vector <Particle *>particles;
 	Uint32 last;
 	SDLTimer timer;

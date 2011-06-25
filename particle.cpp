@@ -40,7 +40,7 @@ void Particle::render()
 	time +=ftime;
 	float posx = (vx *time)+ x;
 	float posy = ((gravity*(time*time))/2)+(vy * time) + y;
-	a -=.0001;
+	a -=.00001;
 	
 	last = current_time;
 	curr_x = posx;
@@ -76,7 +76,7 @@ bool Smoke::render(){
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glPointSize(25);
+	glPointSize(100);
 
 
 	glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);

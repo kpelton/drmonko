@@ -19,16 +19,18 @@ public:
 		  char **argv , const int *keys,bool flip=false);
 
 	virtual ~TwoPlayer();
-private:
+
+protected:
+	virtual void handleKeys(player_types::key key);
+	virtual void handlePauseEvent(const string & selection);
 	Game *leftgame;
 	Game *rightgame;
+private:
 	int width;
 	int height;
 	float size;
 	float end;
 	float start;
-	void handleKeys(player_types::key key);
-	void handlePauseEvent(const string & selection);
 	bool paused;
 	MenuWindow *menu;
 	const int *keys;
@@ -37,5 +39,6 @@ private:
 	int leftcount;
 	int rightcount;
 	void newGame();
+
 };
 #endif

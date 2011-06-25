@@ -40,6 +40,20 @@ void Game::renderScene(SDL_Event *event) {
 	
 
 }
+void Game::addToBoard(){
+    int row = piece->getRow();
+    int col = piece->getCol();
+    int rot = piece->getRotation();
+    if (!movePossible()){
+	board->addToBoard(rot, row, col, piece->getType(1), piece->getType(
+									   2));
+	piece->newPiece(5, 1);
+	timer->resetTimer();
+	if (!movePossible(0) || board->getVirusCount() == 0)
+	    status = LOSS; //game is over
+    }
+}
+
 void Game::handleNoEvent() {
 
 	int row = piece->getRow();
@@ -58,12 +72,8 @@ void Game::handleNoEvent() {
 			}
 
 		} else {
-			board->addToBoard(rot, row, col, piece->getType(1), piece->getType(
-					2));
-			piece->newPiece(5, 1);
-			timer->resetTimer();
-			if (!movePossible(0) || board->getVirusCount() == 0)
-				status = LOSS; //game is over
+		    addToBoard();
+			
 		}
 
 	}
@@ -89,8 +99,8 @@ void Game::addExplosion(int color){
 }
 
 void Game::addTrail(){ 
-    addExplosion(piece->getType1());
-    addExplosion(piece->getType2());
+    //addExplosion(piece->getType1());
+    //addExplosion(piece->getType2());
     
 
 }

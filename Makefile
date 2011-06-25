@@ -4,8 +4,12 @@ CFLAGS =    -c -O3
 all: drmonko
 
 
-drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o splayer.o twoplayer.o networkplayer.o
-	$(CC) -g main.o timer.o piece.o splayer.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o  networkplayer.o twoplayer.o -o drmonko
+drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o splayer.o twoplayer.o networkplayer.o netgame.o
+	$(CC) -g main.o timer.o piece.o splayer.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o  networkplayer.o twoplayer.o  netgame.o -o drmonko
+
+
+netgame.o: netgame.h netgame.cpp
+	$(CC) $(CFLAGS)  netgame.h netgame.cpp
 
 main.o: main.cpp 
 	$(CC) $(CFLAGS) main.cpp 
@@ -48,6 +52,8 @@ twoplayer.o:twoplayer.h twoplayer.cpp
 
 networkplayer.o:networkplayer.h networkplayer.cpp
 	$(CC) $(CFLAGS)  networkplayer.h networkplayer.cpp
+
+
 clean:
 	@echo Cleaning up...
 	@rm *.o

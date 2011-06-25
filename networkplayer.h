@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include "player.h"
-#include "twoplayer.h"
+#include "netgame.h"
 #ifdef _WIN32
 #include <SDL/SDL_net.h>
 #else
@@ -26,11 +26,20 @@ private:
 	void setupClient();
 	bool checkActivity();
 	static const int PORT=52312;
-	TwoPlayer *twoplayer;
+	NetTwoPlayer *twoplayer;
 	TCPsocket sd, csd;
 	IPaddress ip, *remoteIP;
 	player_types::p_type type;
 	SDLNet_SocketSet set;
 	const int *keys;
 };
+
+enum netmsg
+    {
+	UPDATE,
+	SEED,
+	NEWGAME,
+	LINE,
+	PAUSE,
+    };
 #endif

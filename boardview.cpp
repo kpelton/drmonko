@@ -96,7 +96,7 @@ void boardview::drawScore(const int score) const{
 	char cscore[255];
 
 	sprintf(cscore,"%i",score);
-	GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.70,cscore);
+	//GLobject::drawText(font, 0,191,255,lend+50, (height*.9)*.70,cscore);
 
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);

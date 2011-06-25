@@ -23,7 +23,7 @@ Board::Board(const int trows,const int cols,const float size,
     newGame();
 
     loadTextures();
-    //pengine.startSnow();
+    
 
 
 }
@@ -211,6 +211,7 @@ void Board::removeMatchVertical(const int startrow,const int col)
 			if (board[i][col].type == VIRUS){
 				viruses--;
 				addExplosion(currx+(col*size),curry+(i*size),start);
+				
 			}
 
 			if (board[i][col].type == SETPILL){
@@ -264,6 +265,7 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 			if (board[row][j].type == SETPILL){
 				changePillType(row,j);
 				addExplosion(currx+(j*size),curry+(row*size),start);
+				
 
 			}
 			board[row][j].type=NOTHING;

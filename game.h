@@ -40,7 +40,14 @@ public:
 	void addPiece(int num){board->addPiece(num);};
 	virtual ~Game();
 	void copyBoard(Game *other){board->copyBoard(*other->board);};
-	
+	int getRow(){return piece->getRow();};
+	int getCol(){return piece->getCol();};
+	int getRot(){return piece->getRotation();};
+	Piece * getPiece(){return piece;};
+	void setRow(const int row){piece->setRow(row);};
+	void setCol(const int col){piece->setCol(col);};
+	void setRot(const int rot){piece->setRotation(rot);};
+	void addToBoard();
 private:
 	boardview *bground;
 	Piece *piece;
@@ -55,7 +62,7 @@ private:
 	bool checkBoardCollision(const int row, const int col,const int rot) const;
 	void drawNextPiece();
 	void handleKeys(player_types::key key);
-	void handleNoEvent();
+	
 	void addExplosion(int color);
 	ParticleEngine pengine;
 	void addTrail();
@@ -64,5 +71,6 @@ private:
 	const int *keys;
 	SDLTimer * timer;
 	Status status;
+	void handleNoEvent();
 };
 #endif
