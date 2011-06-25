@@ -25,7 +25,7 @@ void Particle::setup(const float x,const float y,const float vx,const float vy,
 	this->g = g;
 	this->b = b;
 	this->gravity = gravity;
-	a = 0.4;
+	a = 0.8;
 	last = SDL_GetTicks();
 	time=0;
 	

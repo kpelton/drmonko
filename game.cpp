@@ -22,6 +22,8 @@ void Game::renderScene(SDL_Event *event) {
 		//ends here
 
 
+		board->clearPieces();	
+
 	//Do Actual drawing
 	glPushMatrix();
 	bground->render();
@@ -32,8 +34,7 @@ void Game::renderScene(SDL_Event *event) {
 	piece->render();
 	board->render();
 	glPopMatrix();
-	if (!animation)
-		animation = board->clearPieces();
+
 	glPushMatrix();
 	drawNextPiece();
 	glPopMatrix();
@@ -44,14 +45,12 @@ void Game::addToBoard(){
     int row = piece->getRow();
     int col = piece->getCol();
     int rot = piece->getRotation();
-    if (!movePossible()){
-	board->addToBoard(rot, row, col, piece->getType(1), piece->getType(
-									   2));
-	piece->newPiece(5, 1);
-	timer->resetTimer();
-	if (!movePossible(0) || board->getVirusCount() == 0)
-	    status = LOSS; //game is over
-    }
+    board->addToBoard(rot, row, col, piece->getType(1), piece->getType(
+								       2));
+    piece->newPiece(5, 1);
+    timer->resetTimer();
+  
+    
 }
 
 void Game::handleNoEvent() {
@@ -59,11 +58,15 @@ void Game::handleNoEvent() {
 	int row = piece->getRow();
 	int col = piece->getCol();
 	int rot = piece->getRotation();
+	
+	board->clearPieces();
 
 	if (timer->isDone()) {
+	   
 		if (movePossible()) {
-			if (animation) {
-				animation = board->clearPieces();
+		     timer->resetTimer();
+		     if (animation){
+				
 				if (board->getVirusCount() == 0)
 					status = WIN; //set status to win so parent can handle win
 			} else {
@@ -73,7 +76,9 @@ void Game::handleNoEvent() {
 
 		} else {
 		    addToBoard();
-			
+		      if (!movePossible(0) || board->getVirusCount() == 0)
+			  status = LOSS; //game is over
+		      
 		}
 
 	}
@@ -158,16 +163,20 @@ void Game::handleKeys(player_types::key key) {
 	}
 }
 
+void Game::startGame(){
+    piece->setCurr(0);
+    piece->firstPiece(6);
+    timer->setTimer(1000);
+    animation = false;
+    paused = false;
+    this->keys = keys;
+    status = INPROGRESS;
+}
 void Game::newGame() {
-	piece->nextPiece();
-	piece->nextPiece();
+
 	board->newGame();
 	piece->newPiece(5, 1);
-	timer->setTimer(400);
-	animation = false;
-	paused = false;
-	this->keys = keys;
-	status = INPROGRESS;
+
 
 }
 void Game::drawNextPiece() {

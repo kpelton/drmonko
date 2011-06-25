@@ -13,7 +13,15 @@ NetTwoPlayer::NetTwoPlayer(int width,int height,float size,float center,
     lastrot = TwoPlayer::leftgame->getRot();
     TwoPlayer::rightgame->setPaused(true);
     this->csd = csd;
- 
+    
+}
+
+void NetTwoPlayer::setCurr(const int curr){
+
+    TwoPlayer::rightgame->addToBoard();
+    TwoPlayer::rightgame->getPiece()->setCurr(curr);
+    
+    cout <<"Called" <<curr <<endl;
 }
 
 
@@ -22,27 +30,42 @@ void NetTwoPlayer::setNetRowCol(const int row, const int col,const int rot){
     TwoPlayer::rightgame->setRow(row);
     TwoPlayer::rightgame->setCol(col);
     TwoPlayer::rightgame->setRot(rot);
-    TwoPlayer::rightgame->addToBoard();
+    
 }
 
 void NetTwoPlayer::renderScene(SDL_Event *event){
+    last =  TwoPlayer::leftgame->getPiece()->getCurr();
+
     TwoPlayer::renderScene(event);
+     TwoPlayer::rightgame->setPaused(true);
     Uint32 row  = TwoPlayer::leftgame->getRow();
     Uint32 col = TwoPlayer::leftgame->getCol();
     Uint32 rot = TwoPlayer::leftgame->getRot();
-  
+    Uint32 curr = TwoPlayer::leftgame->getPiece()->getCurr();
 
-    netmsg msg = UPDATE; //update
+    netmsg msg;
     Uint32 rowcol = col | (row << 8) ;
     rowcol |= (rot <<16);
     
-    
-    if ((row != lastrow) || col != lastcol || lastrot != rot) //update send to other player
+    if (curr != last){
+
+	msg = NEWPIECE;
+	
+	SDLNet_TCP_Send(csd,&msg,sizeof(netmsg));
+	SDLNet_TCP_Send(csd,&curr,sizeof(Uint32)); 
+
+ 
+	//new piece send newpiece command
+	cout << "NewPiece!"<< curr <<endl;
+    }
+    if (row != lastrow || col != lastcol || lastrot != rot) //update send to other player
 	{
-	  
+	    msg = UPDATE;
 	    SDLNet_TCP_Send(csd,&msg,sizeof(netmsg));
 	    SDLNet_TCP_Send(csd,&rowcol,sizeof(Uint32)); 
 	}
+    
+
 
     lastrow = row;
     lastcol = col;
@@ -59,6 +82,6 @@ void NetTwoPlayer::handleKeys(player_types::key key){
 }
 void NetTwoPlayer::handlePauseEvent(const string & selection){
 
-    TwoPlayer::handlePauseEvent(selection);
+    //TwoPlayer::handlePauseEvent(selection);
 }
 

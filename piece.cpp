@@ -12,7 +12,13 @@ Piece::Piece(const float & size,const float& x,const float& y,const float& left,
     this->left = left;
     this->right = right;
     this->top = top;
+    for (int i=0; i<piececount; i++){
+	pieces1[i] = rand()%3;
+	pieces2[i] = rand()%3;
+    }
+    curr = 0;
     firstPiece(7);
+    
 
 }
 bool Piece::loadTextures()
@@ -136,8 +142,8 @@ void Piece::doColor(const int ctype) const
 }
 void Piece::firstPiece(const int middle)
 {
-    type1 = rand()%3;
-    type2 = rand()%3;
+    type1 = pieces1[curr];
+    type2 = pieces2[curr];
     rotation = 2;
     this->x =  x +(size*5);
     this->y =  y  +(size);
@@ -159,9 +165,15 @@ void Piece::setCol(const int acol)
 }
 void Piece::nextPiece()
 {
-	ntype1 = rand()%3;
-	ntype2 = rand()%3;
+    ntype1 = pieces1[curr+1];
+    ntype2 = pieces2[curr+1];
 	nrotation = 1;
+	if (curr == piececount)
+	    curr = 0;
+	else
+	    curr++;
+		
+	cout <<"CURR:"<<curr<<endl;
 }
 void Piece::newPiece(const int row, const int col)
 {

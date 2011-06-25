@@ -48,6 +48,12 @@ public:
 	void setCol(const int col){piece->setCol(col);};
 	void setRot(const int rot){piece->setRotation(rot);};
 	void addToBoard();
+	void startGame();
+	void copyPieces(Game *other){
+	    piece->setListType1(other->piece->getListType1());
+	    piece->setListType2(other->piece->getListType2());
+	    piece->setCurr(other->piece->getCurr());
+	};
 private:
 	boardview *bground;
 	Piece *piece;

@@ -39,7 +39,7 @@ enum netmsg
 	UPDATE,
 	SEED,
 	NEWGAME,
-	LINE,
+	NEWPIECE,
 	PAUSE,
     };
 #endif

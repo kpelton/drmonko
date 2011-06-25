@@ -32,6 +32,7 @@ void NetPlayer::renderScene(SDL_Event *event){
     Uint32 col;
     Uint32 buffer;
     Uint32 rot;
+    Uint32 curr;
 
 
     if (event && event->type == SDL_KEYDOWN) {
@@ -48,7 +49,7 @@ void NetPlayer::renderScene(SDL_Event *event){
 	twoplayer->renderScene(event);
     else
 	twoplayer->renderScene(NULL);
-    if(checkActivity()){
+    while(checkActivity()){
 	SDLNet_TCP_Recv(csd,&msg,sizeof(msg));
 	printf("Got Packet Type:%i\n",static_cast<int>(msg));
 	if(msg == UPDATE){
@@ -57,8 +58,17 @@ void NetPlayer::renderScene(SDL_Event *event){
 	    col = (buffer & 0x0000ff00)>>8;
 	    rot = (buffer & 0x00ff0000)>>16;
 	    twoplayer->setNetRowCol(col,row,rot);
-	    printf("Buffer:%i\n",row);
-	}    
+	}
+
+	if(msg == NEWPIECE){
+	    cout <<"Got New Piece"<<endl;
+	    SDLNet_TCP_Recv(csd,&curr,sizeof(Uint32));
+	    cout <<curr<<endl;
+	    twoplayer->setCurr(curr);
+	    
+
+	}
+    
     }
 }
 
@@ -85,7 +95,7 @@ void NetPlayer::setupClient(){
 	}
  
 	/* Resolve the host we are connecting to */
-	if (SDLNet_ResolveHost(&ip,"localhost", PORT) < 0)
+	if (SDLNet_ResolveHost(&ip,"192.168.2.126", PORT) < 0)
 	{
 		fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);

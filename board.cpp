@@ -34,6 +34,7 @@ void Board::copyBoard(Board &other){
 	    board[i][j] = other.board[i][j];
 	}
     }
+    viruses = other.getVirusCount();
 }
 
 void Board::addPiece(int num)

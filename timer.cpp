@@ -10,7 +10,6 @@ void SDLTimer::setTimer(const int ainterval)
 bool SDLTimer::isDone()
 {
 	if (last+interval <= SDL_GetTicks()){
-		resetTimer();
 		return true;
 	}
 	return false;

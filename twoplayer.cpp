@@ -9,7 +9,6 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 	this->size = size;
 	this->start = start;
 	this->end = end;
-
 	//add a little space on each side for the white line
 	rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
 			     0,0,player_types::p2_keys);
@@ -19,10 +18,14 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 			    0,0,player_types::p1_keys);
 	menu = NULL;
 	leftgame->copyBoard(rightgame);
+	leftgame->copyPieces(rightgame);
+	leftgame->startGame();
+	rightgame->startGame();
+	
 	this->keys = player_types::p2_keys;
 	paused = false;
-	newGame();
-
+	
+	
 }
 
 
@@ -74,12 +77,12 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 			handleStatus(leftgame->getStatus());
 		}
 	
-	if(leftcount - leftgame->getVirusCount() >1){
-	    rightgame->addPiece(leftcount - leftgame->getVirusCount());
-	}
-	if(rightcount - rightgame->getVirusCount() >1){
-	    leftgame->addPiece(rightcount - rightgame->getVirusCount());
-	}
+	// if(leftcount - leftgame->getVirusCount() >1){
+	//     rightgame->addPiece(leftcount - leftgame->getVirusCount());
+	// }
+	// if(rightcount - rightgame->getVirusCount() >1){
+	//     leftgame->addPiece(rightcount - rightgame->getVirusCount());
+	// }
 	
 
 }
@@ -110,8 +113,7 @@ void TwoPlayer::handleStatus(const Status status){
 }
 
 void TwoPlayer::newGame(){
-    time_t seed;
-    seed = time(NULL);
+    time_t seed=time(NULL);
     srand(seed);
     leftgame->newGame();
     srand(seed);

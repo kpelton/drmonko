@@ -18,6 +18,7 @@ public:
 	
       void renderScene(SDL_Event *event);
       void setNetRowCol(const int row, const int col,const int rot);
+      void setCurr(const int curr);
 
 private:
 	Status handleNoEvent();
@@ -27,6 +28,7 @@ private:
 	Uint32 lastrow;
 	Uint32 lastrot;
 	TCPsocket csd;
+	Uint32 last;
 	
 };
 #endif

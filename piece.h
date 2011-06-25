@@ -3,6 +3,8 @@
 #include "GLobject.h"
 //This is the class definition for the current piece
 
+
+
 class Piece : public GLobject
 {
 public:
@@ -38,6 +40,21 @@ public:
     int getType2(){return type2;};
     int getType(const int num);
 
+    int getCurr(){return curr;};
+    void setCurr(const int c){curr = c;};
+    int *getListType1(){return pieces1;};
+    int *getListType2(){return pieces2;};
+
+    void setListType1(int *type1){
+	for (int i=0; i<piececount; i++)
+	    pieces1[i] = type1[i];
+    };
+
+    void setListType2(int *type2){
+	for (int i=0; i<piececount; i++)
+	    pieces2[i] = type2[i];
+    };
+ 
  private:
     float x;
     float y;
@@ -54,7 +71,12 @@ public:
     float right;
     float top;
     void setCoords(const float x, const float y){this->x=x;this->y=y;};
+    static const int piececount = 500;
+    int pieces1[piececount];
+    int pieces2[piececount];
 
+    
+    int curr;
     float size;
     int nrotation;
     GLuint texture;
@@ -66,6 +88,7 @@ public:
 	YELLOW,
     };
 };
+
 namespace piece_types{
  
 
