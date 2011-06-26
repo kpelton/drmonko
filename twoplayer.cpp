@@ -127,6 +127,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 		delete menu;
 		menu = NULL;
 	} else if (menu->getSelected() == "Exit") {
+	    delete menu;
 		SDL_Quit();
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;

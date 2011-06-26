@@ -173,11 +173,9 @@ void Game::startGame(){
     status = INPROGRESS;
 }
 void Game::newGame() {
-
-	board->newGame();
+    startGame();
+      	board->newGame();
 	piece->newPiece(5, 1);
-
-
 }
 void Game::drawNextPiece() {
 	//first get the colors of the next piece
