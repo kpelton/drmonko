@@ -17,10 +17,7 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 	leftgame = new Game(width,height,size,center,boardwidth,start,end,
 			    0,0,player_types::p1_keys);
 	menu = NULL;
-	leftgame->copyBoard(rightgame);
-	leftgame->copyPieces(rightgame);
-	leftgame->startGame();
-	rightgame->startGame();
+	newGame(time(NULL));
 	
 	this->keys = player_types::p2_keys;
 	paused = false;
@@ -112,8 +109,7 @@ void TwoPlayer::handleStatus(const Status status){
     }
 }
 
-void TwoPlayer::newGame(){
-    time_t seed=time(NULL);
+void TwoPlayer::newGame(time_t seed){
     srand(seed);
     leftgame->newGame();
     srand(seed);
@@ -132,7 +128,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;
 		menu = NULL;
-		newGame();
+		newGame(time(NULL));
 		
 	}
 

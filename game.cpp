@@ -164,7 +164,7 @@ void Game::handleKeys(player_types::key key) {
 }
 
 void Game::startGame(){
-    piece->setCurr(0);
+    piece->newPieces();
     piece->firstPiece(6);
     timer->setTimer(1000);
     animation = false;

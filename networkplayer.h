@@ -24,6 +24,7 @@ private:
 	void setupServer();
 	void serverWait();
 	void setupClient();
+	void handleCmds();
 	bool checkActivity();
 	static const int PORT=52312;
 	NetTwoPlayer *twoplayer;
@@ -32,6 +33,8 @@ private:
 	player_types::p_type type;
 	SDLNet_SocketSet set;
 	const int *keys;
+	time_t seed;
+	bool ready;
 };
 
 enum netmsg
@@ -40,6 +43,8 @@ enum netmsg
 	SEED,
 	NEWGAME,
 	NEWPIECE,
+	GAMEOVER,
 	PAUSE,
+	PONG,
     };
 #endif

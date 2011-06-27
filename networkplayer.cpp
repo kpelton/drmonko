@@ -11,22 +11,22 @@ NetPlayer::NetPlayer(int width,int height,float size,float center,
     
     this->type = type;
 
+    ready = false;
     set=SDLNet_AllocSocketSet(2);
     keys=player_types::p1_keys;
+   
     if (type == player_types::INTERNET_SERVER)
 	setupServer();
 
     if (type == player_types::INTERNET_CLIENT)
 	setupClient();
 
-     twoplayer = new NetTwoPlayer(width,height,size,center,
-				  boardwidth,start,end,argc,NULL,NULL,true,csd);
+    twoplayer = new NetTwoPlayer(width,height,size,center,
+				 boardwidth,start,end,argc,NULL,NULL,true,csd);
     
 }
-void NetPlayer::renderScene(SDL_Event *event){
-    bool ourkey = false;
-    int key = 0;
-    SDL_Event user_event;
+
+void NetPlayer::handleCmds(){
     netmsg msg;
     Uint32 row; 
     Uint32 col;
@@ -34,6 +34,67 @@ void NetPlayer::renderScene(SDL_Event *event){
     Uint32 rot;
     Uint32 curr;
 
+    while(checkActivity()){
+	SDLNet_TCP_Recv(csd,&msg,sizeof(msg));
+
+	switch(msg){
+	printf("Got Packet Type:%i\n",static_cast<int>(msg));
+	case UPDATE:
+	    SDLNet_TCP_Recv(csd,&buffer,sizeof(Uint32));
+	    row = buffer & 0x0000000ff;
+	    col = (buffer & 0x0000ff00)>>8;
+	    rot = (buffer & 0x00ff0000)>>16;
+	    twoplayer->setNetRowCol(col,row,rot);
+	    break;
+
+	case NEWPIECE:
+	    cout <<"Got New Piece"<<endl;
+	    SDLNet_TCP_Recv(csd,&curr,sizeof(Uint32));
+	    cout <<curr<<endl;
+	    twoplayer->setCurr(curr);
+	    break;
+
+	case SEED:
+	    cout <<"Got Seed"<<endl;
+	    
+	    SDLNet_TCP_Recv(csd, &seed, sizeof(seed));
+	    srand(seed);
+	    break;
+
+	case GAMEOVER:
+	    cout <<"Game over"<<endl;
+	    seed = time(NULL);
+	    msg = SEED;
+	    SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+	    SDLNet_TCP_Send(csd, &seed, sizeof(seed));
+	    msg = NEWGAME;
+	    SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+	case NEWGAME:
+	    msg = PONG;
+	    SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+	    twoplayer->startGame(seed);
+	    
+	    ready = true;
+    
+	    break;
+	case PONG:
+	    twoplayer->startGame(seed);
+	    ready = true;
+	    break;
+	
+	default:
+	    break;
+
+	}
+    }
+ 
+}
+
+void NetPlayer::renderScene(SDL_Event *event){
+    bool ourkey = false;
+    int key = 0;
+    SDL_Event user_event;
+  
 
     if (event && event->type == SDL_KEYDOWN) {
 	for (int i = 0; i < 6; i++) {
@@ -45,31 +106,16 @@ void NetPlayer::renderScene(SDL_Event *event){
 	}
     }
     
-    if (ourkey)
-	twoplayer->renderScene(event);
-    else
-	twoplayer->renderScene(NULL);
-    while(checkActivity()){
-	SDLNet_TCP_Recv(csd,&msg,sizeof(msg));
-	printf("Got Packet Type:%i\n",static_cast<int>(msg));
-	if(msg == UPDATE){
-	    SDLNet_TCP_Recv(csd,&buffer,sizeof(Uint32));
-	    row = buffer & 0x0000000ff;
-	    col = (buffer & 0x0000ff00)>>8;
-	    rot = (buffer & 0x00ff0000)>>16;
-	    twoplayer->setNetRowCol(col,row,rot);
-	}
-
-	if(msg == NEWPIECE){
-	    cout <<"Got New Piece"<<endl;
-	    SDLNet_TCP_Recv(csd,&curr,sizeof(Uint32));
-	    cout <<curr<<endl;
-	    twoplayer->setCurr(curr);
-	    
-
-	}
-    
+    if (ready){
+	if (ourkey)
+	    twoplayer->renderScene(event);
+	else
+	    twoplayer->renderScene(NULL);
     }
+
+
+    handleCmds();
+   
 }
 
 bool NetPlayer::checkActivity(){
@@ -85,8 +131,7 @@ bool NetPlayer::checkActivity(){
     return false;
 }
 void NetPlayer::setupClient(){
-    unsigned int seed;
-    netmsg msg;
+ 
  
 	if (SDLNet_Init() < 0)
 	{
@@ -95,7 +140,7 @@ void NetPlayer::setupClient(){
 	}
  
 	/* Resolve the host we are connecting to */
-	if (SDLNet_ResolveHost(&ip,"192.168.2.126", PORT) < 0)
+	if (SDLNet_ResolveHost(&ip,"localhost", PORT) < 0)
 	{
 		fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -110,14 +155,6 @@ void NetPlayer::setupClient(){
 
        	if(SDLNet_TCP_AddSocket(set,csd) ==-1) 
 	    printf("SDLNet_AddSocket: %s\n", SDLNet_GetError());
-	SDLNet_TCP_Recv(csd, &msg, sizeof(netmsg));
-	if (msg == SEED){
-	    SDLNet_TCP_Recv(csd, &seed, sizeof(seed));
-	}
-	else{
-	    cerr<< "Major fail expecting seed got garbage" <<endl;
-	}
-	srand(seed);
 }
 
 void NetPlayer::setupServer(){
@@ -144,7 +181,6 @@ void NetPlayer::setupServer(){
 
 }
 void NetPlayer::serverWait(){
-    unsigned int seed;
     netmsg msg = SEED;
     while(1){
     if ((csd = SDLNet_TCP_Accept(sd)))
@@ -165,11 +201,15 @@ void NetPlayer::serverWait(){
 	printf("SDLNet_AddSocket: %s\n", SDLNet_GetError());
     seed = time(NULL);
     
-    SDLNet_TCP_Send(csd, &msg, sizeof(seed));
+    SDLNet_TCP_Send(csd, &msg, sizeof(msg));
     SDLNet_TCP_Send(csd, &seed, sizeof(seed));
+    msg = NEWGAME;
+     SDLNet_TCP_Send(csd, &msg, sizeof(msg));
     srand(seed);
+    
+    handleCmds();
 }
 NetPlayer::~NetPlayer()
 {
-    // delete twoplayer;
+    delete twoplayer;
 }

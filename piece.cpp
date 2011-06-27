@@ -12,14 +12,17 @@ Piece::Piece(const float & size,const float& x,const float& y,const float& left,
     this->left = left;
     this->right = right;
     this->top = top;
-    for (int i=0; i<piececount; i++){
+    newPieces();
+    
+
+}
+void Piece::newPieces(){
+       for (int i=0; i<piececount; i++){
 	pieces1[i] = rand()%3;
 	pieces2[i] = rand()%3;
     }
     curr = 0;
     firstPiece(7);
-    
-
 }
 bool Piece::loadTextures()
 {

@@ -19,12 +19,14 @@ public:
 		  char **argv , const int *keys,bool flip=false);
 
 	virtual ~TwoPlayer();
-
+	
 protected:
 	virtual void handleKeys(player_types::key key);
 	virtual void handlePauseEvent(const string & selection);
+	virtual void handleStatus(const Status status);
 	Game *leftgame;
 	Game *rightgame;
+	void newGame(time_t seed);
 private:
 	int width;
 	int height;
@@ -34,11 +36,10 @@ private:
 	bool paused;
 	MenuWindow *menu;
 	const int *keys;
-	SDLTimer * timer;
-	void handleStatus(const Status status);
+	SDLTimer * timer;	
 	int leftcount;
 	int rightcount;
-	void newGame();
+	
 
 };
 #endif

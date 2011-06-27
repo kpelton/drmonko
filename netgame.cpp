@@ -15,7 +15,9 @@ NetTwoPlayer::NetTwoPlayer(int width,int height,float size,float center,
     this->csd = csd;
     
 }
-
+void NetTwoPlayer::startGame(time_t seed){
+    newGame(seed);
+}
 void NetTwoPlayer::setCurr(const int curr){
 
     TwoPlayer::rightgame->addToBoard();
@@ -24,7 +26,30 @@ void NetTwoPlayer::setCurr(const int curr){
     cout <<"Called" <<curr <<endl;
 }
 
+void NetTwoPlayer::handleStatus(const Status status){
+    netmsg msg;
+    time_t nseed;
+    switch (status){
+    case LOSS:
+	msg = GAMEOVER;
+	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
 
+	break;
+
+	case WIN:
+		// leftgame->setPaused(true);
+		// rightgame->setPaused(true);
+		// menu  = new MenuWindow(width,height,"GAME OVER",NULL);
+		// menu->addOption("New Game");
+		// menu->addOption("Exit");
+		break;
+
+	default:
+		break;
+
+
+    }
+}
 void NetTwoPlayer::setNetRowCol(const int row, const int col,const int rot){
 
     TwoPlayer::rightgame->setRow(row);

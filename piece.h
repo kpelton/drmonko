@@ -54,6 +54,7 @@ public:
 	for (int i=0; i<piececount; i++)
 	    pieces2[i] = type2[i];
     };
+    void newPieces();
  
  private:
     float x;
@@ -74,7 +75,7 @@ public:
     static const int piececount = 500;
     int pieces1[piececount];
     int pieces2[piececount];
-
+    
     
     int curr;
     float size;
