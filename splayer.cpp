@@ -91,7 +91,8 @@ void SPlayer::handlePauseEvent(const string & selection) {
 		delete menu;
 		menu = NULL;
 	} else if (menu->getSelected() == "Exit") {
-		SDL_Quit();
+	       delete menu;
+	       exit(0);
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;
 		menu = NULL;

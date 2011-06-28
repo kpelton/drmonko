@@ -21,8 +21,6 @@ void NetTwoPlayer::startGame(time_t seed){
 void NetTwoPlayer::setCurr(const int curr){
 
     TwoPlayer::rightgame->addToBoard();
-    TwoPlayer::rightgame->getPiece()->setCurr(curr);
-    
     cout <<"Called" <<curr <<endl;
 }
 
@@ -62,7 +60,7 @@ void NetTwoPlayer::renderScene(SDL_Event *event){
     last =  TwoPlayer::leftgame->getPiece()->getCurr();
 
     TwoPlayer::renderScene(event);
-     TwoPlayer::rightgame->setPaused(true);
+    TwoPlayer::rightgame->setPaused(true);
     Uint32 row  = TwoPlayer::leftgame->getRow();
     Uint32 col = TwoPlayer::leftgame->getCol();
     Uint32 rot = TwoPlayer::leftgame->getRot();

@@ -124,7 +124,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 		menu = NULL;
 	} else if (menu->getSelected() == "Exit") {
 	    delete menu;
-		SDL_Quit();
+	    exit(0);
 	} else if (menu->getSelected() == "New Game") {
 		delete menu;
 		menu = NULL;
@@ -151,6 +151,7 @@ void TwoPlayer::handleKeys(player_types::key key) {
 		menu->addOption("Resume");
 		menu->addOption("New Game");
 		menu->addOption("Exit");
+	       
 		rightcount = rightgame->getVirusCount();
 		leftcount = leftgame->getVirusCount();
 	default:

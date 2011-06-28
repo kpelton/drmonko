@@ -15,8 +15,7 @@ void GLscene::renderScene(SDL_Event *event)
 			menu->render();
 		}else{
 			setupGame();
-			delete menu;
-			menu = NULL;
+
 		}
 	}else{
 		if(game)
@@ -30,26 +29,58 @@ void GLscene::setupGame(){
 	float boardwidth = (columns*size);
 	float start = center - (boardwidth/2);
 	float end = start +(size *columns);
-
+	string host;
+	
 	if (menu->getSelected() == "2 Player"){
-	        game = new TwoPlayer(width,height,size,center,boardwidth,start,end,
-				     0,NULL,NULL);
+	    delete menu;
+	    menu = new MenuWindow(width,height,"Select Game Type",font);
+	    menu->addOption("Same Computer");
+	    menu->addOption("Net Host");
+	    menu->addOption("Net Connect");
+	    menu->addOption("Exit");
+	    return;
+	    
+	} else if(menu->getSelected() == "Same Computer"){
+	
+	    game = new TwoPlayer(width,height,size,center,boardwidth,start,end,
+				 0,NULL,NULL);
+	
 	    
 	}else if (menu->getSelected() == "1 Player"){
 		game = new SPlayer(width,height,size,center,boardwidth,start,end,
 						0,NULL);
 	}
-	else if (menu->getSelected() == "2 Player Net Host"){
+	else if (menu->getSelected() == "Net Host"){
+
 	    game = new NetPlayer(width,height,size,center,boardwidth,start,end,
-				 0,NULL,player_types::INTERNET_SERVER);
+				 0,NULL,player_types::INTERNET_SERVER,"");
 	}
-	else if (menu->getSelected() == "2 Player Net Connect"){
-	    game = new NetPlayer(width,height,size,center,boardwidth,start,end,
-				 0,NULL,player_types::INTERNET_CLIENT);
+
+	else if (menu->getSelected() == "Host"){
+	    return;
+	}
+	else if (menu->getSelected() == "Connect"){
+	host = menu->getInput("Host");
+	game = new NetPlayer(width,height,size,center,boardwidth,start,end,
+			     0,NULL,player_types::INTERNET_CLIENT,host);
+	}
+
+	else if (menu->getSelected() == "Net Connect"){
+	    delete menu;
+	    menu = new MenuWindow(width,height,"Net Connection",font);
+	    menu->addInput("Host");
+	    menu->addOption("Connect");
+	    menu->addOption("Exit");
+	    return;
+	    
+	  
+	    
 	}
 	else if (menu->getSelected() == "Exit"){
-		SDL_Quit();
+	    exit(0);
 	}
+	delete menu;
+	menu = NULL;
 
 }
 
@@ -57,14 +88,12 @@ void GLscene::setupGame(){
 GLscene::GLscene(const int width, const int height,int argc,char **argv):width(width),height(height)
 {
 
-	font = GLobject::loadFont("fonts/Landmark.ttf",45);
+	font = GLobject::loadFont("fonts/Ubuntu-R.ttf",45);
 	game = NULL;
-
+	
 	menu = new MenuWindow(width,height,"Select Game Type",font);
 	menu->addOption("1 Player");
 	menu->addOption("2 Player");
-	menu->addOption("2 Player Net Host");
-	menu->addOption("2 Player Net Connect");
 	menu->addOption("Exit");
 
 }

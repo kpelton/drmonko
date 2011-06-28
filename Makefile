@@ -1,5 +1,5 @@
 CC = g++  -g  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
-CFLAGS =    -c -O3
+CFLAGS =  -O2   -c 
 
 all: drmonko
 

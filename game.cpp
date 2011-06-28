@@ -165,7 +165,6 @@ void Game::handleKeys(player_types::key key) {
 
 void Game::startGame(){
     piece->newPieces();
-    piece->firstPiece(6);
     timer->setTimer(1000);
     animation = false;
     paused = false;
@@ -174,8 +173,8 @@ void Game::startGame(){
 }
 void Game::newGame() {
     startGame();
-      	board->newGame();
-	piece->newPiece(5, 1);
+    board->newGame();
+    piece->newPiece(5, 1);
 }
 void Game::drawNextPiece() {
 	//first get the colors of the next piece

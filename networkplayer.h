@@ -17,7 +17,7 @@ public:
         virtual void renderScene(SDL_Event *event);
 	NetPlayer(int width,int height,float size,float center,
 			float boardwidth,float start,float end, int argc,
-		  char **argv,player_types::p_type type);
+		  char **argv,player_types::p_type type,string host);
 	
 	virtual ~NetPlayer();
 private:
@@ -26,6 +26,8 @@ private:
 	void setupClient();
 	void handleCmds();
 	bool checkActivity();
+	void sendData(void * data,int len);
+	void recvData(void * data,int len);
 	static const int PORT=52312;
 	NetTwoPlayer *twoplayer;
 	TCPsocket sd, csd;
@@ -35,6 +37,7 @@ private:
 	const int *keys;
 	time_t seed;
 	bool ready;
+	string host;
 };
 
 enum netmsg
