@@ -7,7 +7,7 @@
 #else
 #include "SDL_net.h"
 #endif
-class NetTwoPlayer: protected TwoPlayer
+class NetTwoPlayer: public TwoPlayer
 {
 public:
 

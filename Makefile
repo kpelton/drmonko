@@ -4,10 +4,11 @@ CFLAGS =  -c
 all: drmonko
 
 
-drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o splayer.o twoplayer.o networkplayer.o netgame.o
-	$(CC) -g main.o timer.o piece.o splayer.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o  networkplayer.o twoplayer.o  netgame.o -o drmonko
+drmonko: timer.o main.o board.o   piece.o  sdlWindow.o boardview.o GLscene.o game.o MenuWindow.o particle.o splayer.o twoplayer.o networkplayer.o netgame.o mtrand.o
+	$(CC) main.o timer.o piece.o splayer.o particle.o sdlWindow.o boardview.o  board.o GLscene.o game.o MenuWindow.o  networkplayer.o twoplayer.o  netgame.o mtrand.o  -o drmonko
 
-
+mtrand.o: mtrand.h mtrand.cpp
+	$(CC) $(CFLAGS)  mtrand.cpp mtrand.h		
 netgame.o: netgame.h netgame.cpp
 	$(CC) $(CFLAGS)  netgame.h netgame.cpp
 
@@ -16,9 +17,6 @@ main.o: main.cpp
 
 timer.o: timer.cpp
 	$(CC) $(CFLAGS) timer.cpp	
-player.o: player.cpp player.h 
-	$(CC) $(CFLAGS) player.cpp player.h 
-
 nplayer.o: nplayer.h nplayer.cpp
 	$(CC) $(CFLAGS) nplayer.h nplayer.cpp	
 
