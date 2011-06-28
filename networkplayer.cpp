@@ -95,6 +95,8 @@ void NetPlayer::handleCmds(){
     
 	    sendData(&msg, sizeof(msg));
 	    cout << "Sent New Game"<<endl;
+	     twoplayer->startGame(seed);
+	     ready = true;
 	    break;
 
 	case GAMEOVER:
@@ -105,14 +107,12 @@ void NetPlayer::handleCmds(){
 	    sendData(&seed, sizeof(seed));
 	    break;
 	case NEWGAME:
-	     cout <<"New Game"<<endl;
-	    msg = PONG;
-	    sendData(&msg, sizeof(msg));
+	    cout <<"New Game"<<endl;
 	    twoplayer->startGame(seed);
 	    ready = true;
 	    break;
 	case PONG:
-	     cout <<"Pong"<<endl;
+	    cout <<"Pong"<<endl;
 	    twoplayer->startGame(seed);
 	    ready = true;
 	    break;

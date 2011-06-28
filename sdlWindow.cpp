@@ -1,5 +1,5 @@
 #include "sdlWindow.h"
-#include <GL/glut.h>
+
 
 #define TICK_INTERVAL 500
 
