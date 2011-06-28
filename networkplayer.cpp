@@ -66,9 +66,10 @@ void NetPlayer::handleCmds(){
 
     while(checkActivity()){
 	recvData(&msg,sizeof(msg));
-	
-	switch(msg){
 	printf("Got Packet Type:%i\n",static_cast<int>(msg));
+	switch(msg){
+	
+	    
 	case UPDATE:
 	    recvData(&buffer,sizeof(Uint32));
 	    row = buffer & 0x0000000ff;
