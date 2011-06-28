@@ -66,7 +66,7 @@ void NetPlayer::handleCmds(){
 
     while(checkActivity()){
 	recvData(&msg,sizeof(msg));
-
+	
 	switch(msg){
 	printf("Got Packet Type:%i\n",static_cast<int>(msg));
 	case UPDATE:
@@ -101,6 +101,7 @@ void NetPlayer::handleCmds(){
 	    sendData(&seed, sizeof(seed));
 	    msg = NEWGAME;
 	    sendData(&msg, sizeof(msg));
+	    break;
 	case NEWGAME:
 	     cout <<"New Game"<<endl;
 	    msg = PONG;
@@ -115,6 +116,7 @@ void NetPlayer::handleCmds(){
 	    break;
 	
 	default:
+	    cerr << "Should Never happen:" << msg <<endl ;
 	    break;
 
 	}
@@ -235,8 +237,9 @@ void NetPlayer::serverWait(){
     sendData(&msg, sizeof(msg));
     sendData(&seed, sizeof(seed));
     msg = NEWGAME;
-    sendData(&msg, sizeof(msg));
     
+    sendData(&msg, sizeof(msg));
+    cout << "Sent New Game"<<endl;
     
     
 }
