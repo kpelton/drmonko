@@ -91,6 +91,10 @@ void NetPlayer::handleCmds(){
 	    cout <<"Got Seed"<<endl;
 	    srand(seed);
 	    ready = false;
+	    msg = NEWGAME;
+    
+	    sendData(&msg, sizeof(msg));
+	    cout << "Sent New Game"<<endl;
 	    break;
 
 	case GAMEOVER:
@@ -99,8 +103,6 @@ void NetPlayer::handleCmds(){
 	    msg = SEED;
 	    sendData(&msg, sizeof(msg));
 	    sendData(&seed, sizeof(seed));
-	    msg = NEWGAME;
-	    sendData(&msg, sizeof(msg));
 	    break;
 	case NEWGAME:
 	     cout <<"New Game"<<endl;
@@ -236,10 +238,7 @@ void NetPlayer::serverWait(){
     
     sendData(&msg, sizeof(msg));
     sendData(&seed, sizeof(seed));
-    msg = NEWGAME;
     
-    sendData(&msg, sizeof(msg));
-    cout << "Sent New Game"<<endl;
     
     
 }
