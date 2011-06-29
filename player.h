@@ -5,12 +5,12 @@
 
 class Player
 {
-public:	
-         virtual void renderScene(SDL_Event *event) = 0;
-	 virtual ~Player(){};
+ public:	
+    virtual void renderScene(SDL_Event *event) = 0;
+    virtual ~Player(){};
 
 
-protected:
-	 MTRand randengine;
+ protected:
+    MTRand randengine;
 };
 #endif

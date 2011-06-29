@@ -3,18 +3,18 @@
 
 void SDLTimer::setTimer(const int ainterval)
 {
-	interval = ainterval;
-	last = SDL_GetTicks();
+    interval = ainterval;
+    last = SDL_GetTicks();
 }
 
 bool SDLTimer::isDone()
 {
-	if (last+interval <= SDL_GetTicks()){
-		return true;
-	}
-	return false;
+    if (last+interval <= SDL_GetTicks()){
+	return true;
+    }
+    return false;
 }
 void SDLTimer::resetTimer()
 {
-	last = SDL_GetTicks();
+    last = SDL_GetTicks();
 }

@@ -23,29 +23,29 @@
 
 class sdlWindow {
 
-public:
-	sdlWindow();
-	sdlWindow(int argc,char **argv);
-	~sdlWindow(){delete scene;};
-	void initWindow();
-	void initGL();
-	void renderLoop();
-	bool resizeWindow(const int width, const int height);
+ public:
+    sdlWindow();
+    sdlWindow(int argc,char **argv);
+    ~sdlWindow(){delete scene;};
+    void initWindow();
+    void initGL();
+    void renderLoop();
+    bool resizeWindow(const int width, const int height);
 	
 
-private:
-	int videoFlags;
-	bool done;
-	SDL_Event event;
-	const SDL_VideoInfo *videoInfo;
-	bool isActive;
-	SDL_Surface *surface;
-    	GLscene *scene;
-	int width;
-	int height;
-	bool fullscreen;
-        static const char *musicFile;
+ private:
+    int videoFlags;
+    bool done;
+    SDL_Event event;
+    const SDL_VideoInfo *videoInfo;
+    bool isActive;
+    SDL_Surface *surface;
+    GLscene *scene;
+    int width;
+    int height;
+    bool fullscreen;
+    static const char *musicFile;
 	
-	Uint32 GameLoopTimer(Uint32 interval, void* param);
+    Uint32 GameLoopTimer(Uint32 interval, void* param);
 };
 #endif

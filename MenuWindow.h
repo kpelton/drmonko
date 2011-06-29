@@ -22,31 +22,31 @@
 #include "types.h"
 
 class MenuWindow: public GLobject {
-public:
-	MenuWindow(const int width, const int height,const string &title,TTF_Font * font);
-	virtual bool render();
-	virtual bool resize(){return true;};
-	virtual bool loadTextures(){return true;};
-	virtual ~MenuWindow();
-	virtual int timerCb(){return 0;};
-	void addOption(const string & option);
-	bool handleEvent(SDL_Event *event);//Return true when a menu item was selected
-	string getSelected(){return options[selected];};
-	void deleteOption(const int num);
-	void addInput(const string & option);
-	string getInput(const string & option);
-private:
-	bool handleKey(player_types::key key);
-	TTF_Font * font;
-	vector<string> options;
-	vector<string> inputs;
-	vector<string>values;
-	string title;
-	unsigned int selected;
-	int width;
-	int height;
-	bool custom;
-	string input;
+ public:
+    MenuWindow(const int width, const int height,const string &title,TTF_Font * font);
+    virtual bool render();
+    virtual bool resize(){return true;};
+    virtual bool loadTextures(){return true;};
+    virtual ~MenuWindow();
+    virtual int timerCb(){return 0;};
+    void addOption(const string & option);
+    bool handleEvent(SDL_Event *event);//Return true when a menu item was selected
+    string getSelected(){return options[selected];};
+    void deleteOption(const int num);
+    void addInput(const string & option);
+    string getInput(const string & option);
+ private:
+    bool handleKey(player_types::key key);
+    TTF_Font * font;
+    vector<string> options;
+    vector<string> inputs;
+    vector<string>values;
+    string title;
+    unsigned int selected;
+    int width;
+    int height;
+    bool custom;
+    string input;
 
 };
 

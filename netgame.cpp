@@ -4,9 +4,9 @@
 
 
 NetTwoPlayer::NetTwoPlayer(int width,int height,float size,float center,
-	      float boardwidth,float start,float end, int argc,
+			   float boardwidth,float start,float end, int argc,
 			   char **argv , const int *keys,bool flip,TCPsocket csd):
-              TwoPlayer(width,height,size,center,boardwidth, start,end, argc,argv , keys,flip)
+    TwoPlayer(width,height,size,center,boardwidth, start,end, argc,argv , keys,flip)
 {
     lastrow = TwoPlayer::leftgame->getRow();
     lastcol = TwoPlayer::leftgame->getCol();
@@ -26,7 +26,6 @@ void NetTwoPlayer::setCurr(const int curr){
 
 void NetTwoPlayer::handleStatus(const Status status){
     netmsg msg;
-    time_t nseed;
     switch (status){
     case LOSS:
 	msg = GAMEOVER;
@@ -34,16 +33,16 @@ void NetTwoPlayer::handleStatus(const Status status){
 
 	break;
 
-	case WIN:
-		// leftgame->setPaused(true);
-		// rightgame->setPaused(true);
-		// menu  = new MenuWindow(width,height,"GAME OVER",NULL);
-		// menu->addOption("New Game");
-		// menu->addOption("Exit");
-		break;
+    case WIN:
+	// leftgame->setPaused(true);
+	// rightgame->setPaused(true);
+	// menu  = new MenuWindow(width,height,"GAME OVER",NULL);
+	// menu->addOption("New Game");
+	// menu->addOption("Exit");
+	break;
 
-	default:
-		break;
+    default:
+	break;
 
 
     }

@@ -8,7 +8,7 @@
 
 class Piece : public GLobject
 {
-public:
+ public:
 	
     //roate();
     int getBlockType(int,int);
@@ -94,28 +94,28 @@ public:
 namespace piece_types{
  
 
-const int pieces [4 /* rotation */ ][3 /* horizontal blocks */ ][3 /* vertical blocks */ ] =
-{
-   {
-       {0, 1, 0},
-       {0, 2, 0},
-       {0, 0, 0},
-   },
-   {
-       {0, 0, 0},
-       {0, 2, 1},
-       {0, 0, 0},
-   },
-   {
-       {0, 2, 0},
-       {0, 1, 0},
-       {0, 0, 0},
-   },
-   {
-       {0, 0, 0},
-       {0, 1, 2},
-       {0, 0, 0},
-   }
-};
+    const int pieces [4 /* rotation */ ][3 /* horizontal blocks */ ][3 /* vertical blocks */ ] =
+	{
+	    {
+		{0, 1, 0},
+		{0, 2, 0},
+		{0, 0, 0},
+	    },
+	    {
+		{0, 0, 0},
+		{0, 2, 1},
+		{0, 0, 0},
+	    },
+	    {
+		{0, 2, 0},
+		{0, 1, 0},
+		{0, 0, 0},
+	    },
+	    {
+		{0, 0, 0},
+		{0, 1, 2},
+		{0, 0, 0},
+	    }
+	};
 }
 #endif

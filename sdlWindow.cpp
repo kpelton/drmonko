@@ -7,31 +7,31 @@ const char * sdlWindow::musicFile = "song.wav";
 
 sdlWindow::sdlWindow()
 {
-	initWindow();
+    initWindow();
 	
-    	done = false;
-	this->fullscreen = false;
+    done = false;
+    this->fullscreen = false;
 }
 sdlWindow::sdlWindow(int argc, char **argv)
 {
-	this->fullscreen = false;
-	for(int i = 0; i<argc; i++)
-		{
-			if(strcmp(argv[i],"-f") == 0)
-				this->fullscreen = true;
-			//put in width height
+    this->fullscreen = false;
+    for(int i = 0; i<argc; i++)
+	{
+	    if(strcmp(argv[i],"-f") == 0)
+		this->fullscreen = true;
+	    //put in width height
 			
 			
-		}
+	}
 	    
-	initWindow();
-	scene = new GLscene(SCREEN_WIDTH,SCREEN_HEIGHT,argc,argv);
-    	done = false;
+    initWindow();
+    scene = new GLscene(SCREEN_WIDTH,SCREEN_HEIGHT,argc,argv);
+    done = false;
 }
 
 void sdlWindow::initGL()
 {
-	/* Set the background black */
+    /* Set the background black */
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
     /* Depth buffer setup */
@@ -52,10 +52,10 @@ void sdlWindow::initGL()
 void sdlWindow::initWindow()
 {
 	
-	isActive = true;
-	Mix_Chunk *sound = NULL;
-	int channel = 0;
-  /* initialize SDL */
+    isActive = true;
+    Mix_Chunk *sound = NULL;
+    int channel = 0;
+    /* initialize SDL */
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 	{
 	    fprintf( stderr, "Video initialization failed: %s\n",
@@ -80,12 +80,12 @@ void sdlWindow::initWindow()
 	}
      
     /* the flags to pass to SDL_SetVideoMode */
-     videoFlags = SDL_OPENGL;          /* Enable OpenGL in SDL */
+    videoFlags = SDL_OPENGL;          /* Enable OpenGL in SDL */
     videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
     videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
     videoFlags |= SDL_RESIZABLE;
     if (fullscreen)    
-	    videoFlags |= SDL_FULLSCREEN;       /* Enable window resizing */
+	videoFlags |= SDL_FULLSCREEN;       /* Enable window resizing */
 
 
     /* This checks to see if surfaces can be stored in memory */
@@ -115,17 +115,17 @@ void sdlWindow::initWindow()
 
     /* initialize OpenGL */
     initGL( );
-     if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-     {
-	 exit(-1);
-     }
-     sound = Mix_LoadWAV(musicFile);
-     //Start playing music
-     if(channel == -1) {
-	  fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
-      }
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+	{
+	    exit(-1);
+	}
+    sound = Mix_LoadWAV(musicFile);
+    //Start playing music
+    if(channel == -1) {
+	fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
+    }
 
-     //Need to fix this for 2 player
+    //Need to fix this for 2 player
     SDL_EnableKeyRepeat(200, SDL_DEFAULT_REPEAT_INTERVAL);
     resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
     /* resize the initial window */
@@ -135,7 +135,7 @@ void sdlWindow::initWindow()
 bool sdlWindow::resizeWindow(const  int width, const int height )
 {
     /* Height / width ration */
-     GLfloat ratio;
+    GLfloat ratio;
 
     /* Protect against a divide by zero */
    
@@ -227,6 +227,6 @@ void sdlWindow::renderLoop()
 	    SDL_Delay(10);
 	}
  
- }
+}
 
 

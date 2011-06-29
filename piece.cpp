@@ -17,7 +17,7 @@ Piece::Piece(const float & size,const float& x,const float& y,const float& left,
 
 }
 void Piece::newPieces(){
-       for (int i=0; i<piececount; i++){
+    for (int i=0; i<piececount; i++){
 	pieces1[i] = randengine.Rand()%3;
 	pieces2[i] = randengine.Rand()%3;
     }
@@ -39,19 +39,19 @@ void Piece::rotLeft()
 
 void Piece::rotRight()
 {
-     if (rotation >0)
-	 rotation--;
-     else
-	 rotation=3;
+    if (rotation >0)
+	rotation--;
+    else
+	rotation=3;
 }
 int Piece::getType(const int type){
-	return (type == 1) ? type1: type2;
+    return (type == 1) ? type1: type2;
 }
 
 bool Piece::render()
 {
-	drawPiece(x,y,rotation,type1,type2);
-	return true;
+    drawPiece(x,y,rotation,type1,type2);
+    return true;
 
 }
 bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
@@ -117,9 +117,9 @@ bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
 		glTexCoord2i( 0, 1);	glVertex2f(0,size);
 		glEnd(); 
 		glPopMatrix();
-		}
-		currx+=size;
-		glColor4f(1.0,1.0,1.0,1.0);
+	    }
+	    currx+=size;
+	    glColor4f(1.0,1.0,1.0,1.0);
 	}
 	curry+=size;
     }
@@ -157,26 +157,26 @@ void Piece::firstPiece(const int middle)
 }
 void Piece::setRow(const int arow)
 {
-	setCoords(getX(),top +(size*arow));
-	row = arow;
+    setCoords(getX(),top +(size*arow));
+    row = arow;
 };
 
 void Piece::setCol(const int acol)
 {
-	setCoords(left+(acol*size),getY());
-	col = acol;
+    setCoords(left+(acol*size),getY());
+    col = acol;
 }
 void Piece::nextPiece()
 {
     ntype1 = pieces1[curr+1];
     ntype2 = pieces2[curr+1];
-	nrotation = 1;
-	if (curr == piececount)
-	    curr = 0;
-	else
-	    curr++;
+    nrotation = 1;
+    if (curr == piececount)
+	curr = 0;
+    else
+	curr++;
 		
-	cout <<"CURR:"<<curr<<endl;
+    cout <<"CURR:"<<curr<<endl;
 }
 void Piece::newPiece(const int row, const int col)
 {

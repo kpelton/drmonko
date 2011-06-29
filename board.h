@@ -5,35 +5,35 @@
 #include "particle.h"
 #include "mtrand.h"
 namespace types {
-enum rotation{
+    enum rotation{
 	UP,
 	LEFT,
 	DOWN,
 	RIGHT,
 	NONE=-1,
-};
-enum color{
+    };
+    enum color{
 	RED,
 	BLUE,
 	YELLOW,
 	PILL,
 	BLANK,
-};
-enum ptype{
+    };
+    enum ptype{
 	VIRUS,
 	SETPILL,
 	NOTHING =-1,
-  };
+    };
 }
 using namespace types;
 //This is the class definition for the current piece
 class Board : public GLobject
 {
-public:
+ public:
 	
     Board();
     Board(const int trows,const int cols,const float size,
-	     const float xstart, const float ystart,
+	  const float xstart, const float ystart,
 	  const int width,const int height);
     ~Board(){glDeleteTextures(5, tiles);};
     bool loadTextures();

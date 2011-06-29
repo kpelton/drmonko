@@ -7,14 +7,14 @@
 #endif
 
 class SDLTimer{
-public:
-	bool isDone();
-	void resetTimer();
-	void setTimer(const int interval);
+ public:
+    bool isDone();
+    void resetTimer();
+    void setTimer(const int interval);
 
-private:
-	int interval;
-	Uint32 last;
+ private:
+    int interval;
+    Uint32 last;
 };
 
 

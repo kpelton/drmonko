@@ -40,260 +40,260 @@ void Board::copyBoard(Board &other){
 void Board::addPiece(int num)
 {
     int col = randengine.Rand() %columns;
-	for(int i=0; i<num; i++){
-	    if (board[i][col].type == NOTHING){
-		board[i][col].type = SETPILL;
-		board[i][col].rot = NONE;
-		board[i][col].col = static_cast<color>(randengine.Rand() %3);
-		}
+    for(int i=0; i<num; i++){
+	if (board[i][col].type == NOTHING){
+	    board[i][col].type = SETPILL;
+	    board[i][col].rot = NONE;
+	    board[i][col].col = static_cast<color>(randengine.Rand() %3);
 	}
+    }
 
 }
 void Board::newGame()
 {
-	viruses = 0;
-	clear();
-	for (int i=10; i<rows; i++)
-		for (int j=0; j<columns; j++)
-			if (randengine.Rand()%5 == 4){
-				board[i][j].col = static_cast<color>(randengine.Rand()%3);
-				board[i][j].type = VIRUS;
-				viruses++;
-			}
+    viruses = 0;
+    clear();
+    for (int i=10; i<rows; i++)
+	for (int j=0; j<columns; j++)
+	    if (randengine.Rand()%5 == 4){
+		board[i][j].col = static_cast<color>(randengine.Rand()%3);
+		board[i][j].type = VIRUS;
+		viruses++;
+	    }
 }
 void Board::checkVertical()
 {
-	color last=BLANK;
-	int count = 0;
-	int startrow=0;
+    color last=BLANK;
+    int count = 0;
+    int startrow=0;
 
-	for (int j=0; j<columns; j++){
+    for (int j=0; j<columns; j++){
+	count = 1;
+	last = BLANK;
+	for(int i=0; i<rows; i++){
+
+	    if (board[i][j].type != NOTHING){
+		if (board[i][j].col != BLANK && board[i][j].col == last){
+		    if (count == 1)
+			startrow = i;
+		    count++;
+		}
+
+		else{
+		    last = BLANK;
+		    count = 1;
+		}
+		last = board[i][j].col;
+
+	    }
+
+	    else{
+		last = BLANK;
+		count = 1;
+
+	    }
+	    if (count > 3){
+		cout <<"Need to remove at col " <<j << " " << count <<endl;
+		removeMatchVertical(startrow,j);
 		count = 1;
 		last = BLANK;
-		for(int i=0; i<rows; i++){
-
-			if (board[i][j].type != NOTHING){
-				if (board[i][j].col != BLANK && board[i][j].col == last){
-					if (count == 1)
-						startrow = i;
-					count++;
-				}
-
-				else{
-					last = BLANK;
-					count = 1;
-				}
-				last = board[i][j].col;
-
-			}
-
-			else{
-				last = BLANK;
-				count = 1;
-
-			}
-			if (count > 3){
-				cout <<"Need to remove at col " <<j << " " << count <<endl;
-				removeMatchVertical(startrow,j);
-				count = 1;
-				last = BLANK;
-			}
-		}
+	    }
 	}
+    }
 
 }
 void Board::checkHorizontal()
 {
-	color last=BLANK;
-	int count = 0;
-	int startcol = 0;
-	for (int i=0; i<rows; i++){
-		count = 1;
-		last = BLANK;
-		for(int j=0; j<columns; j++){
+    color last=BLANK;
+    int count = 0;
+    int startcol = 0;
+    for (int i=0; i<rows; i++){
+	count = 1;
+	last = BLANK;
+	for(int j=0; j<columns; j++){
 
-			if (board[i][j].type != NOTHING){
-				if (board[i][j].col != BLANK && board[i][j].col == last){
-					if (count == 1)
-						startcol = j;
-					count++;
-				}
-				else{
-					last = BLANK;
-					count = 1;
-				}
-				last = board[i][j].col;
-
-			}
-			else{
-				last = BLANK;
-				count = 1;
-
-			}
-			if (count > 3){
-				cout <<"Need to remove at row " <<i << " " << count <<endl;
-				removeMatchHorizontal(i,startcol);
-				count = 1;
-				last = BLANK
-			;
-			}
+	    if (board[i][j].type != NOTHING){
+		if (board[i][j].col != BLANK && board[i][j].col == last){
+		    if (count == 1)
+			startcol = j;
+		    count++;
 		}
+		else{
+		    last = BLANK;
+		    count = 1;
+		}
+		last = board[i][j].col;
+
+	    }
+	    else{
+		last = BLANK;
+		count = 1;
+
+	    }
+	    if (count > 3){
+		cout <<"Need to remove at row " <<i << " " << count <<endl;
+		removeMatchHorizontal(i,startcol);
+		count = 1;
+		last = BLANK
+		    ;
+	    }
 	}
+    }
 }
 
 bool Board::moveDown()
 {
 
-	bool val = false;
-	for (int i=rows-2; i>=0; i--){
-			for(int j=0; j<columns; j++){
-				if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot == NONE){
-					board[i+1][j].type = board[i][j].type;
-					board[i+1][j].col = board[i][j].col;
-					board[i+1][j].rot = board[i][j].rot;
-					board[i][j].clear();
-					val = true;
-				}
-				else if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot != NONE){
+    bool val = false;
+    for (int i=rows-2; i>=0; i--){
+	for(int j=0; j<columns; j++){
+	    if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot == NONE){
+		board[i+1][j].type = board[i][j].type;
+		board[i+1][j].col = board[i][j].col;
+		board[i+1][j].rot = board[i][j].rot;
+		board[i][j].clear();
+		val = true;
+	    }
+	    else if (board[i][j].type == SETPILL && board[i+1][j].type == NOTHING && board[i][j].rot != NONE){
 
-					switch(board[i][j].rot){
-					case LEFT:
-						if (board[i][j+1].rot == RIGHT && board[i+1][j+1].type == NOTHING){
-							board[i+1][j]  = board[i][j];
-							board[i][j].clear();
+		switch(board[i][j].rot){
+		case LEFT:
+		    if (board[i][j+1].rot == RIGHT && board[i+1][j+1].type == NOTHING){
+			board[i+1][j]  = board[i][j];
+			board[i][j].clear();
 
-							board[i+1][j+1] = board[i][j+1];
-							board[i][j+1].clear();
-							val = true;
-						}
-					case DOWN:
-						if (board[i-1][j].rot == UP && board[i-1][j].type == SETPILL){
-							board[i+1][j] = board[i][j];
-							board[i][j].clear();
+			board[i+1][j+1] = board[i][j+1];
+			board[i][j+1].clear();
+			val = true;
+		    }
+		case DOWN:
+		    if (board[i-1][j].rot == UP && board[i-1][j].type == SETPILL){
+			board[i+1][j] = board[i][j];
+			board[i][j].clear();
 
-							board[i][j] =  board[i-1][j];
-							board[i-1][j].clear();
-							val = true;
-						}
+			board[i][j] =  board[i-1][j];
+			board[i-1][j].clear();
+			val = true;
+		    }
 
-						break;
-					default:
-						break;
+		    break;
+		default:
+		    break;
 
-					}
-				}
-
-			}
 		}
-	return val;
+	    }
+
+	}
+    }
+    return val;
 }
 bool Board::clearPieces()
 {
-	//returns true if done and ready to accept user input
-	checkHorizontal();
+    //returns true if done and ready to accept user input
+    checkHorizontal();
     checkVertical();
     return  moveDown();
 }
 
 void Board::removeMatchVertical(const int startrow,const int col)
 {
-	//removes vertical  matches
-	color start = board[startrow][col].col;
-	float currx = xstart;
-	float curry = ystart;
-	int count = 0;
-	cout << startrow <<endl;
-	for(int i=startrow-1; i<rows; i++){
+    //removes vertical  matches
+    color start = board[startrow][col].col;
+    float currx = xstart;
+    float curry = ystart;
+    int count = 0;
+    cout << startrow <<endl;
+    for(int i=startrow-1; i<rows; i++){
 
-		if (board[i][col].type != NOTHING && board[i][col].col == start){
-				count++;
-				cout << i <<endl;
+	if (board[i][col].type != NOTHING && board[i][col].col == start){
+	    count++;
+	    cout << i <<endl;
 
-			if (board[i][col].type == VIRUS){
-				viruses--;
-				addExplosion(currx+(col*size),curry+(i*size),start);
+	    if (board[i][col].type == VIRUS){
+		viruses--;
+		addExplosion(currx+(col*size),curry+(i*size),start);
 				
-			}
+	    }
 
-			if (board[i][col].type == SETPILL){
-				changePillType(i,col);
-				addExplosion(currx+(col*size),curry+(i*size),start);
-			}
+	    if (board[i][col].type == SETPILL){
+		changePillType(i,col);
+		addExplosion(currx+(col*size),curry+(i*size),start);
+	    }
 
-			board[i][col].type=NOTHING;
-		}else{
-			return;
-		}
+	    board[i][col].type=NOTHING;
+	}else{
+	    return;
 	}
+    }
 }
 void Board::addExplosion(const float x, const float y, const color col){
     
 
-	switch(col){
-		case RED:
-			glColor4f(1.0,0.0,0.0,1.0);
-			pengine.addExplosion(x,y,1,0,0);
-			break;
-		case YELLOW:
-		        pengine.addExplosion(x,y,1,1,0);
-		        break;
-		case BLUE:
-		        pengine.addExplosion(x,y,0,0,1);
-			break;
-		default:
-			break;
+    switch(col){
+    case RED:
+	glColor4f(1.0,0.0,0.0,1.0);
+	pengine.addExplosion(x,y,1,0,0);
+	break;
+    case YELLOW:
+	pengine.addExplosion(x,y,1,1,0);
+	break;
+    case BLUE:
+	pengine.addExplosion(x,y,0,0,1);
+	break;
+    default:
+	break;
     }
 	
 
 }
 void Board::removeMatchHorizontal(const int row,const int startcol)
 {
-	//removes horizontal matches
-	color start = board[row][startcol].col;
-	float currx = xstart;
-	float curry = ystart;
-	int count = 0;
-	cout << startcol <<endl;
-	for(int j=startcol-1; j<columns; j++){
+    //removes horizontal matches
+    color start = board[row][startcol].col;
+    float currx = xstart;
+    float curry = ystart;
+    int count = 0;
+    cout << startcol <<endl;
+    for(int j=startcol-1; j<columns; j++){
 
-		if (board[row][j].type != NOTHING && board[row][j].col == start){
-				count++;
-			if (board[row][j].type == VIRUS){
-				viruses--;
+	if (board[row][j].type != NOTHING && board[row][j].col == start){
+	    count++;
+	    if (board[row][j].type == VIRUS){
+		viruses--;
 			       
-				addExplosion(currx+(j*size),curry+(row*size),start);
-			}
-			if (board[row][j].type == SETPILL){
-				changePillType(row,j);
-				addExplosion(currx+(j*size),curry+(row*size),start);
+		addExplosion(currx+(j*size),curry+(row*size),start);
+	    }
+	    if (board[row][j].type == SETPILL){
+		changePillType(row,j);
+		addExplosion(currx+(j*size),curry+(row*size),start);
 				
 
-			}
-			board[row][j].type=NOTHING;
+	    }
+	    board[row][j].type=NOTHING;
 
-		}else{
-			return;
-		}
+	}else{
+	    return;
 	}
+    }
 }
 void Board::changePillType(const int row, const int col)
 {
-	switch(board[row][col].rot)
+    switch(board[row][col].rot)
 	{
-		case UP:
-			board[row+1][col].rot = NONE;
-			break;
-		case DOWN:
-			board[row-1][col].rot = NONE;
-			break;
-		case LEFT:
-			board[row][col+1].rot = NONE;
-			break;
-		case RIGHT:
-			board[row][col-1].rot = NONE;
-			break;
-		default:
-			break;
+	case UP:
+	    board[row+1][col].rot = NONE;
+	    break;
+	case DOWN:
+	    board[row-1][col].rot = NONE;
+	    break;
+	case LEFT:
+	    board[row][col+1].rot = NONE;
+	    break;
+	case RIGHT:
+	    board[row][col-1].rot = NONE;
+	    break;
+	default:
+	    break;
 	}
 }
 bool Board::isFree(const int row, const int col)const
@@ -308,8 +308,8 @@ void Board::clear()
     //clear all spaces
     for (int i=0; i<rows; i++){
 	for(int j=0; j<columns; j++){
-		board[i][j].clear();
-		}
+	    board[i][j].clear();
+	}
     }
 }
 bool Board::loadTextures()
@@ -323,39 +323,39 @@ bool Board::loadTextures()
 }
 void Board::addToBoard(const int rotation, const int row,const int col,const int type1, const int type2)
 {
-	int currow = row-1; //row is always starts 1 off
-	int currcol = col;
-	int type;
+    int currow = row-1; //row is always starts 1 off
+    int currcol = col;
+    int type;
 
-	for (int i = 0; i<3; i++){
-		currcol = col;
-		for (int j=1; j<3; j++){
-			if (pieces[rotation][i][j]  != 0){
+    for (int i = 0; i<3; i++){
+	currcol = col;
+	for (int j=1; j<3; j++){
+	    if (pieces[rotation][i][j]  != 0){
 
-				type = (pieces[rotation][i][j] == 1) ? type1 : type2 ;
+		type = (pieces[rotation][i][j] == 1) ? type1 : type2 ;
 
-				board[currow][currcol].type = SETPILL;
-				board[currow][currcol].col = static_cast<color> (type);
+		board[currow][currcol].type = SETPILL;
+		board[currow][currcol].col = static_cast<color> (type);
 
-				if(i==0){
-				        board[currow][currcol].rot = UP;
-				}
-				else if(i ==1 && j==1 && (rotation == 1 || rotation == 3)){
-					board[currow][currcol].rot = LEFT;
-				}
-				else if(rotation == 1 ||rotation ==3){
-					board[currow][currcol].rot = RIGHT;
-				}
-				else{
-				        board[currow][currcol].rot = DOWN;
-				}
-
-			}
-			currcol+=1;
-
+		if(i==0){
+		    board[currow][currcol].rot = UP;
 		}
-		currow+=1;
+		else if(i ==1 && j==1 && (rotation == 1 || rotation == 3)){
+		    board[currow][currcol].rot = LEFT;
+		}
+		else if(rotation == 1 ||rotation ==3){
+		    board[currow][currcol].rot = RIGHT;
+		}
+		else{
+		    board[currow][currcol].rot = DOWN;
+		}
+
+	    }
+	    currcol+=1;
+
 	}
+	currow+=1;
+    }
 }
 void Board::drawPill(const float x,const float y, 
 		     const int row,const int col) const 
@@ -375,46 +375,46 @@ void Board::drawPill(const float x,const float y,
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     switch(rot){
-		case LEFT: //only rotate 2 piece second row
-			glTranslatef(size/2,size/2,0.0);
-			glRotatef(270,0,0,1);
-			glTranslatef(-size/2,-size/2,0.0);
-			break;
-		case DOWN:  //only rotate 2 piece second row
-			glTranslatef(size/2,size/2,0.0);
-			glRotatef(180,0,0,1);
-			glTranslatef(-size/2,-size/2,0.0);
-			break;
-		case RIGHT: //only rotate 2 piece second row
-			glTranslatef(size/2,size/2,0.0);
-			glScalef(1,-1,1);
-			glRotatef(90,0,0,1);
-			glTranslatef(-size/2,-size/2,0.0);
-			break;
-		case NONE:
-			glBindTexture( GL_TEXTURE_2D,tiles[BLANK]);
-			break;
-		case UP:  //only rotate 2 piece second row
-		       glTranslatef(size/2,size/2,0.0);
-		       glScalef(-1,1,1);
-		       glTranslatef(-size/2,-size/2,0.0);
-		       break;
-		default:
-			break;
+    case LEFT: //only rotate 2 piece second row
+	glTranslatef(size/2,size/2,0.0);
+	glRotatef(270,0,0,1);
+	glTranslatef(-size/2,-size/2,0.0);
+	break;
+    case DOWN:  //only rotate 2 piece second row
+	glTranslatef(size/2,size/2,0.0);
+	glRotatef(180,0,0,1);
+	glTranslatef(-size/2,-size/2,0.0);
+	break;
+    case RIGHT: //only rotate 2 piece second row
+	glTranslatef(size/2,size/2,0.0);
+	glScalef(1,-1,1);
+	glRotatef(90,0,0,1);
+	glTranslatef(-size/2,-size/2,0.0);
+	break;
+    case NONE:
+	glBindTexture( GL_TEXTURE_2D,tiles[BLANK]);
+	break;
+    case UP:  //only rotate 2 piece second row
+	glTranslatef(size/2,size/2,0.0);
+	glScalef(-1,1,1);
+	glTranslatef(-size/2,-size/2,0.0);
+	break;
+    default:
+	break;
     }
 
     switch(pcolor){
-		case RED:
-			glColor4f(1.0,0.0,0.0,1.0);
-			break;
-		case YELLOW:
-			glColor4f(1.0,1.0,0.0,1.0);
-			break;
-		case BLUE:
-			glColor4f(0.0,0.0,1.0,1.0);
-			break;
-		default:
-			break;
+    case RED:
+	glColor4f(1.0,0.0,0.0,1.0);
+	break;
+    case YELLOW:
+	glColor4f(1.0,1.0,0.0,1.0);
+	break;
+    case BLUE:
+	glColor4f(0.0,0.0,1.0,1.0);
+	break;
+    default:
+	break;
     }
     
     glMatrixMode(GL_MODELVIEW); 
@@ -432,41 +432,41 @@ void Board::drawPill(const float x,const float y,
 
 bool Board::render()
 {
-	float currx = xstart;
-	float curry = ystart;
-	for (int i=0; i<rows; i++){
-		currx = xstart;
-		for(int j=0; j<columns; j++){
-			if (board[i][j].type != NOTHING)
-			{
-				if (board[i][j].type != VIRUS){
-					drawPill(currx,curry,i,j);
-				}else{
-					glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
-					glEnable(GL_TEXTURE_2D);
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-					glPushMatrix();
-					//set matrix mode to texture for rotations
-					glLoadIdentity();
-					glTranslatef(currx+randengine.Rand()%4,curry+randengine.Rand()%4,0.0);
+    float currx = xstart;
+    float curry = ystart;
+    for (int i=0; i<rows; i++){
+	currx = xstart;
+	for(int j=0; j<columns; j++){
+	    if (board[i][j].type != NOTHING)
+		{
+		    if (board[i][j].type != VIRUS){
+			drawPill(currx,curry,i,j);
+		    }else{
+			glBindTexture( GL_TEXTURE_2D,tiles[board[i][j].col]);
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glPushMatrix();
+			//set matrix mode to texture for rotations
+			glLoadIdentity();
+			glTranslatef(currx+randengine.Rand()%4,curry+randengine.Rand()%4,0.0);
 					
-					glBegin(GL_QUADS); // Start drawing a quad primitive
-					glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
-					glTexCoord2i( 1, 0 );   glVertex2f(size,0);
-					glTexCoord2i( 1, 1 );   glVertex2f(size, size);
-					glTexCoord2i( 0, 1);	glVertex2f(0,size);
-					glEnd();
-					glPopMatrix();
-					glDisable(GL_BLEND);
-					glDisable(GL_TEXTURE_2D);
-				}
-			}
-			currx+=size;
+			glBegin(GL_QUADS); // Start drawing a quad primitive
+			glTexCoord2i( 0, 0 );   glVertex2f(0, 0);
+			glTexCoord2i( 1, 0 );   glVertex2f(size,0);
+			glTexCoord2i( 1, 1 );   glVertex2f(size, size);
+			glTexCoord2i( 0, 1);	glVertex2f(0,size);
+			glEnd();
+			glPopMatrix();
+			glDisable(GL_BLEND);
+			glDisable(GL_TEXTURE_2D);
+		    }
 		}
-		curry+=size;
+	    currx+=size;
 	}
-	//render particles
-	pengine.render();
+	curry+=size;
+    }
+    //render particles
+    pengine.render();
     return true;
 }

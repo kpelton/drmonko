@@ -9,28 +9,28 @@
 #endif
 class NetTwoPlayer: public TwoPlayer
 {
-public:
+ public:
 
-      NetTwoPlayer(int width,int height,float size,float center,
-			float boardwidth,float start,float end, int argc,
-		   char **argv , const int *keys,bool flip,TCPsocket csd );
-      virtual ~NetTwoPlayer(){};
+    NetTwoPlayer(int width,int height,float size,float center,
+		 float boardwidth,float start,float end, int argc,
+		 char **argv , const int *keys,bool flip,TCPsocket csd );
+    virtual ~NetTwoPlayer(){};
 	
-      void renderScene(SDL_Event *event);
-      void setNetRowCol(const int row, const int col,const int rot);
-      void setCurr(const int curr);
-      void startGame(time_t seed);
+    void renderScene(SDL_Event *event);
+    void setNetRowCol(const int row, const int col,const int rot);
+    void setCurr(const int curr);
+    void startGame(time_t seed);
       
-private:
-	Status handleNoEvent();
-	void handleStatus(const Status status);
-	void handleKeys(player_types::key key);
-	void handlePauseEvent(const string & selection);
-	Uint32 lastcol;
-	Uint32 lastrow;
-	Uint32 lastrot;
-	TCPsocket csd;
-	Uint32 last;
+ private:
+    Status handleNoEvent();
+    void handleStatus(const Status status);
+    void handleKeys(player_types::key key);
+    void handlePauseEvent(const string & selection);
+    Uint32 lastcol;
+    Uint32 lastrow;
+    Uint32 lastrot;
+    TCPsocket csd;
+    Uint32 last;
 
 };
 #endif
