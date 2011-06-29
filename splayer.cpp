@@ -9,7 +9,7 @@ SPlayer::SPlayer(const int width, const int height, float size, float center,
 	this->start = start;
 	this->end = end;
 	keys = player_types::p1_keys;
-	srand(time(NULL));
+	randengine.Seed(time(NULL));
 	game = new Game(width,height,size,center,
 			boardwidth,start,end,argc,argv,keys);
 	menu = NULL;
@@ -82,7 +82,7 @@ void SPlayer::renderScene(SDL_Event *event) {
 
 }
 void SPlayer::newGame(){
-    srand(time(NULL));
+    randengine.Seed(time(NULL));
     game->newGame();
 }
 void SPlayer::handlePauseEvent(const string & selection) {

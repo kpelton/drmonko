@@ -39,12 +39,12 @@ void Board::copyBoard(Board &other){
 
 void Board::addPiece(int num)
 {
-    int col = rand() %columns;
+    int col = randengine.Rand() %columns;
 	for(int i=0; i<num; i++){
 	    if (board[i][col].type == NOTHING){
 		board[i][col].type = SETPILL;
 		board[i][col].rot = NONE;
-		board[i][col].col = static_cast<color>(rand() %3);
+		board[i][col].col = static_cast<color>(randengine.Rand() %3);
 		}
 	}
 
@@ -55,8 +55,8 @@ void Board::newGame()
 	clear();
 	for (int i=10; i<rows; i++)
 		for (int j=0; j<columns; j++)
-			if (rand()%5 == 4){
-				board[i][j].col = static_cast<color>(rand()%3);
+			if (randengine.Rand()%5 == 4){
+				board[i][j].col = static_cast<color>(randengine.Rand()%3);
 				board[i][j].type = VIRUS;
 				viruses++;
 			}
@@ -449,7 +449,7 @@ bool Board::render()
 					glPushMatrix();
 					//set matrix mode to texture for rotations
 					glLoadIdentity();
-					glTranslatef(currx+rand()%4,curry+rand()%4,0.0);
+					glTranslatef(currx+randengine.Rand()%4,curry+randengine.Rand()%4,0.0);
 					
 					glBegin(GL_QUADS); // Start drawing a quad primitive
 					glTexCoord2i( 0, 0 );   glVertex2f(0, 0);

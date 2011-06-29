@@ -18,8 +18,8 @@ Piece::Piece(const float & size,const float& x,const float& y,const float& left,
 }
 void Piece::newPieces(){
        for (int i=0; i<piececount; i++){
-	pieces1[i] = rand()%3;
-	pieces2[i] = rand()%3;
+	pieces1[i] = randengine.Rand()%3;
+	pieces2[i] = randengine.Rand()%3;
     }
     curr = 0;
     firstPiece(7);

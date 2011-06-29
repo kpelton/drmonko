@@ -11,6 +11,6 @@ public:
 
 
 protected:
-	 MTRand RandEngine;
+	 MTRand randengine;
 };
 #endif

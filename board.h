@@ -3,6 +3,7 @@
 #include "GLobject.h"
 #include "piece.h"
 #include "particle.h"
+#include "mtrand.h"
 namespace types {
 enum rotation{
 	UP,
@@ -78,5 +79,6 @@ public:
     void addExplosion(const float x, const float y, const color col);
 
     BoardPlace board[rows][columns];
+    MTRand randengine;
 };
 #endif

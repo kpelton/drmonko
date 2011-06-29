@@ -1,6 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 #include "GLobject.h"
+#include "mtrand.h"
 //This is the class definition for the current piece
 
 
@@ -75,7 +76,7 @@ public:
     static const int piececount = 500;
     int pieces1[piececount];
     int pieces2[piececount];
-    
+    MTRand randengine;
     
     int curr;
     float size;

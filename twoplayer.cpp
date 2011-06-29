@@ -110,9 +110,9 @@ void TwoPlayer::handleStatus(const Status status){
 }
 
 void TwoPlayer::newGame(time_t seed){
-    srand(seed);
+    randengine.Seed(seed);
     leftgame->newGame();
-    srand(seed);
+    randengine.Seed(seed);
     rightgame->newGame();
 }
 
