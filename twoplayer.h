@@ -15,8 +15,8 @@ class TwoPlayer: public Player
  public:
     virtual void renderScene(SDL_Event *event);
     TwoPlayer(int width,int height,float size,float center,
-	      float boardwidth,float start,float end, int argc,
-	      char **argv , const int *keys,bool flip=false);
+	      float boardwidth,float start,float end,
+	      const int *keys,bool flip=false);
 
     virtual ~TwoPlayer();
 	

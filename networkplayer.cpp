@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 NetPlayer::NetPlayer(int width,int height,float size,float center,
-		     float boardwidth,float start,float end, int argc,
-		     char **argv,player_types::p_type type,string host)
+		     float boardwidth,float start,float end,
+		     player_types::p_type type,string host)
 {
     
    
@@ -24,7 +24,7 @@ NetPlayer::NetPlayer(int width,int height,float size,float center,
 	setupClient();
 
     twoplayer = new NetTwoPlayer(width,height,size,center,
-				 boardwidth,start,end,argc,NULL,NULL,true,csd);
+				 boardwidth,start,end,NULL,true,csd);
     
 }
 

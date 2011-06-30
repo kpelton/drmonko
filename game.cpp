@@ -230,8 +230,7 @@ Game::Game(const int width, const int height) :
 }
 
 Game::Game(const int width, const int height, float size, float center,
-	   float boardwidth, float start, float end, int argc, char **argv,
-	   const int *keys) :
+	   float boardwidth, float start, float end,const int *keys) :
     width(width), height(height) {
     //start at 90 percent of the screen for title
     this->size = size;

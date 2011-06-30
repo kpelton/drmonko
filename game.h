@@ -30,8 +30,7 @@ class Game
     virtual void renderScene(SDL_Event *event);
     Game(int width, int height);
     Game(int width,int height,float size,float center,
-	 float boardwidth,float start,float end, int argc,
-	 char **argv , const int *keys);
+	 float boardwidth,float start,float end, const int *keys);
     Game();
     void setPaused(bool paused){this->paused = paused;};
     void newGame();

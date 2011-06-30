@@ -12,8 +12,8 @@ class NetTwoPlayer: public TwoPlayer
  public:
 
     NetTwoPlayer(int width,int height,float size,float center,
-		 float boardwidth,float start,float end, int argc,
-		 char **argv , const int *keys,bool flip,TCPsocket csd );
+		 float boardwidth,float start,float end,
+		 const int *keys,bool flip,TCPsocket csd );
     virtual ~NetTwoPlayer(){};
 	
     void renderScene(SDL_Event *event);

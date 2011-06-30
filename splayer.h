@@ -13,26 +13,25 @@ using namespace std;
 
 class SPlayer: public Player
 {
-public:
-	void renderScene(SDL_Event *event);
-	SPlayer(int width,int height,float size,float center,
-			float boardwidth,float start,float end, int argc,
-		char **argv);
+ public:
+    void renderScene(SDL_Event *event);
+    SPlayer(int width,int height,float size,float center,
+	    float boardwidth,float start,float end);
 
-	virtual ~SPlayer();
-private:
-	Game *game;
-	int width;
-	int height;
-	float size;
-	float end;
-	float start;
-	void handleKeys(player_types::key key);
-	void handlePauseEvent(const string & selection);
-	void newGame();
-	bool paused;
-	MenuWindow *menu;
-	const int *keys;
-	SDLTimer * timer;
+    virtual ~SPlayer();
+ private:
+    Game *game;
+    int width;
+    int height;
+    float size;
+    float end;
+    float start;
+    void handleKeys(player_types::key key);
+    void handlePauseEvent(const string & selection);
+    void newGame();
+    bool paused;
+    MenuWindow *menu;
+    const int *keys;
+    SDLTimer * timer;
 };
 #endif

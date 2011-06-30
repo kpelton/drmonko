@@ -2,7 +2,7 @@
 #include "types.h"
 
 TwoPlayer::TwoPlayer(const int width, const int height, float size, float center,
-		     float boardwidth, float start, float end, int argc, char **argv,
+		     float boardwidth, float start, float end,
 		     const int *keys,bool flip):Player(),
 						width(width), height(height) {
     //start at 90 percent of the screen for title
@@ -11,11 +11,11 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
     this->end = end;
     //add a little space on each side for the white line
     rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-			 0,0,player_types::p2_keys);
+			 player_types::p2_keys);
     start = (boardwidth+25.0)+150.0;
     end = start +(size *(columns));
     leftgame = new Game(width,height,size,center,boardwidth,start,end,
-			0,0,player_types::p1_keys);
+			player_types::p1_keys);
     menu = NULL;
     newGame(time(NULL));
 	

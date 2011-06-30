@@ -16,8 +16,8 @@ class NetPlayer: public Player
  public:
     virtual void renderScene(SDL_Event *event);
     NetPlayer(int width,int height,float size,float center,
-	      float boardwidth,float start,float end, int argc,
-	      char **argv,player_types::p_type type,string host);
+	      float boardwidth,float start,float end
+	      ,player_types::p_type type,string host);
 	
     virtual ~NetPlayer();
  private:

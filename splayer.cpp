@@ -2,8 +2,7 @@
 #include "types.h"
 
 SPlayer::SPlayer(const int width, const int height, float size, float center,
-		 float boardwidth, float start, float end, int argc, char **argv):Player(),
-										  width(width), height(height) 
+		 float boardwidth, float start, float end):Player(),width(width), height(height) 
 {
     this->size = size;
     this->start = start;
@@ -11,7 +10,7 @@ SPlayer::SPlayer(const int width, const int height, float size, float center,
     keys = player_types::p1_keys;
     randengine.Seed(time(NULL));
     game = new Game(width,height,size,center,
-		    boardwidth,start,end,argc,argv,keys);
+		    boardwidth,start,end,keys);
     menu = NULL;
     paused = false;
 	

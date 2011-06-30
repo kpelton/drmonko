@@ -42,18 +42,17 @@ void GLscene::setupGame(){
 	    
     } else if(menu->getSelected() == "Same Computer"){
 	
-	game = new TwoPlayer(width,height,size,center,boardwidth,start,end,
-			     0,NULL,NULL);
+	game = new TwoPlayer(width,height,size,center,boardwidth,start,end
+			     ,NULL);
 	
 	    
     }else if (menu->getSelected() == "1 Player"){
-	game = new SPlayer(width,height,size,center,boardwidth,start,end,
-			   0,NULL);
+	game = new SPlayer(width,height,size,center,boardwidth,start,end);
     }
     else if (menu->getSelected() == "Net Host"){
 
 	game = new NetPlayer(width,height,size,center,boardwidth,start,end,
-			     0,NULL,player_types::INTERNET_SERVER,"");
+			     player_types::INTERNET_SERVER,"");
     }
 
     else if (menu->getSelected() == "Host"){
@@ -62,7 +61,7 @@ void GLscene::setupGame(){
     else if (menu->getSelected() == "Connect"){
 	host = menu->getInput("Host");
 	game = new NetPlayer(width,height,size,center,boardwidth,start,end,
-			     0,NULL,player_types::INTERNET_CLIENT,host);
+			     player_types::INTERNET_CLIENT,host);
     }
 
     else if (menu->getSelected() == "Net Connect"){
