@@ -1,8 +1,6 @@
 #include "sdlWindow.h"
 
 
-#define TICK_INTERVAL 500
-
 const char * sdlWindow::musicFile = "song.wav";
 
 sdlWindow::sdlWindow()
@@ -220,9 +218,9 @@ void sdlWindow::renderLoop()
 		
 			
 		
-		}
-
-	    scene->renderScene(NULL);
+		}else{
+	         scene->renderScene(NULL);
+	    }
 	    SDL_GL_SwapBuffers( );
 	    SDL_Delay(10);
 	}

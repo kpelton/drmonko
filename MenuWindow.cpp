@@ -19,10 +19,6 @@ MenuWindow::MenuWindow(const int width, const int height,const string & title,TT
 	this->font = GLobject::loadFont("fonts/Ubuntu-R.ttf",45);
 	custom = false;
     }
-
-	
-
-	
 }
 
 

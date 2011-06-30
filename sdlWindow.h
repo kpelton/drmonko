@@ -2,7 +2,6 @@
 #define SDL_WINDOW
 #include <iostream>
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <math.h>
 #ifdef _WIN32
 #include <SDL/SDL.h>

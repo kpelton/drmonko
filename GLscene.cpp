@@ -1,5 +1,4 @@
 #include "GLscene.h"
-#include "piece.h"
 #include "types.h"
 #include <iostream>
 

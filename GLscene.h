@@ -1,7 +1,6 @@
 #ifndef GL_SCENE
 #define GL_SCENE
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include "GLobject.h"
 #include "game.h"
 #include "player.h"

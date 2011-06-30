@@ -1,4 +1,6 @@
-CC = g++  -g  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
+#CC = g++  -g  -Wall  `sdl-config --cflags --libs` -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
+CC = g++  -g  -Wall  `sdl-config --cflags --libs` -I/u/kpelton/include/include/SDL -L/u/kpelton/include/lib -lGL -lGLU -lSDL_net -lSDL_mixer -lSDL_ttf 
+
 CFLAGS =  -c 
 
 all: drmonko

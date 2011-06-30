@@ -1,8 +1,6 @@
 #include "boardview.h"
 #include <iostream>
 #include <time.h>
-
-#include <GL/glut.h>
 #include "sdlWindow.h"
 
 

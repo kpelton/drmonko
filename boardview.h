@@ -2,7 +2,6 @@
 #define BOARDVIEW_H
 #include "GLobject.h"
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <math.h>
 #ifdef _WIN32
 #include <SDL/SDL.h>

@@ -1,7 +1,6 @@
 #ifndef GL_OBJECT
 #define GL_OBJECT
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <math.h>
 #ifdef _WIN32
 #include <SDL/SDL.h>
