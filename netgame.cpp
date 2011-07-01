@@ -8,10 +8,10 @@ NetTwoPlayer::NetTwoPlayer(int width,int height,float size,float center,
 			   const int *keys,bool flip,TCPsocket csd):
                            TwoPlayer(width,height,size,center,boardwidth, start,end , keys,flip)
 {
-    lastrow = TwoPlayer::leftgame->getRow();
-    lastcol = TwoPlayer::leftgame->getCol();
-    lastrot = TwoPlayer::leftgame->getRot();
-    TwoPlayer::rightgame->setPaused(true);
+    lastrow = TwoPlayer::rightgame->getRow();
+    lastcol = TwoPlayer::rightgame->getCol();
+    lastrot = TwoPlayer::rightgame->getRot();
+    TwoPlayer::leftgame->setPaused(true);
     this->csd = csd;
     
 }
@@ -20,7 +20,7 @@ void NetTwoPlayer::startGame(time_t seed){
 }
 void NetTwoPlayer::setCurr(const int curr){
 
-    TwoPlayer::rightgame->addToBoard();
+    TwoPlayer::leftgame->addToBoard();
     cout <<"Called" <<curr <<endl;
 }
 
@@ -34,8 +34,8 @@ void NetTwoPlayer::handleStatus(const Status status){
 	break;
 
     case WIN:
-	// leftgame->setPaused(true);
 	// rightgame->setPaused(true);
+	// leftgame->setPaused(true);
 	// menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	// menu->addOption("New Game");
 	// menu->addOption("Exit");
@@ -49,21 +49,21 @@ void NetTwoPlayer::handleStatus(const Status status){
 }
 void NetTwoPlayer::setNetRowCol(const int row, const int col,const int rot){
 
-    TwoPlayer::rightgame->setRow(row);
-    TwoPlayer::rightgame->setCol(col);
-    TwoPlayer::rightgame->setRot(rot);
+    TwoPlayer::leftgame->setRow(row);
+    TwoPlayer::leftgame->setCol(col);
+    TwoPlayer::leftgame->setRot(rot);
     
 }
 
 void NetTwoPlayer::renderScene(SDL_Event *event){
-    last =  TwoPlayer::leftgame->getPiece()->getCurr();
+    last =  TwoPlayer::rightgame->getPiece()->getCurr();
 
     TwoPlayer::renderScene(event);
-    TwoPlayer::rightgame->setPaused(true);
-    Uint32 row  = TwoPlayer::leftgame->getRow();
-    Uint32 col = TwoPlayer::leftgame->getCol();
-    Uint32 rot = TwoPlayer::leftgame->getRot();
-    Uint32 curr = TwoPlayer::leftgame->getPiece()->getCurr();
+    TwoPlayer::leftgame->setPaused(true);
+    Uint32 row  = TwoPlayer::rightgame->getRow();
+    Uint32 col = TwoPlayer::rightgame->getCol();
+    Uint32 rot = TwoPlayer::rightgame->getRot();
+    Uint32 curr = TwoPlayer::rightgame->getPiece()->getCurr();
 
     netmsg msg;
     Uint32 rowcol = col | (row << 8) ;

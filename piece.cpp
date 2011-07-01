@@ -75,7 +75,7 @@ bool Piece::drawPiece(float px, float py, int rot,int ty1,int ty2)
 	    if (pieces[rot][i][j] != 0){
 		glPushMatrix();
 		//set matrix mode to texture for rotations
-		glLoadIdentity();
+		
     		glTranslatef(currx,curry,0.0);
 		//do correct rotation for texture allignment
 		

@@ -367,7 +367,7 @@ void Board::drawPill(const float x,const float y,
     glColor4f(1,1,1,1);
     glPushMatrix();
     //set matrix mode to texture for rotations
-    glLoadIdentity();
+    
     glTranslatef(x,y,0.0);
     //do correct rotation for texture allignment
     glEnable(GL_TEXTURE_2D);
@@ -448,7 +448,6 @@ bool Board::render()
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glPushMatrix();
 			//set matrix mode to texture for rotations
-			glLoadIdentity();
 			glTranslatef(currx+randengine.Rand()%4,curry+randengine.Rand()%4,0.0);
 					
 			glBegin(GL_QUADS); // Start drawing a quad primitive

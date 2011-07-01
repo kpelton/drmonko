@@ -10,11 +10,11 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
     this->start = start;
     this->end = end;
     //add a little space on each side for the white line
-    rightgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
+    leftgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
 			 player_types::p2_keys);
     start = (boardwidth+25.0)+150.0;
     end = start +(size *(columns));
-    leftgame = new Game(width,height,size,center,boardwidth,start,end,
+    rightgame = new Game(width,height,size,center,boardwidth,start,end,
 			player_types::p1_keys);
     menu = NULL;
     newGame(time(NULL));
@@ -27,8 +27,8 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 
 
 TwoPlayer::~TwoPlayer(){
-    delete rightgame;
     delete leftgame;
+    delete rightgame;
 }
 
 void TwoPlayer::renderScene(SDL_Event *event) {
@@ -55,30 +55,30 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 	    }
 	}
     }
-    rightcount = rightgame->getVirusCount();
-    leftcount = leftgame->getVirusCount();
+    rightcount = leftgame->getVirusCount();
+    leftcount = rightgame->getVirusCount();
     if (menu){
-	leftgame->renderScene(NULL);
 	rightgame->renderScene(NULL);
+	leftgame->renderScene(NULL);
     }else{
-	leftgame->renderScene(event);
 	rightgame->renderScene(event);
+	leftgame->renderScene(event);
     }
-    gameStatus = rightgame->getStatus();
+    gameStatus = leftgame->getStatus();
 
     if (menu){
 	menu->render();
     }else{
-	handleStatus(rightgame->getStatus());
+	handleStatus(leftgame->getStatus());
 	if(!menu)
-	    handleStatus(leftgame->getStatus());
+	    handleStatus(rightgame->getStatus());
     }
 	
-    // if(leftcount - leftgame->getVirusCount() >1){
-    //     rightgame->addPiece(leftcount - leftgame->getVirusCount());
+    // if(leftcount - rightgame->getVirusCount() >1){
+    //     leftgame->addPiece(leftcount - rightgame->getVirusCount());
     // }
-    // if(rightcount - rightgame->getVirusCount() >1){
-    //     leftgame->addPiece(rightcount - rightgame->getVirusCount());
+    // if(rightcount - leftgame->getVirusCount() >1){
+    //     rightgame->addPiece(rightcount - leftgame->getVirusCount());
     // }
 	
 
@@ -87,16 +87,16 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 void TwoPlayer::handleStatus(const Status status){
     switch (status){
     case WIN:
-	leftgame->setPaused(true);
 	rightgame->setPaused(true);
+	leftgame->setPaused(true);
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	menu->addOption("New Game");
 	menu->addOption("Exit");
 	break;
 
     case LOSS:
-	leftgame->setPaused(true);
 	rightgame->setPaused(true);
+	leftgame->setPaused(true);
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	menu->addOption("New Game");
 	menu->addOption("Exit");
@@ -111,15 +111,15 @@ void TwoPlayer::handleStatus(const Status status){
 
 void TwoPlayer::newGame(time_t seed){
     randengine.Seed(seed);
-    leftgame->newGame();
-    randengine.Seed(seed);
     rightgame->newGame();
+    randengine.Seed(seed);
+    leftgame->newGame();
 }
 
 void TwoPlayer::handlePauseEvent(const string & selection) {
     if (menu->getSelected() == "Resume") {
-	leftgame->setPaused(false);
 	rightgame->setPaused(false);
+	leftgame->setPaused(false);
 	delete menu;
 	menu = NULL;
     } else if (menu->getSelected() == "Exit") {
@@ -145,15 +145,15 @@ void TwoPlayer::handleKeys(player_types::key key) {
     case player_types::DOWN:
 	break;
     case player_types::EXIT:
-	leftgame->setPaused(true);
 	rightgame->setPaused(true);
+	leftgame->setPaused(true);
 	menu = new MenuWindow(width, height, "Paused", NULL);
 	menu->addOption("Resume");
 	menu->addOption("New Game");
 	menu->addOption("Exit");
 	       
-	rightcount = rightgame->getVirusCount();
-	leftcount = leftgame->getVirusCount();
+	rightcount = leftgame->getVirusCount();
+	leftcount = rightgame->getVirusCount();
     default:
 	break;
     }
