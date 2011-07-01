@@ -24,21 +24,22 @@ void NetTwoPlayer::setCurr(const int curr){
     cout <<"Called" <<curr <<endl;
 }
 
-void NetTwoPlayer::handleStatus(const Status status){
+Status NetTwoPlayer::getStatus(){
+    return rightgame->getStatus();
+}
+Status NetTwoPlayer::handleStatus(const Status status){
     netmsg msg;
     switch (status){
     case LOSS:
 	msg = GAMEOVER;
 	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
-
+	return LOSS;
 	break;
 
     case WIN:
-	// rightgame->setPaused(true);
-	// leftgame->setPaused(true);
-	// menu  = new MenuWindow(width,height,"GAME OVER",NULL);
-	// menu->addOption("New Game");
-	// menu->addOption("Exit");
+	msg = NETWIN;
+	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+	return WIN;
 	break;
 
     default:
@@ -46,6 +47,7 @@ void NetTwoPlayer::handleStatus(const Status status){
 
 
     }
+    return INPROGRESS;
 }
 void NetTwoPlayer::setNetRowCol(const int row, const int col,const int rot){
 
@@ -54,6 +56,7 @@ void NetTwoPlayer::setNetRowCol(const int row, const int col,const int rot){
     TwoPlayer::leftgame->setRot(rot);
     
 }
+
 
 void NetTwoPlayer::renderScene(SDL_Event *event){
     last =  TwoPlayer::rightgame->getPiece()->getCurr();

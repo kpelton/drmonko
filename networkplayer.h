@@ -10,7 +10,8 @@
 #include "SDL_net.h"
 #endif
 #include "types.h"
-
+#include "timer.h"
+#include "MenuWindow.h"
 class NetPlayer: public Player
 {
  public:
@@ -38,6 +39,10 @@ class NetPlayer: public Player
     time_t seed;
     bool ready;
     string host;
+    MenuWindow *menu;
+    SDLTimer timer;
+    int width;
+    int height;
 };
 
 enum netmsg
@@ -47,6 +52,8 @@ enum netmsg
 	NEWGAME,
 	NEWPIECE,
 	GAMEOVER,
+	CONNECT,
+	NETWIN,
 	PAUSE,
 	PONG,
     };

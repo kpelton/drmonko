@@ -133,7 +133,7 @@ void sdlWindow::initWindow()
 bool sdlWindow::resizeWindow(const  int width, const int height )
 {
     /* Height / width ration */
-    GLfloat ratio;
+    GLfloat ratio=width/height;
 
     /* Protect against a divide by zero */
    
@@ -147,9 +147,10 @@ bool sdlWindow::resizeWindow(const  int width, const int height )
     /* change to the projection matrix and set our viewing volume. */
     glMatrixMode( GL_PROJECTION );
     
+    glLoadIdentity();
     //gluPerspective(0.0,width/height,1.0,500.0f);
     /* Set our perspective */
-    glOrtho (0,SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 1);
+    glOrtho (0,SCREEN_WIDTH,SCREEN_HEIGHT, 0, 0, 1);
 
     /* Make sure we're chaning the model view and not the projection */
     glMatrixMode( GL_MODELVIEW );
@@ -218,9 +219,9 @@ void sdlWindow::renderLoop()
 		
 			
 		
-		}else{
+		}
 	         scene->renderScene(NULL);
-	    }
+	    
 	    SDL_GL_SwapBuffers( );
 	    SDL_Delay(10);
 	}

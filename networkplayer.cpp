@@ -26,6 +26,10 @@ NetPlayer::NetPlayer(int width,int height,float size,float center,
     twoplayer = new NetTwoPlayer(width,height,size,center,
 				 boardwidth,start,end,NULL,true,csd);
     
+    menu = new MenuWindow(width, height, "Starting new Game...", NULL);
+    this->width = width;
+    this->height = height;
+    
 }
 
 
@@ -63,6 +67,7 @@ void NetPlayer::handleCmds(){
     Uint32 buffer;
     Uint32 rot;
     Uint32 curr;
+    Status status;
 
     while(checkActivity()){
 	recvData(&msg,sizeof(msg));
@@ -99,12 +104,44 @@ void NetPlayer::handleCmds(){
 	    ready = true;
 	    break;
 
+	case PAUSE:
+	    ready = false;
+	    timer.setTimer(5000);
+	    status =  twoplayer->getStatus();
+	    if (status == LOSS){
+		delete menu;
+		menu = new MenuWindow(width, height, "YOU LOSE", NULL);
+	    }
+	    if (status == WIN){
+		delete menu;
+		menu = new MenuWindow(width, height, "YOU WIN", NULL);	
+	    }
+
+	    break;
+	case CONNECT:
+	    ready = false;
+	    timer.setTimer(5000);
+	    msg = PAUSE;
+	    sendData(&msg, sizeof(msg));
+	    break;
 	case GAMEOVER:
 	    cout <<"Game over"<<endl;
-	    seed = time(NULL);
-	    msg = SEED;
-	    sendData(&msg, sizeof(netmsg));
-	    sendData(&seed, sizeof(Uint32));
+	    timer.setTimer(5000);
+
+	    delete menu;
+	    menu = new MenuWindow(width, height, "YOU WIN", NULL);
+	    ready = false;
+	    msg = PAUSE;
+	    sendData(&msg, sizeof(msg));
+	    break;
+	case NETWIN:
+	    delete menu;
+	    menu = new MenuWindow(width, height, "YOU LOSE", NULL);
+	    
+	    timer.setTimer(5000);
+	    ready = false;
+	    msg = PAUSE;
+	    sendData(&msg, sizeof(msg));
 	    break;
 	case NEWGAME:
 	    cout <<"New Game"<<endl;
@@ -128,7 +165,8 @@ void NetPlayer::handleCmds(){
 
 void NetPlayer::renderScene(SDL_Event *event){
     bool ourkey = false;
- 
+    
+    netmsg msg;
     if (event && event->type == SDL_KEYDOWN) {
 	for (int i = 0; i < 6; i++) {
 	    //cast sdl key to own virtual key mapping
@@ -144,6 +182,17 @@ void NetPlayer::renderScene(SDL_Event *event){
 	    twoplayer->renderScene(event);
 	else
 	    twoplayer->renderScene(NULL);
+    } else{
+
+    	menu->render();
+	if (type == player_types::INTERNET_SERVER && timer.isDone()   )
+	    {
+		seed = time(NULL);
+		msg = SEED;
+		sendData(&msg, sizeof(netmsg));
+		sendData(&seed, sizeof(Uint32));
+		ready = true;
+	    }
     }
 
 
@@ -164,7 +213,7 @@ bool NetPlayer::checkActivity(){
     return false;
 }
 void NetPlayer::setupClient(){
-    netmsg msg = GAMEOVER;
+    netmsg msg = CONNECT;
     if (SDLNet_Init() < 0)
 	{
 	    fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
@@ -240,4 +289,5 @@ void NetPlayer::serverWait(){
 NetPlayer::~NetPlayer()
 {
     delete twoplayer;
+    delete menu;
 }

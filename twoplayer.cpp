@@ -3,20 +3,36 @@
 
 TwoPlayer::TwoPlayer(const int width, const int height, float size, float center,
 		     float boardwidth, float start, float end,
-		     const int *keys,bool flip):Player(),
+		     const int *keys,bool flip,const int players):Player(),
 						width(width), height(height) {
     //start at 90 percent of the screen for title
     this->size = size;
     this->start = start;
     this->end = end;
-    //add a little space on each side for the white line
-    leftgame = new Game(width,height,size,center,boardwidth+25,25,boardwidth+25,
-			 player_types::p2_keys);
+    
     start = (boardwidth+25.0)+150.0;
     end = start +(size *(columns));
+    
     rightgame = new Game(width,height,size,center,boardwidth,start,end,
-			player_types::p1_keys);
+			     player_types::p1_keys);
+    
     menu = NULL;
+
+    if (players == 2){
+	leftgame = new Game(width,height,size,center,boardwidth,25,boardwidth+25,
+			    player_types::p2_keys);
+    }else if (players == 3){
+	leftgame = new Game(width/2,height/2,size/2,center,boardwidth/2,start,end,
+			     player_types::p1_keys); 
+	games.push_back(leftgame);
+	
+	leftgame = new Game(width/2,height/2,size/2,center,boardwidth/2,start,end,
+			     player_types::p1_keys); 
+	games.push_back(leftgame);
+
+    }
+   
+
     newGame(time(NULL));
 	
     this->keys = player_types::p2_keys;
@@ -84,7 +100,7 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 
 }
 
-void TwoPlayer::handleStatus(const Status status){
+Status TwoPlayer::handleStatus(const Status status){
     switch (status){
     case WIN:
 	rightgame->setPaused(true);
@@ -92,6 +108,7 @@ void TwoPlayer::handleStatus(const Status status){
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	menu->addOption("New Game");
 	menu->addOption("Exit");
+	return WIN;
 	break;
 
     case LOSS:
@@ -100,6 +117,7 @@ void TwoPlayer::handleStatus(const Status status){
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	menu->addOption("New Game");
 	menu->addOption("Exit");
+	return LOSS;
 	break;
 
     default:
@@ -107,6 +125,7 @@ void TwoPlayer::handleStatus(const Status status){
 
 
     }
+    return LOSS;
 }
 
 void TwoPlayer::newGame(time_t seed){

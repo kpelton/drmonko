@@ -19,6 +19,7 @@ MenuWindow::MenuWindow(const int width, const int height,const string & title,TT
 	this->font = GLobject::loadFont("fonts/Ubuntu-R.ttf",45);
 	custom = false;
     }
+   
 }
 
 
@@ -82,7 +83,7 @@ bool MenuWindow::handleEvent(SDL_Event *event){
     return false;
 }
 bool MenuWindow::handleKey(player_types::key key){
-    //Switch menu selection
+  
     switch(key){
     case player_types::ROTATE:
 	if (selected >0)
@@ -107,9 +108,17 @@ bool MenuWindow::handleKey(player_types::key key){
     return false;
 }
 bool MenuWindow::render(){
+   
     int curry = height/3;
     int spacing  = 100; //100 pixels between entries
     string curr = "";
+      //Switch menu selection
+    float r = (rand()%255) *(1.0/255);
+    float g = (rand()%255) *(1.0/255);
+    float b = (rand()%255) *(1.0/255);
+    
+    pengine.addExplosion(rand()%width,rand()%height,r,g,b);
+    pengine.render();
     glEnable( GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -126,7 +135,7 @@ bool MenuWindow::render(){
 
     glColor4f(1.0,1.0,1.0,1.0);
 
-    GLobject::drawText(font, 255,0,255, (width/2) - (title.length()*22.5/2), curry/3,title);
+    GLobject::drawText(font, 255,0,255, (width/2) - (title.length()*22.5/2)+rand()%2, curry/3+rand()%2,title);
 
     for (unsigned int i=0; i<options.size(); i++) { //loop through vector
 
@@ -151,6 +160,7 @@ bool MenuWindow::render(){
     }
     glDisable( GL_BLEND );
     glDisable(GL_TEXTURE_2D);
+    
     return true;
 }
 

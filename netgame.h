@@ -21,9 +21,10 @@ class NetTwoPlayer: public TwoPlayer
     void setCurr(const int curr);
     void startGame(time_t seed);
       
+    Status getStatus();
  private:
     Status handleNoEvent();
-    void handleStatus(const Status status);
+    Status handleStatus(const Status status);
     void handleKeys(player_types::key key);
     void handlePauseEvent(const string & selection);
     Uint32 lastcol;
@@ -31,6 +32,7 @@ class NetTwoPlayer: public TwoPlayer
     Uint32 lastrot;
     TCPsocket csd;
     Uint32 last;
+    
 
 };
 #endif

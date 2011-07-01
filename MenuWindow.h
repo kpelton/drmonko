@@ -20,6 +20,7 @@
 #include <vector>
 #include <string>
 #include "types.h"
+#include "particle.h"
 
 class MenuWindow: public GLobject {
  public:
@@ -47,6 +48,7 @@ class MenuWindow: public GLobject {
     int height;
     bool custom;
     string input;
+    ParticleEngine pengine;
 
 };
 
