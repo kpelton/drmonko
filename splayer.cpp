@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #include "splayer.h"
 #include "types.h"
 

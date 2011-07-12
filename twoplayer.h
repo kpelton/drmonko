@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef TWOPLAYER_H
 #define TWOPLAYER_H
 #include <GL/gl.h>

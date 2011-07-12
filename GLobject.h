@@ -1,3 +1,5 @@
+//Copyright (c) 2010 Kyle Pelton
+//See COPYING for license information
 #ifndef GL_OBJECT
 #define GL_OBJECT
 #include <GL/gl.h>

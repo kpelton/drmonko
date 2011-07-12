@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef PIECE_H
 #define PIECE_H
 #include "GLobject.h"

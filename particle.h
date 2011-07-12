@@ -1,10 +1,5 @@
-/*
- * Particle Engine
- *
- *  Created on: Feb 6, 2011
- *      Author: Kyle Pelton
- */
-
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
 

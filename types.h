@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef TYPES_H
 #define TYPES_H
 namespace player_types

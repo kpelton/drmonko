@@ -1,3 +1,6 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
+
 #include "boardview.h"
 #include <iostream>
 #include <time.h>

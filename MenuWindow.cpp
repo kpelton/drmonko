@@ -1,10 +1,5 @@
-/*
- * MenuWindow.cpp
- *
- *  Created on: Feb 6, 2011
- *      Author: kyle
- */
-
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #include "MenuWindow.h"
 #include "types.h"
 MenuWindow::MenuWindow(const int width, const int height,const string & title,TTF_Font *font) {

@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef NETWORKPLAYER_H
 #define NETWORKPLAYER_H
 #include <math.h>

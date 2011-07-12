@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef SDL_WINDOW
 #define SDL_WINDOW
 #include <iostream>

@@ -1,10 +1,5 @@
-/*
- * MenuWindow.h
- *
- *  Created on: Feb 6, 2011
- *      Author: kyle
- */
-
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef MENUWINDOW_H_
 #define MENUWINDOW_H_
 

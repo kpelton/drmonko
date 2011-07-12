@@ -1,3 +1,5 @@
+//Copyright (c) 2011 Kyle Pelton
+//See COPYING for license information
 #ifndef TIMER_H
 #define TIMER_H
 #ifdef _WIN32

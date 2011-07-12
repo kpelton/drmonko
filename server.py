@@ -1,3 +1,5 @@
+#Copyright (c) 2011 Kyle Pelton
+#See COPYING for license information
 #!/usr/bin/python
 import socket
 import select
