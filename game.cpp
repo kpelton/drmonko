@@ -40,7 +40,13 @@ void Game::renderScene(SDL_Event *event) {
     glPushMatrix();
     drawNextPiece();
     glPopMatrix();
-	
+
+
+    //See if game is over every time this is called
+    if (!movePossible(0))
+	status = LOSS; //game is over
+    else if(board->getVirusCount() == 0)
+	status = WIN;
 
 }
 void Game::addToBoard(){
@@ -73,9 +79,7 @@ void Game::handleNoEvent() {
 
 	} else {
 	    addToBoard();
-	    if (!movePossible(0) || board->getVirusCount() == 0)
-		status = LOSS; //game is over
-		      
+	    
 	}
 
     }
@@ -101,8 +105,8 @@ void Game::addExplosion(int color){
 }
 
 void Game::addTrail(){ 
-    //addExplosion(piece->getType1());
-    //addExplosion(piece->getType2());
+    addExplosion(piece->getType1());
+    addExplosion(piece->getType2());
     
 
 }

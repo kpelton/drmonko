@@ -27,7 +27,7 @@ void Particle::setup(const float x,const float y,const float vx,const float vy,
     this->g = g;
     this->b = b;
     this->gravity = gravity;
-    a = 0.8;
+    a = 0.7;
     last = SDL_GetTicks();
     time=0;
 	
@@ -42,8 +42,8 @@ void Particle::render()
     time +=ftime;
     float posx = (vx *time)+ x;
     float posy = ((gravity*(time*time))/2)+(vy * time) + y;
-    a -=.0001;
-    float psize=20.0;
+    a -=.02;
+    float psize=10.0;
 	
     last = current_time;
     curr_x = posx;

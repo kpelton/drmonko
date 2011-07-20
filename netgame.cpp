@@ -31,14 +31,17 @@ Status NetTwoPlayer::getStatus(){
 }
 Status NetTwoPlayer::handleStatus(const Status status){
     netmsg msg;
-    switch (status){
+    switch (getStatus()){
     case LOSS:
+	cout <<"Sending lose msg"<<endl;
 	msg = GAMEOVER;
 	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
 	return LOSS;
 	break;
 
     case WIN:
+	cout <<"Sending win msg"<<endl;
+
 	msg = NETWIN;
 	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
 	return WIN;
