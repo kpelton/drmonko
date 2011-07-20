@@ -258,6 +258,40 @@ Explosion::~Explosion(){
 	delete particles[i];
 }
 
+
+
+Flash::Flash(const float xstart, const float xstop,const float ystart,
+	     const float ystop,const float time){
+
+    this->xstart = xstart;
+    this->xstop = xstop;
+    this->ystart = ystart;
+    this->ystop = ystop;
+    this->time = time;
+    a = 0.5;
+}
+
+bool Flash::render(){
+    
+    a-=0.01;
+    glColor4f(1.0,1.0,1.0,a);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBegin (GL_QUADS);
+    glVertex2f(0, 0);
+    glVertex2f(1024, 0);
+    glVertex2f(1024, 768);
+    glVertex2f(0,768);
+
+    glEnd ();
+    glDisable(GL_BLEND);
+    if (a<= 0)
+	return true;
+    else
+	return false;
+}
+
+
 ParticleEngine::ParticleEngine()
 {
     loadTextures();
@@ -289,7 +323,10 @@ void ParticleEngine::startSmoke(float x, float y){
     explosions.push_back(new Smoke(x,y,texture));
 
 }
+void ParticleEngine::addFlash(const float xstart, const float xstop,const float ystart,const float ystop, const float time){
+    explosions.push_back(new Flash(xstart,xstop,ystart,ystop,time));
 
+}
 bool ParticleEngine::loadTextures()
 {
     GLobject::loadTextureFile("tiles/particle.bmp",&texture);

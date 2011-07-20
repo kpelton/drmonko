@@ -203,7 +203,8 @@ void Board::removeMatchVertical(const int startrow,const int col)
     float currx = xstart;
     float curry = ystart;
     int count = 0;
-    cout << startrow <<endl;
+    bool flash = false;
+    
     for(int i=startrow-1; i<rows; i++){
 
 	if (board[i][col].type != NOTHING && board[i][col].col == start){
@@ -213,7 +214,10 @@ void Board::removeMatchVertical(const int startrow,const int col)
 	    if (board[i][col].type == VIRUS){
 		viruses--;
 		addExplosion(currx+(col*size),curry+(i*size),start);
-				
+		if (flash == false){
+		    pengine.addFlash(0,0,width,height,20);
+		    flash = true;
+		}		
 	    }
 
 	    if (board[i][col].type == SETPILL){
@@ -229,7 +233,7 @@ void Board::removeMatchVertical(const int startrow,const int col)
 }
 void Board::addExplosion(const float x, const float y, const color col){
     
-
+    
     switch(col){
     case RED:
 	glColor4f(1.0,0.0,0.0,1.0);
@@ -255,6 +259,7 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
     float curry = ystart;
     int count = 0;
     cout << startcol <<endl;
+    bool flash = false;
     for(int j=startcol-1; j<columns; j++){
 
 	if (board[row][j].type != NOTHING && board[row][j].col == start){
@@ -263,6 +268,10 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 		viruses--;
 			       
 		addExplosion(currx+(j*size),curry+(row*size),start);
+		if (flash == false){
+		    pengine.addFlash(0,0,width,height,20);
+		    flash = true;
+		}
 	    }
 	    if (board[row][j].type == SETPILL){
 		changePillType(row,j);

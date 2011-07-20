@@ -106,6 +106,26 @@ class Smoke: public Effect{
 
 };
 
+class Flash: public Effect{
+
+ public:
+    Flash(const float xstart, const float xstop,const float ystart,
+	  const float ystop, const float time);
+    bool render();
+    virtual ~Flash(){}
+
+ private:
+    float xstart;
+    float xstop;
+    float ystart;
+    float ystop;
+    float time;
+    SDLTimer timer;
+    float last;
+    float a;
+
+};
+
 
 class ParticleEngine: public GLobject {
  public:
@@ -116,6 +136,8 @@ class ParticleEngine: public GLobject {
     virtual ~ParticleEngine();
     void addExplosion(const float x, const float y,float r, float g, float b);
     void startSnow();
+    void addFlash(const float xstart, const float xstop,const float ystart,
+		  const float ystop, const float time);
     void startSmoke(float x, float y);
 
  private:

@@ -32,11 +32,11 @@ void Game::renderScene(SDL_Event *event) {
     bground->drawVirus(board->getVirusCount());
     glPopMatrix();
     glPushMatrix();
-    pengine.render();
+    
     piece->render();
     board->render();
     glPopMatrix();
-
+    pengine.render();
     glPushMatrix();
     drawNextPiece();
     glPopMatrix();

@@ -117,7 +117,7 @@ bool MenuWindow::render(){
     glEnable( GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glColor4f(0.0,0.0,0.0,0.8);
+    glColor4f(0,0,0,0.8);
 
     glBegin(GL_QUADS); // Start drawing a quad primitive
     glVertex2f(0, 0);
