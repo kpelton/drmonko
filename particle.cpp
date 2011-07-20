@@ -42,20 +42,26 @@ void Particle::render()
     time +=ftime;
     float posx = (vx *time)+ x;
     float posy = ((gravity*(time*time))/2)+(vy * time) + y;
-    a -=.00001;
+    a -=.0001;
+    float psize=20.0;
 	
     last = current_time;
     curr_x = posx;
     curr_y= posy;
-
     glColor4f(r,g,b,a);
-	
-    glBegin(GL_POINTS);
-	
-    glVertex2f(posx,posy);
-    glEnd();
+    glBegin (GL_QUADS);
+    glTexCoord2f (0.0, 0.0);
+    glVertex2f (posx-psize, posy+psize);
+    glTexCoord2f (1.0, 0.0);
+    glVertex2f (posx+psize, posy+psize);
+    glTexCoord2f (1.0, 1.0);
+    glVertex2f (posx+psize, posy-psize);
+    glTexCoord2f (0.0, 1.0);
+    glVertex2f (posx-psize, posy-psize);
+    glEnd ();
 
-    glColor4f(1.0,1.0,1.0,1.0);
+    //glVertex2f(posx,posy);
+
 }
 
 Smoke::Smoke(float x,float y,GLuint& texture){
@@ -226,22 +232,24 @@ Explosion::Explosion(const float x, const float y,GLuint& texture,const int seco
 
 bool Explosion::render(){
     glBindTexture(GL_TEXTURE_2D, texture);
-    glEnable(GL_POINT_SPRITE);
+ 
+    glPointSize(20);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glPointSize(10);
-    glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-    for(int i= 0; i<count; i++)
-	{
-	    glPointSize(20);
-	    particles[i]->render();
-	}
-    glDisable(GL_POINT_SPRITE);
+    //glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
+    //glBegin(GL_POINTS);
+    for(int i= 0; i<count; i++)  
+	  particles[i]->render();
+
+    //glEnd();
+    //glDisable(GL_POINT_SPRITE);
     glDisable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
     if(timer.isDone())
 	return true;
+
+
     return false;
 }
 

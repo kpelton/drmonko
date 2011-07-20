@@ -27,7 +27,8 @@ Board::Board(const int trows,const int cols,const float size,
 
     loadTextures();
     
-
+    pengine.startSmoke(xstart,height);
+    pengine.startSmoke(width,height);
 
 }
 void Board::copyBoard(Board &other){

@@ -64,7 +64,7 @@ class Explosion: public Effect{
     bool render();
     virtual ~Explosion();
  private:
-    static const int count = 15 ;
+    static const int count =  1;
     Particle *particles[count];
     Uint32 last;
     SDLTimer timer;
