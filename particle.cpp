@@ -342,9 +342,10 @@ bool ParticleEngine::render(){
 	}
 
     }
-    for (intit= toDelete.begin(); intit!=toDelete.end(); ++intit)
+    for (intit= toDelete.begin(); intit!=toDelete.end(); ++intit){
+	delete **intit;
 	explosions.erase(*intit);
-
+    }
 
     return true;
 
