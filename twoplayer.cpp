@@ -105,6 +105,7 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 Status TwoPlayer::handleStatus(const Status status){
     switch (status){
     case WIN:
+        Mix_HaltMusic();
 	rightgame->setPaused(true);
 	leftgame->setPaused(true);
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
@@ -114,6 +115,7 @@ Status TwoPlayer::handleStatus(const Status status){
 	break;
 
     case LOSS:
+        Mix_HaltMusic();
 	rightgame->setPaused(true);
 	leftgame->setPaused(true);
 	menu  = new MenuWindow(width,height,"GAME OVER",NULL);
@@ -141,7 +143,9 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
     if (menu->getSelected() == "Resume") {
 	rightgame->setPaused(false);
 	leftgame->setPaused(false);
+
 	delete menu;
+	Mix_FadeInMusic(Player::sound,-1, 2000);
 	menu = NULL;
     } else if (menu->getSelected() == "Exit") {
 	delete menu;
@@ -150,7 +154,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 	delete menu;
 	menu = NULL;
 	newGame(time(NULL));
-		
+	Mix_FadeInMusic(Player::sound,-1, 2000);
     }
 
 }
@@ -166,6 +170,7 @@ void TwoPlayer::handleKeys(player_types::key key) {
     case player_types::DOWN:
 	break;
     case player_types::EXIT:
+         Mix_HaltMusic();
 	rightgame->setPaused(true);
 	leftgame->setPaused(true);
 	menu = new MenuWindow(width, height, "Paused", NULL);

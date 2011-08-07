@@ -2,7 +2,7 @@
 //See COPYING for license information
 #include "splayer.h"
 #include "types.h"
-
+#include <SDL/SDL_mixer.h>
 SPlayer::SPlayer(const int width, const int height, float size, float center,
 		 float boardwidth, float start, float end):Player(),width(width), height(height) 
 {
@@ -63,6 +63,7 @@ void SPlayer::renderScene(SDL_Event *event) {
 	switch (gameStatus){
 
 	case WIN:
+	    Mix_HaltMusic();
 	    menu = new MenuWindow(width, height, "You Win!!", NULL);
 	    menu->addOption("New Game");
 	    menu->addOption("Exit");
@@ -70,6 +71,7 @@ void SPlayer::renderScene(SDL_Event *event) {
 
 	case LOSS:
 	    game->setPaused(true);
+	    Mix_HaltMusic();
 	    menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	    menu->addOption("New Game");
 	    menu->addOption("Exit");
@@ -90,12 +92,15 @@ void SPlayer::handlePauseEvent(const string & selection) {
     if (menu->getSelected() == "Resume") {
 	game->setPaused(false);
 	delete menu;
+	Mix_FadeInMusic(Player::sound,-1, 2000);
 	menu = NULL;
     } else if (menu->getSelected() == "Exit") {
 	delete menu;
 	exit(0);
     } else if (menu->getSelected() == "New Game") {
+      
 	delete menu;
+	Mix_FadeInMusic(Player::sound,-1, 2000);
 	menu = NULL;
 	newGame();
     }
@@ -113,11 +118,14 @@ void SPlayer::handleKeys(player_types::key key) {
     case player_types::DOWN:
 	break;
     case player_types::EXIT:
-	game->setPaused(true);
+        Mix_HaltMusic();
+       game->setPaused(true);
+	
 	menu = new MenuWindow(width, height, "Paused", NULL);
 	menu->addOption("Resume");
 	menu->addOption("New Game");
 	menu->addOption("Exit");
+	
 
     default:
 	break;

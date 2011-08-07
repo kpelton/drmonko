@@ -3,7 +3,7 @@
 #include "sdlWindow.h"
 
 
-const char * sdlWindow::musicFile = "song.wav";
+const char * sdlWindow::musicFile = "sound/technogeek.mp3";
 
 sdlWindow::sdlWindow()
 {
@@ -53,7 +53,7 @@ void sdlWindow::initWindow()
 {
 	
     isActive = true;
-    Mix_Chunk *sound = NULL;
+    Mix_Music *sound = NULL;
     int channel = 0;
     /* initialize SDL */
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
@@ -119,7 +119,7 @@ void sdlWindow::initWindow()
 	{
 	    exit(-1);
 	}
-    sound = Mix_LoadWAV(musicFile);
+
     //Start playing music
     if(channel == -1) {
 	fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());

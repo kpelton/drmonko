@@ -2,6 +2,8 @@
 //See COPYING for license information
 #include "MenuWindow.h"
 #include "types.h"
+
+const char * MenuWindow::musicFile = "sound/technogeek.mp3";
 MenuWindow::MenuWindow(const int width, const int height,const string & title,TTF_Font *font) {
     this->font = font;
     this->width = width;
@@ -15,6 +17,9 @@ MenuWindow::MenuWindow(const int width, const int height,const string & title,TT
 	custom = false;
     }
    
+    sound = Mix_LoadMUS(musicFile);
+    if(!Mix_PlayingMusic())
+      Mix_FadeInMusic(sound, -1, 2000);
 }
 
 
@@ -23,6 +28,8 @@ MenuWindow::~MenuWindow() {
     //Font should be destroyed by owner
     if(!custom)
 	TTF_CloseFont(font);
+    if(!Mix_PlayingMusic())
+      Mix_FreeMusic(sound);
 }
 
 void MenuWindow::addOption(const string & option){

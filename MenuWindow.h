@@ -7,10 +7,12 @@
 #ifdef _WIN32
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
+#include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
 #else
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "SDL_mixer.h"
 #endif
 #include <vector>
 #include <string>
@@ -43,8 +45,10 @@ class MenuWindow: public GLobject {
     int height;
     bool custom;
     string input;
+    static const char *musicFile;
+    Mix_Music *sound;
     ParticleEngine pengine;
-
+    
 };
 
 #endif /* MENUWINDOW_H_ */
