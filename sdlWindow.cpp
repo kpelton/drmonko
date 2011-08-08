@@ -179,8 +179,7 @@ void sdlWindow::renderLoop()
 			     * If we lost focus or we are iconified, we
 			     * shouldn't draw the screen
 			     */
-			    scene->renderScene(NULL);
-			    if ( event.active.gain == 0 )
+			  if ( event.active.gain == 0 )
 				isActive = false;
 			    else
 				isActive = true;
