@@ -5,7 +5,7 @@
 #define GAME
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SDL/SDL_mixer.h>
+
 #include <math.h>
 #include <time.h>
 #include "GLobject.h"
