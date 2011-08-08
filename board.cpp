@@ -94,7 +94,7 @@ void Board::checkVertical()
 
 	    }
 	    if (count > 3){
-		cout <<"Need to remove at col " <<j << " " << count <<endl;
+	      //cout <<"Need to remove at col " <<j << " " << count <<endl;
 		removeMatchVertical(startrow,j);
 		count = 1;
 		last = BLANK;
@@ -132,7 +132,7 @@ void Board::checkHorizontal()
 
 	    }
 	    if (count > 3){
-		cout <<"Need to remove at row " <<i << " " << count <<endl;
+	      //cout <<"Need to remove at row " <<i << " " << count <<endl;
 		removeMatchHorizontal(i,startcol);
 		count = 1;
 		last = BLANK
@@ -209,7 +209,7 @@ void Board::removeMatchVertical(const int startrow,const int col)
 
 	if (board[i][col].type != NOTHING && board[i][col].col == start){
 	    count++;
-	    cout << i <<endl;
+	    //	    cout << i <<endl;
 
 	    if (board[i][col].type == VIRUS){
 		viruses--;
@@ -258,7 +258,7 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
     float currx = xstart;
     float curry = ystart;
     int count = 0;
-    cout << startcol <<endl;
+    //cout << startcol <<endl;
     bool flash = false;
     for(int j=startcol-1; j<columns; j++){
 

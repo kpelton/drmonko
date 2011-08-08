@@ -5,6 +5,7 @@
 #define GAME
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <SDL/SDL_mixer.h>
 #include <math.h>
 #include <time.h>
 #include "GLobject.h"
@@ -57,6 +58,7 @@ class Game
 	piece->setCurr(other->piece->getCurr());
     };
  private:
+    Mix_Chunk *explosionsound;
     boardview *bground;
     Piece *piece;
     Board *board;

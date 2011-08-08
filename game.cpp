@@ -1,12 +1,12 @@
 //Copyright (c) 2011 Kyle Pelton
 //See COPYING for license information
 #include "game.h"
-#include "types.h"
+
 #include <iostream>
 
 void Game::renderScene(SDL_Event *event) {
     player_types::key key;
-	
+    int count = board->getVirusCount();
     Uint8 *keystate = SDL_GetKeyState(NULL);
     if (!paused && !animation && event && event->type == SDL_KEYDOWN) {
 	for (int i = 0; i < 6; i++) {
@@ -19,13 +19,19 @@ void Game::renderScene(SDL_Event *event) {
 	}
     }
 
+
+   
+
+
+    //clear matches
+    board->clearPieces();
+
+    if (count != board->getVirusCount()){
+       Mix_PlayChannel(-1,explosionsound,0);
+    }
     if (!paused && event == NULL)
 	handleNoEvent();
-    //ends here
-
-
-    board->clearPieces();	
-
+ 
     //Do Actual drawing
     glPushMatrix();
     bground->render();
@@ -62,8 +68,8 @@ void Game::addToBoard(){
 }
 
 void Game::handleNoEvent() {
-    board->clearPieces();
 
+    
     if (timer->isDone()) {
 	   
 	if (movePossible()) {
@@ -226,18 +232,12 @@ bool Game::checkWallCollision() {
     else
 	return false;
 }
-Game::Game() {
-
-}
-Game::Game(const int width, const int height) :
-    width(width), height(height) {
-    bground = new boardview(width, height, width * .25, width * .25);
-    paused = false;
-}
-
 Game::Game(const int width, const int height, float size, float center,
 	   float boardwidth, float start, float end,const int *keys) :
     width(width), height(height) {
+
+    //Load explosion wav
+    explosionsound = Mix_LoadWAV("sound/whoosh1.wav");
     //start at 90 percent of the screen for title
     this->size = size;
     this->start = start;
@@ -256,6 +256,7 @@ Game::Game(const int width, const int height, float size, float center,
 }
 
 Game::~Game() {
+    Mix_FreeChunk(explosionsound);
     delete piece;
     delete bground;
     delete board;
