@@ -18,6 +18,7 @@ NetTwoPlayer::NetTwoPlayer(int width,int height,float size,float center,
     
 }
 void NetTwoPlayer::startGame(time_t seed){
+    sent = false;
     newGame(seed);
 }
 void NetTwoPlayer::setCurr(const int curr){
@@ -31,19 +32,27 @@ Status NetTwoPlayer::getStatus(){
 }
 Status NetTwoPlayer::handleStatus(const Status status){
     netmsg msg;
+
     switch (getStatus()){
     case LOSS:
+      if (!sent){	
 	cout <<"Sending lose msg"<<endl;
 	msg = GAMEOVER;
+	
 	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+        sent = true;
+      }
 	return LOSS;
 	break;
 
     case WIN:
+      if (!sent){
 	cout <<"Sending win msg"<<endl;
 
 	msg = NETWIN;
 	SDLNet_TCP_Send(csd, &msg, sizeof(msg));
+	sent = true;
+      }
 	return WIN;
 	break;
 

@@ -34,6 +34,7 @@ class NetTwoPlayer: public TwoPlayer
     Uint32 lastrot;
     TCPsocket csd;
     Uint32 last;
+    bool sent;
     
 
 };
