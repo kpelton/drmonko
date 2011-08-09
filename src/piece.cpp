@@ -178,7 +178,6 @@ void Piece::nextPiece()
     else
 	curr++;
 		
-    cout <<"CURR:"<<curr<<endl;
 }
 void Piece::newPiece(const int row, const int col)
 {
