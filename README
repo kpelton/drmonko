@@ -9,7 +9,7 @@ libsdl       1.2
 libsdl-mixer 1.2
 libgl
 
-To complie from source
+To compile from source
 g++
 cmake
 
@@ -17,36 +17,46 @@ cmake
 DISTRIBUTION
 git://github.com/kpelton/drmonko.git
 
-Drmonko is distributed as c++ source code as a cmake project. This code has been compiled on Linux 2.6(Ubuntu 11.04 and Debian squeeze) and Windows 7.
-
+Drmonko is distributed as C++ source code as a cmake project. This code has been compiled on Linux 2.6(Ubuntu 11.04 and Debian squeeze). It is possible to compile it under Windows but you will have to figure it out on your own. 
 
 
 COMPILATION
-To get the necessary dependencies in Ubuntu or Debian:
+To get the necessary dependencies under Ubuntu or Debian:
 apt-get install cmake g++ libsdl-net1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev libsdl-mixer1.2-dev git
 
 git clone git://github.com/kpelton/drmonko.git
 
 cd drmonko
-cmake .
+cmake src
 make
 
 To run the game:
 ./drmonko
 
+
+
 CONFIGURATION
 For now the game only runs in the source directory.
 
 CAVEATS:
+If you host a game under the 2 player network menu, the game will pause until someone connects to the server. I have not yet written a wait screen.
 
+There is no way to go to the previous menu. Exit quits the game. I hope to change this in a future release.
+
+The networking code is a bit quirky but it seems to work most of the time.
+
+There is no way to change the resoultion unless you edit src/sdlWindow.h and rebuild. I hope to add a resoultion menu in later versions.
 
 
 COPYING
-
-drmonko is open source software under a GPLv2
+drmonko is open source software under a GPLv2 License
 See the file COPYING for details
 
-MAIN AUTHOR
+MAIN AUTHORS
+Kyle Pelton (Main author)
+Chantel McCoy  (Virus/Pill artwork)
+All Other art was obtained from http://opengameart.org/
+
 
 Comments and suggestions:
 
