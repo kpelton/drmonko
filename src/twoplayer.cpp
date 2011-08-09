@@ -12,7 +12,7 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
     this->start = start;
     this->end = end;
     
-    start = (boardwidth+25.0)+150.0;
+    start = (width/3+25.0)+150.0;
     end = start +(size *(columns));
     
     rightgame = new Game(width,height,size,center,boardwidth,start,end,
@@ -149,6 +149,7 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 	menu = NULL;
     } else if (menu->getSelected() == "Exit") {
 	delete menu;
+	SDL_Quit();
 	exit(0);
     } else if (menu->getSelected() == "New Game") {
 	delete menu;

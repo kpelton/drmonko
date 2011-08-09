@@ -260,13 +260,10 @@ Explosion::~Explosion(){
 
 
 
-Flash::Flash(const float xstart, const float xstop,const float ystart,
-	     const float ystop,const float time){
+Flash::Flash(const int width, const int height,const float time){
 
-    this->xstart = xstart;
-    this->xstop = xstop;
-    this->ystart = ystart;
-    this->ystop = ystop;
+    this->width = width;
+    this->height = height;
     this->time = time;
     a = 0.5;
 }
@@ -278,10 +275,10 @@ bool Flash::render(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBegin (GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(1024, 0);
-    glVertex2f(1024, 768);
-    glVertex2f(0,768);
+    glVertex2f(0, 0); //add quad to take up the whole screen
+    glVertex2f(width, 0);
+    glVertex2f(width, height);
+    glVertex2f(0,height);
 
     glEnd ();
     glDisable(GL_BLEND);
@@ -323,8 +320,8 @@ void ParticleEngine::startSmoke(float x, float y){
     explosions.push_back(new Smoke(x,y,texture));
 
 }
-void ParticleEngine::addFlash(const float xstart, const float xstop,const float ystart,const float ystop, const float time){
-    explosions.push_back(new Flash(xstart,xstop,ystart,ystop,time));
+void ParticleEngine::addFlash(const int width, const int height, const float time){
+  explosions.push_back(new Flash(width,height,time));
 
 }
 bool ParticleEngine::loadTextures()

@@ -10,7 +10,7 @@ class Player
 {
  public:
   Player(){
-    sound = Mix_LoadMUS("sound/main.ogg");
+    sound = Mix_LoadMUS("sound/main.wav");
     Mix_FadeInMusic(sound,-1,2000);
   };
     virtual void renderScene(SDL_Event *event) = 0;

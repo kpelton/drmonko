@@ -38,12 +38,13 @@ void Game::renderScene(SDL_Event *event) {
     bground->drawVirus(board->getVirusCount());
     glPopMatrix();
     glPushMatrix();
-    
-    piece->render();
-    board->render();
+    board->render(); //render board then particles then current piece
     glPopMatrix();
     pengine.render();
     glPushMatrix();
+    piece->render();
+    
+    board->render();
     drawNextPiece();
     glPopMatrix();
 

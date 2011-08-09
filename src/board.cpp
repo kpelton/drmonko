@@ -215,7 +215,7 @@ void Board::removeMatchVertical(const int startrow,const int col)
 		viruses--;
 		addExplosion(currx+(col*size),curry+(i*size),start);
 		if (flash == false){
-		    pengine.addFlash(0,0,width,height,20);
+		    pengine.addFlash(width,height,20);
 		    flash = true;
 		}		
 	    }
@@ -269,7 +269,7 @@ void Board::removeMatchHorizontal(const int row,const int startcol)
 			       
 		addExplosion(currx+(j*size),curry+(row*size),start);
 		if (flash == false){
-		    pengine.addFlash(0,0,width,height,20);
+		    pengine.addFlash(width,height,20);
 		    flash = true;
 		}
 	    }
