@@ -9,19 +9,20 @@ void GLscene::renderScene(SDL_Event *event)
     glLoadIdentity();
     glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+    glPushMatrix();
     if (menu){
 	if (!menu->handleEvent(event))
 	    {
 		menu->render();
 	    }else{
 	    setupGame();
-
 	}
     }else{
 	if(game)
 	    game->renderScene(event);
     }
+    glPopMatrix();
+    SDL_GL_SwapBuffers( );
 }
 
 void GLscene::setupGame(){
@@ -77,7 +78,8 @@ void GLscene::setupGame(){
 	    
     }
     else if (menu->getSelected() == "Exit"){
-	exit(0);
+       SDL_Quit();
+       exit(1);
     }
     delete menu;
     menu = NULL;

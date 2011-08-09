@@ -18,9 +18,6 @@ sdlWindow::sdlWindow(int argc, char **argv)
 	{
 	    if(strcmp(argv[i],"-f") == 0)
 		this->fullscreen = true;
-	    //put in width height
-			
-			
 	}
 	    
     initWindow();
@@ -186,7 +183,7 @@ void sdlWindow::renderLoop()
 			        
 			    if ( !surface )
 				{
-				    fprintf( stderr, "Could not get a surface after resize: %s\n", SDL_GetError( ) );
+				  fprintf( stderr, "Could not get a surface after resize: %s\n", SDL_GetError( ) );
 				    exit( 1 );
 				}
 			    resizeWindow( event.resize.w, event.resize.h );
@@ -206,21 +203,17 @@ void sdlWindow::renderLoop()
 			case SDL_QUIT:
 			    /* handle quit requests */
 			    done = true;
+			    cout <<"DONE"<<endl;
 			    break;
 			default:
-			    				
-			    break;
+			  
+			  break;
 			}
-		
-			
-		
-		}
-	         scene->renderScene(NULL);
-	    
-	    SDL_GL_SwapBuffers( );
-	    SDL_Delay(10);
+		}else{
+	      scene->renderScene(NULL);
+	    }
+	    	    SDL_Delay(10);
 	}
- 
 }
 
 
