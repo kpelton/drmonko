@@ -4,11 +4,7 @@
 #define _NETGAME_H
 #include "twoplayer.h"
 #include "types.h"
-#ifdef _WIN32
 #include <SDL/SDL_net.h>
-#else
-#include "SDL_net.h"
-#endif
 class NetTwoPlayer: public TwoPlayer
 {
  public:

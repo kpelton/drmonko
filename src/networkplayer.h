@@ -6,11 +6,7 @@
 #include <time.h>
 #include "player.h"
 #include "netgame.h"
-#ifdef _WIN32
 #include <SDL/SDL_net.h>
-#else
-#include "SDL_net.h"
-#endif
 #include "types.h"
 #include "timer.h"
 #include "MenuWindow.h"

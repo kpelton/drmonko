@@ -4,14 +4,9 @@
 #define GL_OBJECT
 #include <GL/gl.h>
 #include <math.h>
-#ifdef _WIN32
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL_ttf.h>
-#else
-#include "SDL.h"
-#include "SDL_ttf.h"
-#endif
 #include <time.h>
 #include <string>
 #include <iostream>

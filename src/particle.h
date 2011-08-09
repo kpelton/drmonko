@@ -4,14 +4,9 @@
 #define PARTICLE_H_
 
 #include "GLobject.h"
-#ifdef _WIN32
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL_ttf.h>
-#else
-#include "SDL.h"
-#include "SDL_ttf.h"
-#endif
 #include <vector>
 #include <list>
 #include <string>

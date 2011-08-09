@@ -2,11 +2,8 @@
 //See COPYING for license information
 #ifndef TIMER_H
 #define TIMER_H
-#ifdef _WIN32
 #include <SDL/SDL.h>
-#else
-#include "SDL.h"
-#endif
+
 
 class SDLTimer{
  public:

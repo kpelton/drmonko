@@ -6,11 +6,7 @@
 #include "GLobject.h"
 #include <GL/gl.h>
 #include <math.h>
-#ifdef _WIN32
 #include <SDL/SDL.h>
-#else
-#include "SDL.h"
-#endif
 #include <time.h>
 #include "piece.h"
 #include <string>
