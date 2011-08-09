@@ -3,7 +3,6 @@
 #include "sdlWindow.h"
 
 
-const char * sdlWindow::musicFile = "sound/technogeek.mp3";
 
 sdlWindow::sdlWindow()
 {
@@ -53,8 +52,6 @@ void sdlWindow::initWindow()
 {
 	
     isActive = true;
-    Mix_Music *sound = NULL;
-    int channel = 0;
     /* initialize SDL */
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 	{
@@ -120,10 +117,7 @@ void sdlWindow::initWindow()
 	    exit(-1);
 	}
 
-    //Start playing music
-    if(channel == -1) {
-	fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
-    }
+ 
 
     //Need to fix this for 2 player
     SDL_EnableKeyRepeat(200, SDL_DEFAULT_REPEAT_INTERVAL);

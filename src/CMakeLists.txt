@@ -37,7 +37,7 @@ set (
    twoplayer.h
    types.h
 )
-
+set(CMAKE_CXX_FLAGS "-g -Wall -O2")
 Find_Package ( SDL REQUIRED )
 Find_Package ( SDL_net REQUIRED )
 Find_Package ( SDL_ttf REQUIRED ) 

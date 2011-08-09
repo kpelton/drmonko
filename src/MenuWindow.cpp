@@ -4,6 +4,8 @@
 #include "types.h"
 
 const char * MenuWindow::musicFile = "sound/technogeek.mp3";
+
+
 MenuWindow::MenuWindow(const int width, const int height,const string & title,TTF_Font *font) {
     this->font = font;
     this->width = width;
