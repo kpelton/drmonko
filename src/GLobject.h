@@ -119,6 +119,7 @@ class GLobject{
 	} 
 	else {
 	    printf("SDL could not load image.bmp: %s\n", SDL_GetError());
+	    exit(1); //quit if texture not found
 	    return false;
 	}    
  
