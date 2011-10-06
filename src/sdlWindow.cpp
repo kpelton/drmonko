@@ -212,7 +212,7 @@ void sdlWindow::renderLoop()
 		}else{
 	      scene->renderScene(NULL);
 	    }
-	    	    SDL_Delay(1);
+	    	    SDL_Delay(10);
 	}
 }
 

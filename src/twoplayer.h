@@ -43,7 +43,6 @@ class TwoPlayer: public Player
     SDLTimer * timer;	
     int leftcount;
     int rightcount;
-    int players;
 	
 
 };
