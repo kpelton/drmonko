@@ -2,7 +2,7 @@
 //See COPYING for license information
 #include "twoplayer.h"
 #include "types.h"
-
+#include <vector>
 TwoPlayer::TwoPlayer(const int width, const int height, float size, float center,
 		     float boardwidth, float start, float end,
 		     const int *keys,bool flip,const int players):Player(),
@@ -19,20 +19,14 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 			     player_types::p1_keys);
     
     menu = NULL;
+    this->players = 3;
 
-    if (players == 2){
-	leftgame = new Game(width,height,size,center,boardwidth,25,boardwidth+25,
-			    player_types::p2_keys);
-    }else if (players == 3){
-	leftgame = new Game(width/2,height/2,size/2,center,boardwidth/2,start,end,
-			     player_types::p1_keys); 
-	games.push_back(leftgame);
-	
-	leftgame = new Game(width/2,height/2,size/2,center,boardwidth/2,start,end,
-			     player_types::p1_keys); 
-	games.push_back(leftgame);
-
+    
+    for(int i =0; i<this->players; i++){
+      leftgame = new Game(width/this->players,height/this->players,size/this->players,center,boardwidth/this->players,25,(boardwidth/this->players)+25,player_types::p1_keys); 
+      games.push_back(leftgame);
     }
+
    
 
     newGame(time(NULL));
@@ -75,12 +69,20 @@ void TwoPlayer::renderScene(SDL_Event *event) {
     }
     rightcount = leftgame->getVirusCount();
     leftcount = rightgame->getVirusCount();
+    vector<Game *>::iterator it;
     if (menu){
 	rightgame->renderScene(NULL);
-	leftgame->renderScene(NULL);
+	
+	//leftgame->renderScene(NULL);
     }else{
 	rightgame->renderScene(event);
-	leftgame->renderScene(event);
+	for(it = games.begin(); 
+	    it != games.end();
+	    it++){
+	 
+	  (*it)->renderScene(NULL);
+	  glTranslatef(0,(height/players),0);
+	}
     }
     gameStatus = leftgame->getStatus();
 
@@ -91,13 +93,6 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 	if(!menu)
 	    handleStatus(rightgame->getStatus());
     }
-	
-    // if(leftcount - rightgame->getVirusCount() >1){
-    //     leftgame->addPiece(leftcount - rightgame->getVirusCount());
-    // }
-    // if(rightcount - leftgame->getVirusCount() >1){
-    //     rightgame->addPiece(rightcount - leftgame->getVirusCount());
-    // }
 	
 
 }
@@ -135,8 +130,13 @@ Status TwoPlayer::handleStatus(const Status status){
 void TwoPlayer::newGame(time_t seed){
     randengine.Seed(seed);
     rightgame->newGame();
-    randengine.Seed(seed);
-    leftgame->newGame();
+    vector<Game *>::iterator it;
+    for(it = games.begin(); 
+	it != games.end();
+	it++){
+      randengine.Seed(seed);
+      (*it)->newGame();
+    }
 }
 
 void TwoPlayer::handlePauseEvent(const string & selection) {
