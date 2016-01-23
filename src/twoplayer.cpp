@@ -51,7 +51,7 @@ TwoPlayer::~TwoPlayer(){
 
 void TwoPlayer::renderScene(SDL_Event *event) {
     player_types::key key;
-    Status gameStatus;
+    //Status gameStatus;
     if (menu) {
 	if (menu->handleEvent(event)) {
 
@@ -82,7 +82,7 @@ void TwoPlayer::renderScene(SDL_Event *event) {
 	rightgame->renderScene(event);
 	leftgame->renderScene(event);
     }
-    gameStatus = leftgame->getStatus();
+    //gameStatus = leftgame->getStatus();
 
     if (menu){
 	menu->render();

@@ -126,12 +126,12 @@ void sdlWindow::initWindow()
 bool sdlWindow::resizeWindow(const  int width, const int height )
 {
     /* Height / width ration */
-    GLfloat ratio=width/height;
+    //GLfloat ratio=width/height;
 
     /* Protect against a divide by zero */
    
 
-    ratio = ( GLfloat )width / ( GLfloat )height;
+    //ratio = ( GLfloat )width / ( GLfloat )height;
 
     /* Setup our viewport. */
     
