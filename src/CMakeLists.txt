@@ -54,7 +54,6 @@ link_libraries (
    ${SDLTTF_LIBRARY}
    ${SDLNET_LIBRARY}
    ${OPENGL_LIBRARY}
-   SDLmain 
 )
 
 add_executable (
