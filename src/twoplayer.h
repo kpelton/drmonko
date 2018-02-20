@@ -22,7 +22,7 @@ class TwoPlayer: public Player
 	      const int *keys,bool flip=false,const int players=2);
 
     virtual ~TwoPlayer();
-	
+    bool isDone();	
  protected:
     virtual void handleKeys(player_types::key key);
     virtual void handlePauseEvent(const string & selection);
@@ -43,7 +43,7 @@ class TwoPlayer: public Player
     SDLTimer * timer;	
     int leftcount;
     int rightcount;
-	
+    bool done;	
 
 };
 #endif

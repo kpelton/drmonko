@@ -34,6 +34,9 @@ NetPlayer::NetPlayer(int width,int height,float size,float center,
     
 }
 
+bool  NetPlayer::isDone() {
+    return false;
+}
 
 
 void NetPlayer::sendData(void * data,int len){

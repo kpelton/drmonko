@@ -28,5 +28,6 @@ private:
 	TTF_Font *font;
 	MenuWindow *menu;
 	void setupGame();
+	void initMenu();
 };
 #endif

@@ -31,16 +31,19 @@ TwoPlayer::TwoPlayer(const int width, const int height, float size, float center
 	leftgame = new Game(width/2,height/2,size/2,center,boardwidth/2,start,end,
 			     player_types::p1_keys); 
 	games.push_back(leftgame);
-
+	
     }
    
 
     newGame(time(NULL));
-	
+    done = false;	
     this->keys = player_types::p2_keys;
     paused = false;
 	
 	
+}
+bool  TwoPlayer::isDone() {
+    return done;
 }
 
 
@@ -147,10 +150,10 @@ void TwoPlayer::handlePauseEvent(const string & selection) {
 	delete menu;
 	Mix_FadeInMusic(Player::sound,-1, 2000);
 	menu = NULL;
-    } else if (menu->getSelected() == "Exit") {
+    } else if (menu->getSelected() == "Main Menu") {
 	delete menu;
-	SDL_Quit();
-	exit(0);
+        menu = NULL;
+        done = true;	
     } else if (menu->getSelected() == "New Game") {
 	delete menu;
 	menu = NULL;
@@ -177,7 +180,7 @@ void TwoPlayer::handleKeys(player_types::key key) {
 	menu = new MenuWindow(width, height, "Paused", NULL);
 	menu->addOption("Resume");
 	menu->addOption("New Game");
-	menu->addOption("Exit");
+	menu->addOption("Main Menu");
 	       
 	rightcount = leftgame->getVirusCount();
 	leftcount = rightgame->getVirusCount();

@@ -13,6 +13,7 @@ class Player
     sound = Mix_LoadMUS("sound/main.wav");
     Mix_FadeInMusic(sound,-1,2000);
   };
+    virtual bool isDone()=0;
     virtual void renderScene(SDL_Event *event) = 0;
     virtual ~Player(){};
 

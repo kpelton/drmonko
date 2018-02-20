@@ -21,6 +21,8 @@ class SPlayer: public Player
 	    float boardwidth,float start,float end);
 
     virtual ~SPlayer();
+
+    bool isDone();
  private:
     Game *game;
     int width;
@@ -35,5 +37,6 @@ class SPlayer: public Player
     MenuWindow *menu;
     const int *keys;
     SDLTimer * timer;
+    bool done;
 };
 #endif

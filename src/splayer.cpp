@@ -15,7 +15,7 @@ SPlayer::SPlayer(const int width, const int height, float size, float center,
 		    boardwidth,start,end,keys);
     menu = NULL;
     paused = false;
-	
+    done=false;		
 
     newGame();
 
@@ -24,6 +24,10 @@ SPlayer::SPlayer(const int width, const int height, float size, float center,
 
 SPlayer::~SPlayer(){
     delete game;
+}
+
+bool  SPlayer::isDone() {
+    return done;	
 }
 
 void SPlayer::renderScene(SDL_Event *event) {
@@ -66,7 +70,7 @@ void SPlayer::renderScene(SDL_Event *event) {
 	    Mix_HaltMusic();
 	    menu = new MenuWindow(width, height, "You Win!!", NULL);
 	    menu->addOption("New Game");
-	    menu->addOption("Exit");
+	    menu->addOption("Main Menu");
 	    break;
 
 	case LOSS:
@@ -74,7 +78,7 @@ void SPlayer::renderScene(SDL_Event *event) {
 	    Mix_HaltMusic();
 	    menu  = new MenuWindow(width,height,"GAME OVER",NULL);
 	    menu->addOption("New Game");
-	    menu->addOption("Exit");
+	    menu->addOption("Main Menu");
 	    break;
 
 	default:
@@ -94,10 +98,10 @@ void SPlayer::handlePauseEvent(const string & selection) {
 	delete menu;
 	Mix_FadeInMusic(Player::sound,-1, 2000);
 	menu = NULL;
-    } else if (menu->getSelected() == "Exit") {
-	delete menu;
-	SDL_Quit();
-	exit(0);
+    } else if (menu->getSelected() == "Main Menu") {
+       delete menu;
+       menu = NULL;	
+       done = true;
     } else if (menu->getSelected() == "New Game") {
       
 	delete menu;
@@ -105,6 +109,7 @@ void SPlayer::handlePauseEvent(const string & selection) {
 	menu = NULL;
 	newGame();
     }
+	
 
 }
 void SPlayer::handleKeys(player_types::key key) {
@@ -125,7 +130,7 @@ void SPlayer::handleKeys(player_types::key key) {
 	menu = new MenuWindow(width, height, "Paused", NULL);
 	menu->addOption("Resume");
 	menu->addOption("New Game");
-	menu->addOption("Exit");
+	menu->addOption("Main Menu");
 	
 
     default:

@@ -52,6 +52,7 @@ class Game
     void setRot(const int rot){piece->setRotation(rot);};
     void addToBoard();
     void startGame();
+    bool gameIsFinished();
     void copyPieces(Game *other){
 	piece->setListType1(other->piece->getListType1());
 	piece->setListType2(other->piece->getListType2());

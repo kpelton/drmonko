@@ -19,6 +19,7 @@ class NetPlayer: public Player
 	      ,player_types::p_type type,string host);
 	
     virtual ~NetPlayer();
+    bool isDone();
  private:
     void setupServer();
     void serverWait();
