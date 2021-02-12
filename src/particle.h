@@ -39,7 +39,7 @@ class Particle {
     Uint32 last;
     float time;
     float gravity;
-    static const float ay = 50.8; //acceleration in y direction(gravitiy)
+    static constexpr float ay = 50.8; //acceleration in y direction(gravitiy)
 
 };
 
