@@ -54,3 +54,6 @@ See the file COPYING for details
 
 Game in action
 ![image](images/drmonko.png)
+
+Networking Game
+![image](images/network.png)
