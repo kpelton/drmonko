@@ -53,4 +53,4 @@ drmonko is open source software under a GPLv2 License
 See the file COPYING for details
 
 Game in action
-~[image](images/drmonko.png)
+![image](images/drmonko.png)
