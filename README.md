@@ -15,7 +15,7 @@ g++
 cmake
 ````
 
-## Distrubution 
+## Distribution
 git://github.com/kpelton/drmonko.git
 
 Drmonko is distributed as C++ source code as a cmake project. This code has been compiled on Linux 2.6(Ubuntu 11.04 and Debian squeeze). It is possible to compile it under Windows but you will have to figure it out on your own. 
